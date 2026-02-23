@@ -203,9 +203,9 @@ artisan-commerce/
 ## Key Technologies Explained
 
 ### SvelteKit
-- **What**: Modern web framework (like Next.js but simpler)
-- **Why**: Smaller bundles, better DX, less magic than React
-- **Use**: Frontend pages, routing, SSR
+- **What**: Modern web framework with reactive components
+- **Why**: Smaller bundles, simpler mental model, less "magic" than React
+- **Use**: Frontend pages, routing, SSR, form actions
 
 ### Cloudflare Workers
 - **What**: Serverless functions running at the edge (V8 isolates)

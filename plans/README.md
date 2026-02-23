@@ -5,12 +5,17 @@ Project planning, decisions, and history.
 | Directory | What lives here |
 |-----------|----------------|
 | [`vision.md`](./vision.md) | Original project concept and detailed vision from ChatGPT brainstorming |
-| [`roadmap.md`](./roadmap.md) | High-level versioned milestones and feature backlog |
-| [`ROADMAP-COMPREHENSIVE.md`](./ROADMAP-COMPREHENSIVE.md) | **Complete roadmap with all decisions, business rules, and implementation details** |
+| [`roadmap.md`](./roadmap.md) | **Start here** - High-level versioned milestones and feature backlog for quick reference |
+| [`ROADMAP-COMPREHENSIVE.md`](./ROADMAP-COMPREHENSIVE.md) | **Deep dive** - Complete technical implementation details with all decisions and business rules |
 | [`stories/`](./stories/) | User stories with acceptance criteria |
 | [`specs/`](./specs/) | Technical specifications for complex features |
 | [`decisions/`](./decisions/) | Architecture Decision Records (ADRs) |
 | [`retrospectives/`](./retrospectives/) | Sprint and release retrospectives |
+
+**When to use which roadmap:**
+- **Quick check**: Use `roadmap.md` to see what's done, in progress, or planned
+- **Implementation**: Use `ROADMAP-COMPREHENSIVE.md` for detailed specs and acceptance criteria
+- **Both are maintained** and serve different purposes
 
 ## How to Use This Directory
 

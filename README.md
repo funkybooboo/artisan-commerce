@@ -19,25 +19,25 @@ Artisan Commerce is a open-source platform for artisan e-commerce with queue-bas
 
 Built on a modern serverless edge architecture optimized for cost, portability, and AI-assisted development:
 
-- **Frontend**: Next.js 14 App Router (TypeScript) deployed to Cloudflare Pages
+- **Frontend**: SvelteKit (TypeScript) deployed to Cloudflare Pages
 - **Backend**: Hono on Cloudflare Workers (serverless functions at the edge)
 - **Database**: Drizzle ORM + Cloudflare D1 (distributed SQLite)
 - **File Storage**: Cloudflare R2 (S3-compatible object storage)
 - **Infrastructure**: Terraform (Infrastructure as Code)
 - **CI/CD**: GitHub Actions with SLSA Level 3 provenance
 - **Testing**: TDD with Vitest + Playwright (85%+ coverage target)
-- **Monorepo**: pnpm workspaces with comprehensive adapter pattern
+- **Package Manager**: mise-managed dependencies with comprehensive adapter pattern
 
 **Monthly Cost**: ~$1-5 (domain + transaction fees) - everything else runs on free tiers.
 
 **Key Features**:
 - Zero vendor lock-in (comprehensive adapter pattern for all external services)
 - Single-tenant-per-instance (one artisan business per deployment)
-- LLM-optimized tech stack (maximum AI-assisted development velocity)
+- Simple, maintainable tech stack (prioritizing clarity over complexity)
 - SLSA Level 3 supply chain security
 - 12-Factor App compliant
 
-See [ADR-002](./plans/decisions/ADR-002-tech-stack.md) and [ADR-006](./plans/decisions/ADR-006-nextjs-app-router.md) for detailed technology decisions.
+See [ADR-002](./plans/decisions/ADR-002-tech-stack.md) for detailed technology decisions.
 
 ## Quick Start
 
@@ -46,18 +46,18 @@ See [ADR-002](./plans/decisions/ADR-002-tech-stack.md) and [ADR-006](./plans/dec
 git clone https://github.com/funkybooboo/artisan-commerce.git
 cd artisan-commerce
 
-# Install dependencies
-pnpm install
+# Install dependencies and setup
+mise run setup
 
 # Copy environment template
 cp .env.example .env
 
 # Start development servers
-pnpm run dev
+mise run dev
 ```
 
 The app will be available at:
-- Frontend: http://localhost:3000 (Next.js)
+- Frontend: http://localhost:5173 (SvelteKit)
 - API: http://localhost:8787 (Cloudflare Workers)
 
 **Next Steps:**
@@ -84,7 +84,7 @@ The app will be available at:
 
 ## Contributing
 
-Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) to get started.
+Contributions are welcome. See [Contributing Guide](./docs/06-contributing.md) to get started.
 
 ## License
 

@@ -1,7 +1,7 @@
 {
-  "name": "project-template",
-  "version": "1.0.0",
-  "description": "Language-agnostic project template with commit linting",
+  "name": "artisan-commerce",
+  "version": "0.1.0",
+  "description": "Queue-based made-to-order artisan e-commerce platform",
   "private": true,
   "scripts": {
     "prepare": "husky"

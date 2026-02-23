@@ -27,11 +27,11 @@ Never store docs in Google Docs, Notion, Confluence, or any external tool. Never
 ```
 project/
 |-- docs/
-|   |-- 00-table-of-contents.md
+|   |-- README.md          <- documentation index
 |   |-- 01-introduction.md
 |   |-- ...
-|   |-- user/           <- end-user documentation
-|   `-- developer/      <- feature-specific developer guides
+|   |-- user/              <- end-user documentation
+|   `-- developer/         <- feature-specific developer guides
 |
 |-- plans/
 |   |-- roadmap.md

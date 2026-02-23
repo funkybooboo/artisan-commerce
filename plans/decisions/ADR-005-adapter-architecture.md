@@ -498,7 +498,6 @@ Each adapter family documented with:
 
 ## Related ADRs
 
-- ADR-002: Technology Stack (Cloudflare serverless)
+- ADR-002: Technology Stack (Cloudflare serverless, SvelteKit)
 - ADR-004: Database Choice (D1 with repository pattern)
-- ADR-006: Next.js App Router (framework portability)
-- ADR-007: Multi-Tenant Architecture (tenant-scoped repositories)
+- ADR-006: SvelteKit (framework portability)

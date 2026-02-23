@@ -48,11 +48,11 @@ Artisan Commerce becomes the standard for transparent, sustainable made-to-order
 **Portable**: Zero vendor lock-in
 - Comprehensive adapter pattern for ALL external services
 - Multi-database support (D1 → Postgres migration path)
-- Framework portability (Next.js can deploy anywhere)
+- Framework portability (SvelteKit can deploy anywhere)
 - Standard APIs and patterns
 
-**LLM-Friendly**: Optimize for AI-assisted development
-- Use most popular frameworks (Next.js, React, TypeScript)
+**Simple**: Prioritize clarity and maintainability
+- Use straightforward frameworks (SvelteKit, TypeScript)
 - Standard design patterns (Factory, DI, Repository)
 - Comprehensive JSDoc documentation
 - Conventional project structure
@@ -97,7 +97,7 @@ All decisions documented in ADRs (Architecture Decision Records):
    - Capacity limits with waitlist
 
 2. **ADR-002**: Technology Stack - Cloudflare Serverless
-   - Next.js 14 App Router + Cloudflare Pages
+   - SvelteKit + Cloudflare Pages
    - Hono on Cloudflare Workers
    - Drizzle ORM + D1 database
    - ~$1/month cost
@@ -118,9 +118,9 @@ All decisions documented in ADRs (Architecture Decision Records):
    - Four test double types per adapter
    - Standard naming (EmailProvider, ResendEmailProvider)
 
-6. **ADR-006**: Next.js App Router for Maximum LLM Support
-   - Best AI assistance (95% code accuracy)
-   - Huge ecosystem and community
+6. **ADR-006**: SvelteKit for Simplicity and Edge Performance
+   - Simpler mental model (less "magic")
+   - Smaller bundles (50% less than React)
    - Excellent Cloudflare compatibility
    - Framework portability
 
@@ -174,25 +174,25 @@ All decisions documented in ADRs (Architecture Decision Records):
 
 ### Frontend
 
-**Framework**: Next.js 14 App Router
+**Framework**: SvelteKit
 - Deployed to Cloudflare Pages
-- Server Components for zero-JS static content
-- Server Actions for mutations (no API routes needed)
-- Route Groups for organization
+- Server-side rendering with edge functions
+- Form actions for mutations (progressive enhancement)
+- Route groups for organization
 
-**Styling**: Tailwind CSS + shadcn/ui
+**Styling**: Tailwind CSS + shadcn-svelte
 - Utility-first, mobile-first
 - Copy-paste components (no dependency)
 - Excellent accessibility
 
-**Forms**: React Hook Form + Zod
+**Forms**: Native Svelte forms + Zod
 - Type-safe validation
 - Shared schemas (frontend + backend)
 
-**State**: Next.js loaders/actions + URL state
-- Server state via React Server Components
+**State**: Svelte stores + URL state
+- Reactive state via Svelte stores
 - URL query params for shareable state
-- Zustand for complex client state (if needed)
+- Built-in reactivity (no hooks needed)
 
 ### Backend
 
@@ -242,12 +242,12 @@ All decisions documented in ADRs (Architecture Decision Records):
 **Runtime**: Node.js everywhere (dev/CI/prod parity)
 - No Bun (avoid dev/prod differences)
 
-**Monorepo**: pnpm workspaces
-- Fast installs, efficient disk usage
-- Shared packages: adapters, database, types, ui
+**Package Manager**: mise-managed dependencies
+- Automatic tool installation
+- Version consistency across team
 
 **Testing**: TDD with Vitest + Playwright
-- Unit tests: Vitest + React Testing Library
+- Unit tests: Vitest + Svelte Testing Library
 - E2E tests: Playwright (full suite every PR)
 - Target: 85%+ coverage
 
@@ -269,7 +269,7 @@ All decisions documented in ADRs (Architecture Decision Records):
 ### Infrastructure
 
 **Hosting**: Cloudflare Pages + Workers
-- Pages: Next.js frontend
+- Pages: SvelteKit frontend
 - Workers: Hono API backend
 - D1: Database
 - R2: File storage
@@ -635,13 +635,14 @@ Example:
 - [x] ADR-003: Infrastructure as Code (Terraform)
 - [x] ADR-004: Database (D1)
 - [x] ADR-005: Adapter architecture
-- [x] ADR-006: Next.js App Router
+- [x] ADR-006: SvelteKit (updated from Next.js)
 - [x] Initial user stories (US-001)
 - [x] Comprehensive roadmap with all decisions
+- [x] Repository cleanup and consolidation
 
 **Remaining**:
-- [ ] Create monorepo structure (apps/, packages/, migrations/, terraform/)
-- [ ] Initialize Next.js app with Tailwind + shadcn/ui
+- [ ] Create project structure (src/, workers/, migrations/, terraform/)
+- [ ] Initialize SvelteKit app with Tailwind + shadcn-svelte
 - [ ] Initialize Hono Workers API
 - [ ] Create adapter interfaces (EmailProvider, ShippingProvider, etc.)
 - [ ] Create mock/inmemory adapters for testing
@@ -651,11 +652,11 @@ Example:
 - [ ] Configure Dependabot
 - [ ] Set up Git Flow branches (main, develop)
 - [ ] Write development environment setup guide
-- [ ] Verify `pnpm run dev` starts all services
+- [ ] Verify `mise run dev` starts all services
 
 **Done When**: 
-- New contributor can clone repo, run `pnpm install && pnpm run dev`, and see Next.js + Hono running
-- Tests pass (`pnpm test`)
+- New contributor can clone repo, run `mise run setup && mise run dev`, and see SvelteKit + Hono running
+- Tests pass (`mise run test`)
 - CI pipeline runs successfully on PR
 - Can inject mock EmailProvider and write a test
 

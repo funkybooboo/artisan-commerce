@@ -32,11 +32,11 @@ This document provides a quick reference for all major architectural decisions m
 ## Technology Stack
 
 ### Frontend
-- **Framework**: Next.js 14 App Router
-- **Why**: Maximum LLM support (95% code accuracy), huge ecosystem, excellent Cloudflare compatibility
-- **Styling**: Tailwind CSS + shadcn/ui (copy-paste components, no dependency)
-- **Forms**: React Hook Form + Zod (type-safe validation)
-- **State**: Server Components + URL state (Zustand if needed for complex client state)
+- **Framework**: SvelteKit
+- **Why**: Simplicity, less "magic", smaller bundles, excellent Cloudflare compatibility
+- **Styling**: Tailwind CSS + shadcn-svelte (copy-paste components, no dependency)
+- **Forms**: Native Svelte forms + Zod (type-safe validation)
+- **State**: Svelte stores + URL state (reactive by default)
 - **Deployment**: Cloudflare Pages
 
 ### Backend
@@ -255,7 +255,7 @@ This document provides a quick reference for all major architectural decisions m
 - **How**: Drizzle ORM supports multiple databases, repository pattern abstracts queries
 
 ### Framework Portability
-- **Next.js**: Can deploy to Vercel, Netlify, AWS, self-hosted
+- **SvelteKit**: Can deploy to Vercel, Netlify, AWS, self-hosted, Cloudflare
 - **Hono**: Can run on any JavaScript runtime (Node, Deno, Bun, Cloudflare Workers)
 
 ### Adapter Pattern
@@ -268,8 +268,8 @@ This document provides a quick reference for all major architectural decisions m
 ## Timeline & Milestones
 
 ### v0.1.0 - Foundation (1-2 weeks)
-- Monorepo structure, CI/CD, development environment setup
-- **Done when**: `pnpm install && pnpm run dev` works
+- Project structure, CI/CD, development environment setup
+- **Done when**: `mise run setup && mise run dev` works
 
 ### v0.2.0 - Authentication (2-3 weeks)
 - User registration, magic links, JWT sessions, role-based access
@@ -341,10 +341,11 @@ This document provides a quick reference for all major architectural decisions m
 ## Key Reference Documents
 
 1. **[Comprehensive Roadmap](../plans/ROADMAP-COMPREHENSIVE.md)** - Complete roadmap with all decisions (1200+ lines)
-2. **[Getting Started Implementation](./GETTING-STARTED-IMPLEMENTATION.md)** - Step-by-step setup guide
-3. **[ADR-005: Adapter Architecture](../plans/decisions/ADR-005-adapter-architecture.md)** - Zero vendor lock-in pattern
-4. **[ADR-006: Next.js App Router](../plans/decisions/ADR-006-nextjs-app-router.md)** - Frontend framework choice
-5. **[.env.example](../.env.example)** - All environment variables documented
+2. **[Getting Started](./02-getting-started.md)** - Quick setup guide
+3. **[ADR-002: Technology Stack](../plans/decisions/ADR-002-tech-stack.md)** - Core technology decisions
+4. **[ADR-005: Adapter Architecture](../plans/decisions/ADR-005-adapter-architecture.md)** - Zero vendor lock-in pattern
+5. **[ADR-006: SvelteKit](../plans/decisions/ADR-006-nextjs-app-router.md)** - Frontend framework choice
+6. **[.env.example](../.env.example)** - All environment variables documented
 
 ---
 
@@ -356,7 +357,7 @@ This document provides a quick reference for all major architectural decisions m
 - **Test doubles**: `MockEmailProvider`, `InMemoryEmailProvider`, `RecordingEmailProvider`, `StubEmailProvider`
 
 ### File Organization
-- **Monorepo structure**: `apps/` (web, workers), `packages/` (adapters, database, types, ui)
+- **Project structure**: `src/` (SvelteKit frontend), `workers/` (Cloudflare Workers API)
 - **Tests alongside code**: `foo.ts` → `foo.test.ts`
 - **Migrations**: `migrations/` directory (Drizzle generates)
 - **Infrastructure**: `terraform/` directory

@@ -138,14 +138,14 @@ Write an ADR when:
 Artisan Commerce is built on a modern serverless edge architecture optimized for cost, portability, and AI-assisted development.
 
 **Core Technologies:**
-- **Frontend**: Next.js 14 App Router with TypeScript
+- **Frontend**: SvelteKit with TypeScript
 - **Backend**: Hono on Cloudflare Workers (serverless functions)
 - **Database**: Drizzle ORM + Cloudflare D1 (distributed SQLite)
 - **File Storage**: Cloudflare R2 (S3-compatible)
 - **Infrastructure**: Terraform (Infrastructure as Code)
 - **CI/CD**: GitHub Actions with SLSA Level 3 provenance
 - **Testing**: TDD with Vitest + Playwright
-- **Monorepo**: pnpm workspaces
+- **Package Manager**: mise-managed dependencies
 
 **Monthly Cost**: ~$1-5 (domain + transaction fees) - everything else runs on free tiers.
 
@@ -154,7 +154,7 @@ Artisan Commerce is built on a modern serverless edge architecture optimized for
 - **Convenient**: Maximum artisan UX, passwordless auth, modern DX
 - **Secure**: Geographic + role + rate limiting, WCAG 2.1 AA, SLSA Level 3
 - **Portable**: Zero vendor lock-in via comprehensive adapter pattern
-- **LLM-Friendly**: Popular frameworks for maximum AI assistance
+- **Simple**: Prioritize clarity and maintainability over complexity
 
 These choices follow the architectural principles above (ports/adapters, 12-factor, dependency injection) and are optimized for:
 - Low traffic (<100 orders/month initially)
@@ -162,7 +162,7 @@ These choices follow the architectural principles above (ports/adapters, 12-fact
 - Cost efficiency (free tiers cover 100x expected usage)
 - Infrastructure as Code (everything version-controlled)
 - Single-tenant-per-instance (one artisan business per deployment)
-- AI-assisted development (Next.js has vast LLM training data)
+- Developer simplicity (SvelteKit's straightforward mental model)
 
 **For detailed information:**
 - [Tech Stack Summary](./developer/tech-stack.md) - Quick reference and architecture overview
@@ -171,4 +171,4 @@ These choices follow the architectural principles above (ports/adapters, 12-fact
 - [ADR-003: Infrastructure as Code](../plans/decisions/ADR-003-infrastructure-as-code.md) - IaC approach
 - [ADR-004: Database Choice](../plans/decisions/ADR-004-database-cloudflare-d1.md) - Database decision
 - [ADR-005: Adapter Architecture](../plans/decisions/ADR-005-adapter-architecture.md) - Zero vendor lock-in
-- [ADR-006: Next.js App Router](../plans/decisions/ADR-006-nextjs-app-router.md) - Frontend framework choice
+- [ADR-006: SvelteKit](../plans/decisions/ADR-006-nextjs-app-router.md) - Frontend framework choice

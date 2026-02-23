@@ -6,7 +6,6 @@ Everything you need to understand, build, and contribute to this project.
 
 | # | Document | What it covers |
 |---|----------|----------------|
-| 00 | [Table of Contents](./00-table-of-contents.md) | Full index |
 | 01 | [Introduction](./01-introduction.md) | What this project is and the values behind it |
 | 02 | [Getting Started](./02-getting-started.md) | Setup, config, and your first run |
 | 03 | [Architecture](./03-architecture.md) | How the project is structured and why |
