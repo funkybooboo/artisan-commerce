@@ -6,6 +6,8 @@ This document tracks what we're building, why, and in what order.
 
 Bluebells & Thistles becomes the standard for transparent, sustainable made-to-order craft businesses. Artisans manage their capacity honestly, customers receive realistic expectations, and the platform handles the complexity of queue management, payments, and order fulfillment. At its best, it proves that handmade commerce can be both profitable and humane.
 
+**Platform Scope:** Web-only with mobile-responsive design. No native mobile apps planned.
+
 ## Status Legend
 
 | Symbol | Meaning |
@@ -162,12 +164,14 @@ Bluebells & Thistles becomes the standard for transparent, sustainable made-to-o
 - [ ] Review system (verified buyers only)
 - [ ] Photo uploads for reviews
 - [ ] Delivery accuracy ratings
+- [ ] Mobile-responsive design (all pages)
+- [ ] Touch-friendly UI for tablets/phones
 - [ ] Improved error messages and validation
 - [ ] Performance optimization
 - [ ] Edge case handling
 - [ ] Test coverage >= 85%
 
-**Done when:** Users can leave reviews, and the platform feels polished and professional.
+**Done when:** Users can leave reviews, and the platform works beautifully on all screen sizes.
 
 ---
 
@@ -208,13 +212,13 @@ Ideas that don't have a version yet. Promoted to a milestone when prioritized.
 - Wishlist sharing
 
 ### Low priority / nice to have
-- Mobile app
-- Social media integration
+- Social media integration (share projects on Pinterest, Instagram)
 - Referral program
 - Loyalty points
 - Live chat support
 - Video tutorials for patterns
 - Pattern difficulty ratings and time estimates
+- Progressive Web App (PWA) for offline pattern access
 
 ---
 

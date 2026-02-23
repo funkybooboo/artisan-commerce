@@ -16,6 +16,8 @@ Traditional e-commerce platforms treat handmade goods like mass-produced invento
 
 This platform is built for artisan sellers who create made-to-order handmade goods and want to run their craft business sustainably. It's for customers who value transparency and are willing to wait for quality handmade items when they know exactly what to expect. It's for anyone tired of the dishonesty in "handmade" marketplaces where sellers overpromise and underdeliver.
 
+**Platform Scope:** Web-based platform accessible from any device (desktop, tablet, mobile) with responsive design. No native mobile apps.
+
 ---
 
 ## Guiding Values

@@ -11,6 +11,8 @@
 
 Bluebells & Thistles is a made-to-order artisan crafts marketplace that brings transparency to handmade production. Unlike traditional e-commerce platforms, it manages finite production capacity through a queue-based system, giving customers realistic delivery estimates and artisans control over their workload. The platform supports crochet, knitting, cross stitch, embroidery, and sewn goods, along with digital pattern sales.
 
+**Web-based platform** with mobile-responsive design - accessible from any device without native apps.
+
 ## Getting Started
 
 ```bash

@@ -78,6 +78,8 @@ This is the first user-facing feature and sets expectations for transparency and
 - Cache delivery estimates with short TTL to reduce queue calculation overhead
 - Filter state should be in URL query params for shareability
 - Images should be optimized and lazy-loaded
+- Mobile-responsive grid layout (1 column on mobile, 2-3 on tablet, 4+ on desktop)
+- Touch-friendly filter controls for mobile users
 
 ## Definition of Done
 
@@ -85,7 +87,9 @@ This is the first user-facing feature and sets expectations for transparency and
 - [ ] E2E tests written for filtering, sorting, and favoriting
 - [ ] Unit tests for filter logic and delivery estimate display
 - [ ] Performance tested with 100+ projects
-- [ ] Mobile responsive design
+- [ ] Mobile responsive design tested on phone, tablet, desktop
+- [ ] Touch interactions work properly on mobile devices
+- [ ] Accessibility tested (keyboard navigation, screen readers)
 - [ ] Documentation updated (user guide for browsing)
 - [ ] CHANGELOG updated
 - [ ] Code reviewed and merged
