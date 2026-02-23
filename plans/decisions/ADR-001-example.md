@@ -17,7 +17,7 @@ Customers deserve honest delivery estimates. Artisans deserve control over their
 
 ## Decision
 
-Implement a **queue-based production capacity management system** as the core architectural component of Bluebells & Thistles.
+Implement a **queue-based production capacity management system** as the core architectural component of Artisan Commerce.
 
 ### How it works:
 
@@ -37,7 +37,7 @@ Implement a **queue-based production capacity management system** as the core ar
 - **Scarcity**: Limited capacity creates urgency and perceived value
 - **Predictability**: Both customers and artisans know what to expect
 
-This is the core differentiator that makes Bluebells & Thistles different from Etsy, Shopify, or any other handmade marketplace.
+This is the core differentiator that makes Artisan Commerce different from Etsy, Shopify, or any other handmade marketplace.
 
 ## Consequences
 

@@ -17,8 +17,8 @@ It covers:
 
 ```bash
 # Set up your development environment
-git clone https://github.com/funkybooboo/bluebellsandthistles.git
-cd bluebellsandthistles
+git clone https://github.com/funkybooboo/artisan-commerce.git
+cd artisan-commerce
 mise run setup
 
 # Run all checks before pushing

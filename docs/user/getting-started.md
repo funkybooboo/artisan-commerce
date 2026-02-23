@@ -1,9 +1,9 @@
 # Getting Started
 
-<!-- This file is for end users -- customers who use the Bluebells & Thistles platform
+<!-- This file is for end users -- customers who use the Artisan Commerce platform
      to order handmade crafts, not developers who build or contribute to it. -->
 
-Welcome to Bluebells & Thistles. This guide will help you start ordering handmade crafts.
+Welcome to Artisan Commerce. This guide will help you start ordering handmade crafts.
 
 ---
 
@@ -17,7 +17,7 @@ Welcome to Bluebells & Thistles. This guide will help you start ordering handmad
 
 ## Creating an Account
 
-**1. Visit the Bluebells & Thistles website**
+**1. Visit the Artisan Commerce website**
 
 Navigate to the homepage and click "Sign Up" in the top navigation bar.
 

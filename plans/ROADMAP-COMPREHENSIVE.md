@@ -1,4 +1,4 @@
-# Bluebells & Thistles - Comprehensive Roadmap
+# Artisan Commerce - Comprehensive Roadmap
 
 **Last Updated**: 2024-07-23
 
@@ -22,7 +22,7 @@ This document contains the complete, finalized roadmap with all architectural de
 
 ### Vision Statement
 
-Bluebells & Thistles becomes the standard for transparent, sustainable made-to-order craft businesses. Artisans manage their capacity honestly, customers receive realistic expectations, and the platform handles the complexity of queue management, payments, and order fulfillment. At its best, it proves that handmade commerce can be both profitable and humane.
+Artisan Commerce becomes the standard for transparent, sustainable made-to-order craft businesses. Artisans manage their capacity honestly, customers receive realistic expectations, and the platform handles the complexity of queue management, payments, and order fulfillment. At its best, it proves that handmade commerce can be both profitable and humane.
 
 ### Core Principles
 
@@ -321,7 +321,7 @@ CREATE TABLE users (
 
 **Row-Level Security**: All repository methods filter by tenant_id
 
-**Initial Tenant**: bluebellsandthistles.com (single tenant for v1.0)
+**Initial Tenant**: artisan-commerce.com (single tenant for v1.0)
 
 ### Core Entities
 
@@ -1051,9 +1051,9 @@ Example:
   - [ ] Feedback incorporation
   - [ ] Bug fixes
 - [ ] Domain setup
-  - [ ] Purchase bluebellsandthistles.com
+  - [ ] Purchase artisan-commerce.com
   - [ ] Configure DNS (Cloudflare)
-  - [ ] Email setup (@bluebellsandthistles.com via Resend)
+  - [ ] Email setup (@artisan-commerce.com via Resend)
 - [ ] Monitoring & alerting
   - [ ] Tiered alerting (critical → engineer, business-critical → both)
   - [ ] Cloudflare dashboard monitoring

@@ -1,15 +1,15 @@
-# Bluebells & Thistles
+# Artisan Commerce
 
 > A transparent, capacity-managed platform for made-to-order artisan crafts
 
-[![CI](https://github.com/funkybooboo/bluebellsandthistles/actions/workflows/ci.yml/badge.svg)](https://github.com/funkybooboo/bluebellsandthistles/actions/workflows/ci.yml)
+[![CI](https://github.com/funkybooboo/artisan-commerce/actions/workflows/ci.yml/badge.svg)](https://github.com/funkybooboo/artisan-commerce/actions/workflows/ci.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
 
 ---
 
 ## What Is It?
 
-Bluebells & Thistles is a made-to-order artisan crafts marketplace that brings transparency to handmade production. Unlike traditional e-commerce platforms, it manages finite production capacity through a queue-based system, giving customers realistic delivery estimates and artisans control over their workload. The platform supports crochet, knitting, cross stitch, embroidery, and sewn goods, along with digital pattern sales.
+Artisan Commerce is a open-source platform for artisan e-commerce with queue-based capacity management that brings transparency to handmade production. Unlike traditional e-commerce platforms, it manages finite production capacity through a queue-based system, giving customers realistic delivery estimates and artisans control over their workload. The platform supports crochet, knitting, cross stitch, embroidery, and sewn goods, along with digital pattern sales.
 
 **Web-based platform** with mobile-responsive design - accessible from any device without native apps.
 
@@ -43,8 +43,8 @@ See [ADR-002](./plans/decisions/ADR-002-tech-stack.md) and [ADR-006](./plans/dec
 
 ```bash
 # Clone the repository
-git clone https://github.com/funkybooboo/bluebellsandthistles.git
-cd bluebellsandthistles
+git clone https://github.com/funkybooboo/artisan-commerce.git
+cd artisan-commerce
 
 # Install dependencies
 pnpm install

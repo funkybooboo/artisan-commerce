@@ -3,7 +3,7 @@
 **Last Updated**: 2026-02-23  
 **Status**: Decided and Documented
 
-This document provides a quick reference to the technology decisions made for Bluebells & Thistles. For detailed rationale, see the Architecture Decision Records (ADRs) in `plans/decisions/`.
+This document provides a quick reference to the technology decisions made for Artisan Commerce. For detailed rationale, see the Architecture Decision Records (ADRs) in `plans/decisions/`.
 
 ---
 
@@ -149,8 +149,8 @@ Deploy to Production
 
 **Environments:**
 - **Development**: Local (localhost)
-- **Staging**: staging.bluebellsandthistles.com (auto-deploy)
-- **Production**: bluebellsandthistles.com (manual approval)
+- **Staging**: staging.artisan-commerce.com (auto-deploy)
+- **Production**: artisan-commerce.com (manual approval)
 
 See [deployment.md](./deployment.md) for deployment procedures.
 
@@ -159,7 +159,7 @@ See [deployment.md](./deployment.md) for deployment procedures.
 ## Repository Structure
 
 ```
-bluebellsandthistles/
+artisan-commerce/
 ├── src/                      # SvelteKit frontend
 │   ├── routes/              # Pages
 │   └── lib/                 # Components, utilities
@@ -323,7 +323,7 @@ This stack will be considered successful if:
 
 ## Summary
 
-**Bluebells & Thistles runs on a modern serverless edge stack optimized for:**
+**Artisan Commerce runs on a modern serverless edge stack optimized for:**
 - ✅ Low traffic (<10 concurrent users)
 - ✅ Minimal cost (~$1/month)
 - ✅ Zero operational overhead

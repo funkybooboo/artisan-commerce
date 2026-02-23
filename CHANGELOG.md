@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial project structure for Bluebells & Thistles
+- Initial project structure for Artisan Commerce
 - Documentation framework customized for made-to-order crafts platform
 - Development tooling and standards
 - Project vision and roadmap
@@ -42,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Security fixes and vulnerability patches
 
-[X.Y.Z]: https://github.com/funkybooboo/bluebellsandthistles/compare/vX.Y.Z-1...vX.Y.Z
+[X.Y.Z]: https://github.com/funkybooboo/artisan-commerce/compare/vX.Y.Z-1...vX.Y.Z
 -->
 
-[Unreleased]: https://github.com/funkybooboo/bluebellsandthistles/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/funkybooboo/artisan-commerce/compare/v0.1.0...HEAD

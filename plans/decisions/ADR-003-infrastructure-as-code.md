@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-Bluebells & Thistles requires a reliable, repeatable way to provision and manage cloud infrastructure. Manual infrastructure management through web consoles leads to:
+Artisan Commerce requires a reliable, repeatable way to provision and manage cloud infrastructure. Manual infrastructure management through web consoles leads to:
 
 - **Configuration drift**: Production differs from staging, hard to track changes
 - **No audit trail**: Can't see who changed what and when
@@ -351,7 +351,7 @@ module "app" {
   app_name     = "bluebells"
   git_branch   = "main"
   github_org   = var.github_org
-  github_repo  = "bluebellsandthistles"
+  github_repo  = "artisan-commerce"
   account_id   = var.cloudflare_account_id
 }
 ```

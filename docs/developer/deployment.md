@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide covers deploying Bluebells & Thistles to staging and production environments using Terraform and GitHub Actions.
+This guide covers deploying Artisan Commerce to staging and production environments using Terraform and GitHub Actions.
 
 ## Overview
 
@@ -107,7 +107,7 @@ github_org            = "your-github-org"
 stripe_secret_key     = "sk_test_..."
 resend_api_key        = "re_..."
 environment           = "staging"
-domain                = "staging.bluebellsandthistles.com"
+domain                = "staging.artisan-commerce.com"
 ```
 
 ```hcl
@@ -119,7 +119,7 @@ github_org            = "your-github-org"
 stripe_secret_key     = "sk_live_..."  # LIVE KEY for production
 resend_api_key        = "re_..."
 environment           = "production"
-domain                = "bluebellsandthistles.com"
+domain                = "artisan-commerce.com"
 ```
 
 **Security Note**: Never commit `terraform.tfvars` to Git. Store production secrets in a password manager.
@@ -388,10 +388,10 @@ wrangler d1 migrations apply bluebells-db-prod --remote
 
 ```bash
 # Check staging
-curl https://staging.bluebellsandthistles.com/api/health
+curl https://staging.artisan-commerce.com/api/health
 
 # Check production
-curl https://bluebellsandthistles.com/api/health
+curl https://artisan-commerce.com/api/health
 
 # Expected response:
 {

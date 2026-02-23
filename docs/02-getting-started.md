@@ -26,8 +26,8 @@ git --version
 **1. Clone the repository:**
 
 ```bash
-git clone https://github.com/funkybooboo/bluebellsandthistles.git
-cd bluebellsandthistles
+git clone https://github.com/funkybooboo/artisan-commerce.git
+cd artisan-commerce
 ```
 
 **2. Install dependencies:**
@@ -94,7 +94,7 @@ For more commands, see [Local Development Guide](./developer/local-development.m
 ## Project Structure
 
 ```
-bluebellsandthistles/
+artisan-commerce/
 ├── src/              # SvelteKit frontend
 ├── workers/          # Cloudflare Workers (API)
 ├── migrations/       # Database migrations
@@ -121,4 +121,4 @@ For detailed structure, see [Local Development Guide](./developer/local-developm
 
 For detailed troubleshooting, see [Local Development Guide](./developer/local-development.md#common-issues).
 
-If you're stuck, [open an issue](https://github.com/funkybooboo/bluebellsandthistles/issues) with your environment details and what you tried.
+If you're stuck, [open an issue](https://github.com/funkybooboo/artisan-commerce/issues) with your environment details and what you tried.

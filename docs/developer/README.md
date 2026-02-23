@@ -1,6 +1,6 @@
 # Developer Guides
 
-Operational guides and technical documentation for developers working on Bluebells & Thistles.
+Operational guides and technical documentation for developers working on Artisan Commerce.
 
 These guides cover the practical aspects of development: setup, testing, deployment, and working with the technology stack. For architectural principles and development standards, see the [numbered documentation series](../).
 
@@ -27,7 +27,7 @@ These guides cover the practical aspects of development: setup, testing, deploym
 
 ## Core Systems
 
-Technical documentation for the major systems in Bluebells & Thistles:
+Technical documentation for the major systems in Artisan Commerce:
 
 ### Queue Management
 - **Queue Calculation Algorithm** - How delivery estimates are calculated based on capacity

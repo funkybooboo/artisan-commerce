@@ -2,7 +2,7 @@
 
 **Last Updated**: 2024-07-23
 
-This guide helps you start implementing Bluebells & Thistles after completing the comprehensive planning phase.
+This guide helps you start implementing Artisan Commerce after completing the comprehensive planning phase.
 
 ---
 
@@ -26,7 +26,7 @@ Before you begin, ensure you have:
 Run these commands to create the complete repository structure:
 
 ```bash
-cd ~/projects/bluebellsandthistles
+cd ~/projects/artisan-commerce
 
 # Create directory structure
 mkdir -p apps/web apps/workers
@@ -58,10 +58,10 @@ Create root `package.json`:
 ```bash
 cat > package.json << 'EOF'
 {
-  "name": "bluebellsandthistles",
+  "name": "artisan-commerce",
   "version": "0.1.0",
   "private": true,
-  "description": "Queue-based made-to-order craft marketplace",
+  "description": "Queue-based made-to-order artisan e-commerce platform",
   "scripts": {
     "dev": "pnpm run --parallel dev",
     "build": "pnpm run --recursive --stream build",
@@ -117,10 +117,10 @@ cat > tsconfig.json << 'EOF'
     "isolatedModules": true,
     "incremental": true,
     "paths": {
-      "@bluebellsandthistles/adapters": ["./packages/adapters/src"],
-      "@bluebellsandthistles/database": ["./packages/database/src"],
-      "@bluebellsandthistles/types": ["./packages/types/src"],
-      "@bluebellsandthistles/ui": ["./packages/ui/src"]
+      "@artisan-commerce/adapters": ["./packages/adapters/src"],
+      "@artisan-commerce/database": ["./packages/database/src"],
+      "@artisan-commerce/types": ["./packages/types/src"],
+      "@artisan-commerce/ui": ["./packages/ui/src"]
     }
   },
   "exclude": ["node_modules", "dist", ".next", ".wrangler"]
@@ -251,7 +251,7 @@ cd packages/adapters
 
 cat > package.json << 'EOF'
 {
-  "name": "@bluebellsandthistles/adapters",
+  "name": "@artisan-commerce/adapters",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -262,7 +262,7 @@ cat > package.json << 'EOF'
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@bluebellsandthistles/types": "workspace:*"
+    "@artisan-commerce/types": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.5.3",
@@ -397,7 +397,7 @@ cd packages/database
 
 cat > package.json << 'EOF'
 {
-  "name": "@bluebellsandthistles/database",
+  "name": "@artisan-commerce/database",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -409,7 +409,7 @@ cat > package.json << 'EOF'
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@bluebellsandthistles/types": "workspace:*",
+    "@artisan-commerce/types": "workspace:*",
     "drizzle-orm": "^0.31.2"
   },
   "devDependencies": {
@@ -523,7 +523,7 @@ cd packages/types
 
 cat > package.json << 'EOF'
 {
-  "name": "@bluebellsandthistles/types",
+  "name": "@artisan-commerce/types",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -571,7 +571,7 @@ cd packages/ui
 
 cat > package.json << 'EOF'
 {
-  "name": "@bluebellsandthistles/ui",
+  "name": "@artisan-commerce/ui",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -636,10 +636,10 @@ cat > package.json << 'EOF'
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@bluebellsandthistles/adapters": "workspace:*",
-    "@bluebellsandthistles/database": "workspace:*",
-    "@bluebellsandthistles/types": "workspace:*",
-    "@bluebellsandthistles/ui": "workspace:*",
+    "@artisan-commerce/adapters": "workspace:*",
+    "@artisan-commerce/database": "workspace:*",
+    "@artisan-commerce/types": "workspace:*",
+    "@artisan-commerce/ui": "workspace:*",
     "next": "14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -664,7 +664,7 @@ cat > next.config.mjs << 'EOF'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverComponentsExternalPackages: ['@bluebellsandthistles/database']
+    serverComponentsExternalPackages: ['@artisan-commerce/database']
   }
 }
 
@@ -704,7 +704,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Bluebells & Thistles',
+  title: 'Artisan Commerce',
   description: 'Transparent, capacity-managed made-to-order artisan crafts',
 }
 
@@ -726,7 +726,7 @@ cat > app/page.tsx << 'EOF'
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">Bluebells & Thistles</h1>
+      <h1 className="text-4xl font-bold">Artisan Commerce</h1>
       <p className="mt-4 text-xl text-gray-600">
         Transparent, capacity-managed made-to-order artisan crafts
       </p>
@@ -762,9 +762,9 @@ cat > package.json << 'EOF'
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@bluebellsandthistles/adapters": "workspace:*",
-    "@bluebellsandthistles/database": "workspace:*",
-    "@bluebellsandthistles/types": "workspace:*",
+    "@artisan-commerce/adapters": "workspace:*",
+    "@artisan-commerce/database": "workspace:*",
+    "@artisan-commerce/types": "workspace:*",
     "hono": "^4.4.13",
     "@hono/zod-validator": "^0.2.2",
     "drizzle-orm": "^0.31.2",
@@ -780,7 +780,7 @@ cat > package.json << 'EOF'
 EOF
 
 cat > wrangler.toml << 'EOF'
-name = "bluebellsandthistles-api"
+name = "artisan-commerce-api"
 main = "src/index.ts"
 compatibility_date = "2024-07-01"
 
@@ -802,7 +802,7 @@ const app = new Hono()
 app.use('*', cors())
 
 app.get('/', (c) => {
-  return c.json({ message: 'Bluebells & Thistles API' })
+  return c.json({ message: 'Artisan Commerce API' })
 })
 
 app.get('/health', (c) => {

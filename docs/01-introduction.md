@@ -6,11 +6,11 @@ Welcome. This document explains what this project is, why it exists, and the val
 
 ## What Is This Project?
 
-Bluebells & Thistles is a made-to-order artisan crafts marketplace that brings transparency and operational honesty to handmade production. It manages finite production capacity through a queue-based system, providing customers with realistic delivery estimates while giving artisans control over their workload. The platform supports handmade items (crochet, knitting, cross stitch, embroidery, sewn goods) and digital pattern sales, with integrated payment processing and order management.
+Artisan Commerce is a open-source platform for artisan e-commerce with queue-based capacity management that brings transparency and operational honesty to handmade production. It manages finite production capacity through a queue-based system, providing customers with realistic delivery estimates while giving artisans control over their workload. The platform supports handmade items (crochet, knitting, cross stitch, embroidery, sewn goods) and digital pattern sales, with integrated payment processing and order management.
 
 ## Why Does It Exist?
 
-Traditional e-commerce platforms treat handmade goods like mass-produced inventory, creating unrealistic expectations and overwhelming artisans with orders they cannot fulfill. Customers receive vague "ships in 2-4 weeks" estimates that rarely reflect reality. Artisans struggle to manage capacity, often burning out or disappointing customers. Bluebells & Thistles solves this by making production capacity visible and manageable -- customers see exactly where they are in the queue, and artisans can control how many orders they accept based on their actual capacity.
+Traditional e-commerce platforms treat handmade goods like mass-produced inventory, creating unrealistic expectations and overwhelming artisans with orders they cannot fulfill. Customers receive vague "ships in 2-4 weeks" estimates that rarely reflect reality. Artisans struggle to manage capacity, often burning out or disappointing customers. Artisan Commerce solves this by making production capacity visible and manageable -- customers see exactly where they are in the queue, and artisans can control how many orders they accept based on their actual capacity.
 
 ## Who Is It For?
 

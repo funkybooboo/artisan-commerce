@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-Bluebells & Thistles is a made-to-order artisan crafts marketplace with specific characteristics:
+Artisan Commerce is a open-source platform for artisan e-commerce with queue-based capacity management with specific characteristics:
 
 - **Low traffic**: <10 concurrent users, <10 orders/month initially
 - **Real business**: Requires reliability and professional infrastructure

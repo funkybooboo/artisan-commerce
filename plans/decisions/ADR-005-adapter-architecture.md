@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-Bluebells & Thistles must avoid vendor lock-in to maintain portability and cost optimization. External dependencies (email, shipping, payment, storage, tax, authentication, translation) should be swappable without code changes.
+Artisan Commerce must avoid vendor lock-in to maintain portability and cost optimization. External dependencies (email, shipping, payment, storage, tax, authentication, translation) should be swappable without code changes.
 
 **Core Requirements**:
 - **Cheap**: Ability to switch to cheaper providers as costs change

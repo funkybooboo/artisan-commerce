@@ -7,7 +7,7 @@
 **Link:** [https://chatgpt.com/share/699bd435-ef88-800b-b208-daa16be0b46a](https://chatgpt.com/share/699bd435-ef88-800b-b208-daa16be0b46a)  
 
 ## Prompt:
-I am generating the idea for bluebellsandthistles a crafts website. crochet, knitting, cross stitch, embrodery, sowed goods
+I am generating the idea for artisan-commerce a crafts website. crochet, knitting, cross stitch, embrodery, sowed goods
 
 USER PAGES
 
@@ -87,7 +87,7 @@ super user to manage users, admins, and other system things etc...
 help me flesh out this idea. just flesh out the idea.
 
 ## Response:
-Below is a structured product expansion for **Bluebells & Thistles** — positioned as a made-to-order artisan crafts marketplace with strong operational controls and queue-based production management.
+Below is a structured product expansion for **Artisan Commerce** — positioned as a open-source platform for artisan e-commerce with queue-based capacity management with strong operational controls and queue-based production management.
 
 I’ll break this into:
 
@@ -107,7 +107,7 @@ I’ll break this into:
 1\. Product Vision
 ==================
 
-**Bluebells & Thistles** is not just an e-commerce site.
+**Artisan Commerce** is not just an e-commerce site.
 
 It is a **made-to-order craft studio platform** where:
 
@@ -498,7 +498,7 @@ Super User capabilities:
 10\. Strategic Differentiation
 ==============================
 
-Bluebells & Thistles is:
+Artisan Commerce is:
 
 Not Etsy  
 Not Shopify  
@@ -578,7 +578,7 @@ Your product is:
 *   Limited capacity
 *   Honest timelines
 
-If executed properly, Bluebells & Thistles feels like ordering from a high-end atelier rather than a craft shop.
+If executed properly, Artisan Commerce feels like ordering from a high-end atelier rather than a craft shop.
 
 If you'd like, I can next:
 

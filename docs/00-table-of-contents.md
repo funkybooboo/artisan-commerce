@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-- [**01: Introduction**](./01-introduction.md) -- What Bluebells & Thistles is, why it exists, and the values that guide it.
+- [**01: Introduction**](./01-introduction.md) -- What Artisan Commerce is, why it exists, and the values that guide it.
 - [**02: Getting Started**](./02-getting-started.md) -- How to set up and run the project locally.
 - [**03: Architecture**](./03-architecture.md) -- Domain model and architectural principles for the platform.
 

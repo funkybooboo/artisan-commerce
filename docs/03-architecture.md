@@ -1,6 +1,6 @@
 # Architecture
 
-This document covers how to think about structuring Bluebells & Thistles -- the principles that lead to code that is easy to test, change, and understand. These ideas apply regardless of language, framework, or project type.
+This document covers how to think about structuring Artisan Commerce -- the principles that lead to code that is easy to test, change, and understand. These ideas apply regardless of language, framework, or project type.
 
 **Note:** The specific technology stack will be determined in a future architecture decision record. This document focuses on architectural principles that will guide implementation regardless of the chosen technologies.
 
@@ -8,7 +8,7 @@ This document covers how to think about structuring Bluebells & Thistles -- the 
 
 ## Domain Model
 
-Bluebells & Thistles is built around these core entities:
+Artisan Commerce is built around these core entities:
 
 - **User** -- Customers, admins, and super admins with role-based permissions
 - **Project** -- Made-to-order handmade items (crochet, knitting, embroidery, etc.) with customizable options
@@ -65,7 +65,7 @@ One proven way to enforce this separation: define **ports** (interfaces that des
 | PaymentProcessor | Stripe | Mock/recording |
 | QueueCalculator | Production algorithm | Controllable/predictable |
 
-For Bluebells & Thistles specifically:
+For Artisan Commerce specifically:
 
 - **PaymentProcessor** handles Stripe integration for checkout and refunds
 - **Notifier** sends order confirmations, queue updates, and shipping notifications
@@ -135,7 +135,7 @@ Write an ADR when:
 
 ## Technology Stack
 
-Bluebells & Thistles is built on a modern serverless edge architecture optimized for cost, portability, and AI-assisted development.
+Artisan Commerce is built on a modern serverless edge architecture optimized for cost, portability, and AI-assisted development.
 
 **Core Technologies:**
 - **Frontend**: Next.js 14 App Router with TypeScript

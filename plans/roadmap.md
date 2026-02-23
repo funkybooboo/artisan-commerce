@@ -4,7 +4,7 @@ This document tracks what we're building, why, and in what order.
 
 ## Vision
 
-Bluebells & Thistles becomes the standard for transparent, sustainable made-to-order craft businesses. Artisans manage their capacity honestly, customers receive realistic expectations, and the platform handles the complexity of queue management, payments, and order fulfillment. At its best, it proves that handmade commerce can be both profitable and humane.
+Artisan Commerce becomes the standard for transparent, sustainable made-to-order craft businesses. Artisans manage their capacity honestly, customers receive realistic expectations, and the platform handles the complexity of queue management, payments, and order fulfillment. At its best, it proves that handmade commerce can be both profitable and humane.
 
 **Platform Scope:** Web-only with mobile-responsive design. No native mobile apps planned.
 
@@ -24,7 +24,7 @@ Bluebells & Thistles becomes the standard for transparent, sustainable made-to-o
 **Goal:** Repository structure, documentation, and planning complete. Ready to start building.
 
 - [x] Repository structure and tooling
-- [x] Documentation framework customized for Bluebells & Thistles
+- [x] Documentation framework customized for Artisan Commerce
 - [x] Project vision and domain model documented
 - [x] Architecture decision record for queue system
 - [x] Initial user stories

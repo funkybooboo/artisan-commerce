@@ -29,8 +29,8 @@ See [02: Getting Started](./02-getting-started.md) for full setup instructions.
 Quick version:
 
 ```bash
-git clone https://github.com/funkybooboo/bluebellsandthistles.git
-cd bluebellsandthistles
+git clone https://github.com/funkybooboo/artisan-commerce.git
+cd artisan-commerce
 mise run setup
 ```
 

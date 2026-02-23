@@ -1,6 +1,6 @@
 # Local Development Guide
 
-This guide covers setting up your local development environment for Bluebells & Thistles.
+This guide covers setting up your local development environment for Artisan Commerce.
 
 ## Prerequisites
 
@@ -98,8 +98,8 @@ npm --version
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/funkybooboo/bluebellsandthistles.git
-cd bluebellsandthistles
+git clone https://github.com/funkybooboo/artisan-commerce.git
+cd artisan-commerce
 ```
 
 ### 2. Install Dependencies
@@ -216,7 +216,7 @@ npm run dev:worker
 ### Project Structure
 
 ```
-bluebellsandthistles/
+artisan-commerce/
 ├── src/                      # SvelteKit frontend
 │   ├── routes/              # Pages and API routes
 │   │   ├── +page.svelte    # Homepage
@@ -276,7 +276,7 @@ touch src/routes/about/+page.svelte
   // TypeScript logic here
 </script>
 
-<h1>About Bluebells & Thistles</h1>
+<h1>About Artisan Commerce</h1>
 <p>A transparent marketplace for handmade crafts.</p>
 ```
 
@@ -586,7 +586,7 @@ wrangler d1 migrations list bluebells-db --local
 
 ```bash
 # Point frontend to staging API
-VITE_API_URL=https://staging.bluebellsandthistles.com npm run dev:frontend
+VITE_API_URL=https://staging.artisan-commerce.com npm run dev:frontend
 ```
 
 ### Testing Stripe Webhooks Locally

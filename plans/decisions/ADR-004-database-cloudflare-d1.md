@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-Bluebells & Thistles requires a database to store:
+Artisan Commerce requires a database to store:
 - User accounts and authentication
 - Projects (handmade items) with customizable options
 - Patterns (digital products)

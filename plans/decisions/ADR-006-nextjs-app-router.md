@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-Choosing a frontend framework for Bluebells & Thistles requires balancing multiple criteria:
+Choosing a frontend framework for Artisan Commerce requires balancing multiple criteria:
 
 1. **LLM Support**: AI-assisted development velocity (primary criterion)
 2. **Cloudflare Compatibility**: Deploy to Cloudflare Pages

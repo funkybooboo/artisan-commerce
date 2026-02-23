@@ -1,6 +1,6 @@
 # User Documentation
 
-Guides for customers using the Bluebells & Thistles platform.
+Guides for customers using the Artisan Commerce platform.
 
 These docs explain **what you can do** and **how to do it** -- not how it works internally.
 
