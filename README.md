@@ -13,7 +13,7 @@ Artisan Commerce is a open-source platform for artisan e-commerce with queue-bas
 
 **Web-based platform** with mobile-responsive design - accessible from any device without native apps.
 
-**Core Principles**: Cheap, Convenient, Secure, Portable, LLM-Friendly
+**Core Principles**: Cheap, Convenient, Secure, Portable
 
 ## Technology Stack
 
