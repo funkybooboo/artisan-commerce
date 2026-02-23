@@ -1,18 +1,17 @@
 [tools]
-# node = "lts" # Uncomment to pin node version
+node = "20" # Pin to Node.js 20 LTS
 
 [tasks.setup]
 description = "Setup development environment (install dependencies)"
 run = """
 echo "Installing dependencies..."
-# Uncomment based on your stack:
-# npm install               # Node.js
-# pip install -r requirements.txt  # Python
-# cargo build               # Rust
-# go mod download           # Go
-# bundle install            # Ruby
-# composer install          # PHP
+npm install
+cd workers/api && npm install && cd ../..
 echo "[OK] Dependencies installed"
+echo ""
+echo "Next steps:"
+echo "  1. Copy .env.example to .env and fill in your values"
+echo "  2. Run 'mise run dev' to start development servers"
 """
 
 [tasks.clean]
@@ -29,30 +28,21 @@ echo "[OK] Cleaned"
 """
 
 [tasks.dev]
-description = "Start development server with hot reload"
+description = "Start development servers (SvelteKit + Workers)"
 run = """
-echo "Starting development server..."
-# Uncomment based on your stack:
-# npm run dev               # Node.js
-# python manage.py runserver  # Django
-# flask run                 # Flask
-# cargo watch -x run        # Rust
-# go run main.go            # Go
-# rails server              # Ruby on Rails
-# php artisan serve         # Laravel
+echo "Starting development servers..."
+echo "  Frontend: http://localhost:5173"
+echo "  API: http://localhost:8787"
+echo ""
+npm run dev
 """
 
 [tasks.build]
 description = "Build the project for production"
 run = """
 echo "Building project..."
-# Uncomment based on your stack:
-# npm run build             # Node.js
-# python setup.py build     # Python
-# cargo build --release     # Rust
-# go build -o bin/app       # Go
-# gem build *.gemspec       # Ruby
-# composer build            # PHP
+npm run build
+cd workers/api && npm run build && cd ../..
 echo "[OK] Build complete"
 """
 
@@ -73,13 +63,7 @@ echo "Add 'run' command for your project"
 description = "Run all tests"
 run = """
 echo "Running tests..."
-# Uncomment based on your stack:
-# npm test                  # Node.js
-# pytest                    # Python
-# cargo test                # Rust
-# go test ./...             # Go
-# bundle exec rspec         # Ruby
-# phpunit                   # PHP
+npm test
 echo "[OK] Tests passed"
 """
 
@@ -121,13 +105,7 @@ echo "Add 'test:e2e' command for your project"
 description = "Format code automatically"
 run = """
 echo "Formatting code..."
-# Uncomment based on your stack:
-# npm run format            # Node.js (Prettier, Biome)
-# black .                   # Python
-# cargo fmt                 # Rust
-# go fmt ./...              # Go
-# rubocop -a                # Ruby
-# php-cs-fixer fix          # PHP
+npm run format
 echo "[OK] Code formatted"
 """
 
@@ -148,13 +126,7 @@ echo "[OK] Format check passed"
 description = "Run linter"
 run = """
 echo "Running linter..."
-# Uncomment based on your stack:
-# npm run lint              # Node.js (ESLint, Biome)
-# flake8 .                  # Python
-# cargo clippy -- -D warnings  # Rust
-# golangci-lint run         # Go
-# rubocop                   # Ruby
-# phpstan analyse           # PHP
+npm run lint
 echo "[OK] Linting passed"
 """
 

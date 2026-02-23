@@ -28,9 +28,12 @@ Bluebells & Thistles becomes the standard for transparent, sustainable made-to-o
 - [x] Project vision and domain model documented
 - [x] Architecture decision record for queue system
 - [x] Initial user stories
-- [ ] Technology stack decision (ADR)
+- [x] Technology stack decision (ADR-002: Cloudflare serverless)
+- [x] Infrastructure as Code approach (ADR-003: Terraform)
+- [x] Database choice (ADR-004: Cloudflare D1)
 - [ ] CI/CD pipeline configured
 - [ ] Development environment setup instructions
+- [ ] Initial repository structure (Terraform, Workers, SvelteKit)
 
 **Done when:** A new contributor can understand the project vision, see the roadmap, and know what technology stack we're using.
 

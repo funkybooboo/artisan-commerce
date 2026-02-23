@@ -13,17 +13,46 @@ Bluebells & Thistles is a made-to-order artisan crafts marketplace that brings t
 
 **Web-based platform** with mobile-responsive design - accessible from any device without native apps.
 
-## Getting Started
+## Technology Stack
+
+Built on a modern serverless edge architecture for maximum performance and minimal cost:
+
+- **Frontend**: SvelteKit (TypeScript) deployed to Cloudflare Pages
+- **Backend**: Cloudflare Workers (serverless functions at the edge)
+- **Database**: Cloudflare D1 (distributed SQLite)
+- **File Storage**: Cloudflare R2 (S3-compatible object storage)
+- **Infrastructure**: Terraform (Infrastructure as Code)
+- **CI/CD**: GitHub Actions
+
+**Monthly Cost**: ~$1 (just the domain) - everything else runs on free tiers.
+
+See [ADR-002](./plans/decisions/ADR-002-tech-stack.md) for the full technology stack decision rationale.
+
+## Quick Start
 
 ```bash
+# Clone the repository
 git clone https://github.com/funkybooboo/bluebellsandthistles.git
 cd bluebellsandthistles
+
+# Install dependencies (mise installs Node.js if needed)
 mise run setup
+
+# Copy environment template
 cp .env.example .env
+
+# Start development servers
 mise run dev
 ```
 
-See [Getting Started](./docs/02-getting-started.md) for full setup, configuration, and available commands.
+The app will be available at:
+- Frontend: http://localhost:5173 (SvelteKit)
+- API: http://localhost:8787 (Cloudflare Workers)
+
+**Next Steps:**
+- **Quick Start**: See [Getting Started](./docs/02-getting-started.md) (5 minutes)
+- **Detailed Setup**: See [Local Development Guide](./docs/developer/local-development.md) (complete guide)
+- **Deployment**: See [Deployment Guide](./docs/developer/deployment.md)
 
 ## Documentation
 

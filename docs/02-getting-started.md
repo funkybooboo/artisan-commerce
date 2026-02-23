@@ -2,20 +2,22 @@
 
 This guide walks you through setting up the project locally from scratch.
 
+> **For detailed setup, testing, and debugging**: See [Local Development Guide](./developer/local-development.md)
+
 ## Prerequisites
 
 Before you begin, make sure you have the following installed:
 
-- [mise](https://mise.jdx.dev/getting-started.html) -- Task runner and environment manager for this project
-- [Git](https://git-scm.com/) -- Version control
-
-**Note:** The technology stack (programming language, framework, database) will be determined in a future architecture decision record. For now, the project contains documentation and planning materials only.
+- **[mise](https://mise.jdx.dev/getting-started.html)** - Task runner and environment manager
+- **Git** ([download](https://git-scm.com/))
 
 ```bash
 # Verify your setup
 mise --version
 git --version
 ```
+
+**Note**: `mise` will automatically install Node.js and other required tools when you run `mise run setup`.
 
 ---
 
@@ -34,6 +36,8 @@ cd bluebellsandthistles
 mise run setup
 ```
 
+This installs Node.js (if needed) and all project dependencies.
+
 **3. Configure your environment:**
 
 ```bash
@@ -42,11 +46,15 @@ cp .env.example .env
 
 Open `.env` and fill in the required values. Every variable is documented in `.env.example`.
 
-**4. Run the project:**
+**4. Run the development servers:**
 
 ```bash
 mise run dev
 ```
+
+This starts:
+- Frontend: http://localhost:5173 (SvelteKit)
+- API: http://localhost:8787 (Cloudflare Workers)
 
 ---
 
@@ -56,18 +64,15 @@ All configuration is done through environment variables. Never hardcode config v
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `APP_ENV` | No | `development` | Runtime environment (`development`, `test`, `production`) |
-| `LOG_LEVEL` | No | `info` | Log verbosity (`debug`, `info`, `warn`, `error`) |
-| `DATABASE_URL` | Yes | - | Database connection string |
-| `STRIPE_SECRET_KEY` | Yes | - | Stripe API secret key for payment processing |
-| `STRIPE_PUBLISHABLE_KEY` | Yes | - | Stripe API publishable key |
+| `NODE_ENV` | No | `development` | Runtime environment |
+| `CLOUDFLARE_ACCOUNT_ID` | Yes | - | Cloudflare account ID |
+| `CLOUDFLARE_API_TOKEN` | Yes | - | Cloudflare API token |
+| `STRIPE_SECRET_KEY` | Yes | - | Stripe secret key (use test key locally) |
+| `STRIPE_PUBLISHABLE_KEY` | Yes | - | Stripe publishable key |
 | `STRIPE_WEBHOOK_SECRET` | Yes | - | Stripe webhook signing secret |
-| `EMAIL_SERVICE_API_KEY` | Yes | - | Email service API key for order notifications |
-| `EMAIL_FROM_ADDRESS` | Yes | - | From address for system emails |
-| `QUEUE_MAX_CAPACITY` | No | `100` | Maximum queue capacity (in weight units) |
-| `QUEUE_WEEKLY_THROUGHPUT` | No | `10` | Weekly production throughput (weight units per week) |
+| `RESEND_API_KEY` | Yes | - | Resend API key for emails |
 
-**Note:** Specific environment variables will be finalized once the technology stack is chosen.
+See [`.env.example`](../.env.example) for the complete list with descriptions.
 
 ---
 
@@ -75,12 +80,14 @@ All configuration is done through environment variables. Never hardcode config v
 
 | Command | Description |
 |---------|-------------|
-| `mise run setup` | Install dependencies and prepare the environment |
-| `mise run dev` | Run the project in development mode |
+| `mise run setup` | Install dependencies and prepare environment |
+| `mise run dev` | Run development servers (frontend + API) |
 | `mise run test` | Run all tests |
-| `mise run validate` | Run all checks -- format, lint, type-check, test, build |
+| `mise run lint` | Run linter |
 | `mise run build` | Build for production |
 | `mise tasks ls` | Show all available commands |
+
+For more commands, see [Local Development Guide](./developer/local-development.md#useful-commands-reference).
 
 ---
 
@@ -88,27 +95,30 @@ All configuration is done through environment variables. Never hardcode config v
 
 ```
 bluebellsandthistles/
-|-- docs/             # Documentation
-|-- plans/            # Roadmap, stories, decisions, retrospectives, vision
-|-- .github/          # CI workflow and GitHub templates
-|-- .env.example      # Environment variable reference
-|-- mise.toml         # All development commands
-|-- CHANGELOG.md      # Version history
-`-- README.md
+├── src/              # SvelteKit frontend
+├── workers/          # Cloudflare Workers (API)
+├── migrations/       # Database migrations
+├── terraform/        # Infrastructure as Code
+├── docs/             # Documentation
+├── plans/            # Roadmap, ADRs, stories
+└── .github/          # CI/CD workflows
 ```
 
-Source code directories will be added once the technology stack is determined.
+For detailed structure, see [Local Development Guide](./developer/local-development.md#project-structure).
 
 ---
 
 ## Troubleshooting
 
-**Problem:** `mise` command not found
-**Solution:** Install [mise](https://mise.jdx.dev/getting-started.html) -- the task runner used by this project.
+**Problem:** Port already in use  
+**Solution:** Kill the process using the port or change the port in your config.
 
-**Problem:** Environment variable errors on startup
+**Problem:** Environment variable errors  
 **Solution:** Make sure you've copied `.env.example` to `.env` and filled in all required values.
 
-<!-- Add project-specific troubleshooting here as you discover common issues. -->
+**Problem:** Database migration errors  
+**Solution:** Reset your local database (see [Local Development Guide](./developer/local-development.md#resetting-local-database)).
+
+For detailed troubleshooting, see [Local Development Guide](./developer/local-development.md#common-issues).
 
 If you're stuck, [open an issue](https://github.com/funkybooboo/bluebellsandthistles/issues) with your environment details and what you tried.

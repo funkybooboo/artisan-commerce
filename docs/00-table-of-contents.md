@@ -18,3 +18,9 @@
 
 - [**09: Feature Development Loop**](./09-feature-development-loop.md) -- The full cycle: story -> tests -> implement -> document -> ship.
 - [**10: Documentation Standards**](./10-documentation-standards.md) -- How to write, organize, and maintain documentation.
+
+## Developer Operations
+
+- [**Local Development**](./developer/local-development.md) -- Complete setup, testing, debugging, and troubleshooting guide.
+- [**Deployment**](./developer/deployment.md) -- CI/CD pipelines, staging/production deployment, and rollback procedures.
+- [**Tech Stack**](./developer/tech-stack.md) -- Technology decisions quick reference and architecture overview.

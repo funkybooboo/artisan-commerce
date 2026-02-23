@@ -28,7 +28,15 @@ End-user guides live in [`user/`](./user/). Written for people who use the proje
 
 ## Developer Guides
 
-Feature-specific developer guides live in [`developer/`](./developer/). Written for contributors and maintainers.
+Operational guides for developers working on the project. See [`developer/`](./developer/) for the complete index.
+
+| Guide | What it covers |
+|-------|----------------|
+| [Local Development](./developer/local-development.md) | Setup, workflow, testing, debugging |
+| [Deployment](./developer/deployment.md) | CI/CD, staging/production, rollback |
+| [Tech Stack](./developer/tech-stack.md) | Technology decisions quick reference |
+
+For feature-specific technical documentation (queue algorithm, pricing engine, etc.), see the [Developer Guides README](./developer/README.md).
 
 ---
 

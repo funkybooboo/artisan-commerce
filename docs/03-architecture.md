@@ -130,3 +130,31 @@ Write an ADR when:
 - **Infrastructure in core logic** -- importing a database driver inside a business rule
 - **Premature abstraction** -- don't create interfaces for things that will never have a second implementation
 - **Inheritance for code reuse** -- prefer composition; inheritance couples you to the parent's internals
+
+---
+
+## Technology Stack
+
+Bluebells & Thistles is built on a modern serverless edge architecture optimized for low operational overhead and cost efficiency.
+
+**Core Technologies:**
+- **Frontend**: SvelteKit with TypeScript
+- **Backend**: Cloudflare Workers (serverless functions)
+- **Database**: Cloudflare D1 (distributed SQLite)
+- **File Storage**: Cloudflare R2 (S3-compatible)
+- **Infrastructure**: Terraform (Infrastructure as Code)
+- **CI/CD**: GitHub Actions
+
+**Monthly Cost**: ~$1 (just the domain) - everything else runs on free tiers.
+
+These choices follow the architectural principles above (ports/adapters, 12-factor, dependency injection) and are optimized for:
+- Low traffic (<10 concurrent users initially)
+- Minimal operational overhead (fully managed services)
+- Cost efficiency (free tiers cover 100x expected usage)
+- Infrastructure as Code (everything version-controlled)
+
+**For detailed information:**
+- [Tech Stack Summary](./developer/tech-stack.md) - Quick reference and architecture overview
+- [ADR-002: Technology Stack](../plans/decisions/ADR-002-tech-stack.md) - Detailed decision rationale
+- [ADR-003: Infrastructure as Code](../plans/decisions/ADR-003-infrastructure-as-code.md) - IaC approach
+- [ADR-004: Database Choice](../plans/decisions/ADR-004-database-cloudflare-d1.md) - Database decision
