@@ -135,26 +135,40 @@ Write an ADR when:
 
 ## Technology Stack
 
-Bluebells & Thistles is built on a modern serverless edge architecture optimized for low operational overhead and cost efficiency.
+Bluebells & Thistles is built on a modern serverless edge architecture optimized for cost, portability, and AI-assisted development.
 
 **Core Technologies:**
-- **Frontend**: SvelteKit with TypeScript
-- **Backend**: Cloudflare Workers (serverless functions)
-- **Database**: Cloudflare D1 (distributed SQLite)
+- **Frontend**: Next.js 14 App Router with TypeScript
+- **Backend**: Hono on Cloudflare Workers (serverless functions)
+- **Database**: Drizzle ORM + Cloudflare D1 (distributed SQLite)
 - **File Storage**: Cloudflare R2 (S3-compatible)
 - **Infrastructure**: Terraform (Infrastructure as Code)
-- **CI/CD**: GitHub Actions
+- **CI/CD**: GitHub Actions with SLSA Level 3 provenance
+- **Testing**: TDD with Vitest + Playwright
+- **Monorepo**: pnpm workspaces
 
-**Monthly Cost**: ~$1 (just the domain) - everything else runs on free tiers.
+**Monthly Cost**: ~$1-5 (domain + transaction fees) - everything else runs on free tiers.
+
+**Design Principles**:
+- **Cheap**: Stay on free tiers, transaction-based pricing only
+- **Convenient**: Maximum artisan UX, passwordless auth, modern DX
+- **Secure**: Geographic + role + rate limiting, WCAG 2.1 AA, SLSA Level 3
+- **Portable**: Zero vendor lock-in via comprehensive adapter pattern
+- **LLM-Friendly**: Popular frameworks for maximum AI assistance
 
 These choices follow the architectural principles above (ports/adapters, 12-factor, dependency injection) and are optimized for:
-- Low traffic (<10 concurrent users initially)
+- Low traffic (<100 orders/month initially)
 - Minimal operational overhead (fully managed services)
 - Cost efficiency (free tiers cover 100x expected usage)
 - Infrastructure as Code (everything version-controlled)
+- Multi-tenant architecture (ready for white-label SaaS)
+- AI-assisted development (Next.js has vast LLM training data)
 
 **For detailed information:**
 - [Tech Stack Summary](./developer/tech-stack.md) - Quick reference and architecture overview
+- [Comprehensive Roadmap](../plans/ROADMAP-COMPREHENSIVE.md) - All decisions and milestones
 - [ADR-002: Technology Stack](../plans/decisions/ADR-002-tech-stack.md) - Detailed decision rationale
 - [ADR-003: Infrastructure as Code](../plans/decisions/ADR-003-infrastructure-as-code.md) - IaC approach
 - [ADR-004: Database Choice](../plans/decisions/ADR-004-database-cloudflare-d1.md) - Database decision
+- [ADR-005: Adapter Architecture](../plans/decisions/ADR-005-adapter-architecture.md) - Zero vendor lock-in
+- [ADR-006: Next.js App Router](../plans/decisions/ADR-006-nextjs-app-router.md) - Frontend framework choice

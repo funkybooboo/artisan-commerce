@@ -13,20 +13,31 @@ Bluebells & Thistles is a made-to-order artisan crafts marketplace that brings t
 
 **Web-based platform** with mobile-responsive design - accessible from any device without native apps.
 
+**Core Principles**: Cheap, Convenient, Secure, Portable, LLM-Friendly
+
 ## Technology Stack
 
-Built on a modern serverless edge architecture for maximum performance and minimal cost:
+Built on a modern serverless edge architecture optimized for cost, portability, and AI-assisted development:
 
-- **Frontend**: SvelteKit (TypeScript) deployed to Cloudflare Pages
-- **Backend**: Cloudflare Workers (serverless functions at the edge)
-- **Database**: Cloudflare D1 (distributed SQLite)
+- **Frontend**: Next.js 14 App Router (TypeScript) deployed to Cloudflare Pages
+- **Backend**: Hono on Cloudflare Workers (serverless functions at the edge)
+- **Database**: Drizzle ORM + Cloudflare D1 (distributed SQLite, multi-tenant ready)
 - **File Storage**: Cloudflare R2 (S3-compatible object storage)
 - **Infrastructure**: Terraform (Infrastructure as Code)
-- **CI/CD**: GitHub Actions
+- **CI/CD**: GitHub Actions with SLSA Level 3 provenance
+- **Testing**: TDD with Vitest + Playwright (85%+ coverage target)
+- **Monorepo**: pnpm workspaces with comprehensive adapter pattern
 
-**Monthly Cost**: ~$1 (just the domain) - everything else runs on free tiers.
+**Monthly Cost**: ~$1-5 (domain + transaction fees) - everything else runs on free tiers.
 
-See [ADR-002](./plans/decisions/ADR-002-tech-stack.md) for the full technology stack decision rationale.
+**Key Features**:
+- Zero vendor lock-in (comprehensive adapter pattern for all external services)
+- Multi-tenant architecture (ready for white-label SaaS expansion)
+- LLM-optimized tech stack (maximum AI-assisted development velocity)
+- SLSA Level 3 supply chain security
+- 12-Factor App compliant
+
+See [ADR-002](./plans/decisions/ADR-002-tech-stack.md) and [ADR-006](./plans/decisions/ADR-006-nextjs-app-router.md) for detailed technology decisions.
 
 ## Quick Start
 
@@ -35,23 +46,24 @@ See [ADR-002](./plans/decisions/ADR-002-tech-stack.md) for the full technology s
 git clone https://github.com/funkybooboo/bluebellsandthistles.git
 cd bluebellsandthistles
 
-# Install dependencies (mise installs Node.js if needed)
-mise run setup
+# Install dependencies
+pnpm install
 
 # Copy environment template
 cp .env.example .env
 
 # Start development servers
-mise run dev
+pnpm run dev
 ```
 
 The app will be available at:
-- Frontend: http://localhost:5173 (SvelteKit)
+- Frontend: http://localhost:3000 (Next.js)
 - API: http://localhost:8787 (Cloudflare Workers)
 
 **Next Steps:**
 - **Quick Start**: See [Getting Started](./docs/02-getting-started.md) (5 minutes)
 - **Detailed Setup**: See [Local Development Guide](./docs/developer/local-development.md) (complete guide)
+- **Comprehensive Roadmap**: See [Roadmap](./plans/ROADMAP-COMPREHENSIVE.md) (all decisions and milestones)
 - **Deployment**: See [Deployment Guide](./docs/developer/deployment.md)
 
 ## Documentation
