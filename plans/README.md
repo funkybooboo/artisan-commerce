@@ -5,7 +5,8 @@ Project planning, decisions, and history.
 | Directory | What lives here |
 |-----------|----------------|
 | [`vision.md`](./vision.md) | Original project concept and detailed vision from ChatGPT brainstorming |
-| [`roadmap.md`](./roadmap.md) | Versioned milestones and feature backlog |
+| [`roadmap.md`](./roadmap.md) | High-level versioned milestones and feature backlog |
+| [`ROADMAP-COMPREHENSIVE.md`](./ROADMAP-COMPREHENSIVE.md) | **Complete roadmap with all decisions, business rules, and implementation details** |
 | [`stories/`](./stories/) | User stories with acceptance criteria |
 | [`specs/`](./specs/) | Technical specifications for complex features |
 | [`decisions/`](./decisions/) | Architecture Decision Records (ADRs) |

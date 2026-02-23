@@ -80,6 +80,7 @@ The app will be available at:
 | [Design Patterns](./docs/08-design-patterns.md) | Patterns used in this project and when to apply them |
 | [Feature Development](./docs/09-feature-development-loop.md) | End-to-end process from idea to production |
 | [Documentation Standards](./docs/10-documentation-standards.md) | How to write and maintain docs |
+| [Architecture Decisions Summary](./docs/11-architecture-decisions-summary.md) | Quick reference for all decisions |
 
 ## Contributing
 
@@ -88,3 +89,5 @@ Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) to get start
 ## License
 
 [GPL-3.0](./LICENSE)
+
+**Note**: This project uses GPL-3.0. If you plan to offer this as a hosted service (SaaS), consider that GPL-3.0 does not require sharing modifications for hosted services. If you want stronger copyleft for SaaS deployments, consider switching to AGPL-3.0.

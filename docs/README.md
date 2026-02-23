@@ -17,6 +17,7 @@ Everything you need to understand, build, and contribute to this project.
 | 08 | [Design Patterns](./08-design-patterns.md) | Adapters, DI, repository, result, and more |
 | 09 | [Feature Development Loop](./09-feature-development-loop.md) | Story -> tests -> implement -> ship |
 | 10 | [Documentation Standards](./10-documentation-standards.md) | How to write and maintain docs |
+| 11 | [Architecture Decisions Summary](./11-architecture-decisions-summary.md) | Quick reference for all decisions |
 
 ## User Documentation
 

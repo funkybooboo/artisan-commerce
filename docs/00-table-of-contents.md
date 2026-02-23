@@ -19,6 +19,10 @@
 - [**09: Feature Development Loop**](./09-feature-development-loop.md) -- The full cycle: story -> tests -> implement -> document -> ship.
 - [**10: Documentation Standards**](./10-documentation-standards.md) -- How to write, organize, and maintain documentation.
 
+## Reference
+
+- [**11: Architecture Decisions Summary**](./11-architecture-decisions-summary.md) -- Quick reference for all major architectural decisions and business rules.
+
 ## Developer Operations
 
 - [**Local Development**](./developer/local-development.md) -- Complete setup, testing, debugging, and troubleshooting guide.
