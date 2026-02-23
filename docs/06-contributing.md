@@ -29,8 +29,8 @@ See [02: Getting Started](./02-getting-started.md) for full setup instructions.
 Quick version:
 
 ```bash
-git clone https://github.com/username/project-name.git
-cd project-name
+git clone https://github.com/funkybooboo/bluebellsandthistles.git
+cd bluebellsandthistles
 mise run setup
 ```
 

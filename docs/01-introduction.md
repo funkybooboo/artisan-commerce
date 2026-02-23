@@ -6,23 +6,15 @@ Welcome. This document explains what this project is, why it exists, and the val
 
 ## What Is This Project?
 
-<!-- Replace this with a clear, honest description of what the project does.
-     Write for someone who has never heard of it. One paragraph is enough. -->
-
-[Describe what this project does and who it's for.]
+Bluebells & Thistles is a made-to-order artisan crafts marketplace that brings transparency and operational honesty to handmade production. It manages finite production capacity through a queue-based system, providing customers with realistic delivery estimates while giving artisans control over their workload. The platform supports handmade items (crochet, knitting, cross stitch, embroidery, sewn goods) and digital pattern sales, with integrated payment processing and order management.
 
 ## Why Does It Exist?
 
-<!-- What problem does this solve? What was broken or missing before?
-     What would someone have to do without it? -->
-
-[Describe the problem this project solves.]
+Traditional e-commerce platforms treat handmade goods like mass-produced inventory, creating unrealistic expectations and overwhelming artisans with orders they cannot fulfill. Customers receive vague "ships in 2-4 weeks" estimates that rarely reflect reality. Artisans struggle to manage capacity, often burning out or disappointing customers. Bluebells & Thistles solves this by making production capacity visible and manageable -- customers see exactly where they are in the queue, and artisans can control how many orders they accept based on their actual capacity.
 
 ## Who Is It For?
 
-<!-- Be specific. "Developers who need to..." is better than "anyone who..." -->
-
-[Describe the intended audience.]
+This platform is built for artisan sellers who create made-to-order handmade goods and want to run their craft business sustainably. It's for customers who value transparency and are willing to wait for quality handmade items when they know exactly what to expect. It's for anyone tired of the dishonesty in "handmade" marketplaces where sellers overpromise and underdeliver.
 
 ---
 

@@ -6,8 +6,8 @@
 
 Report vulnerabilities privately using one of these methods:
 
-- **GitHub Security Advisories** (preferred): [Report a vulnerability](https://github.com/username/project-name/security/advisories/new)
-- **Email**: security@example.com
+- **GitHub Security Advisories** (preferred): [Report a vulnerability](https://github.com/funkybooboo/bluebellsandthistles/security/advisories/new)
+- **Email**: nate.stott@pm.me
 
 You should receive a response within 48 hours. If you don't hear back, follow up by email to confirm receipt.
 
@@ -45,6 +45,9 @@ Update this table once you have a stable release and a support policy.
 When using this project:
 
 - Use the latest release
-- Never commit secrets, API keys, or credentials to version control
+- Never commit secrets, API keys, or credentials to version control (especially Stripe keys, email credentials)
 - Keep dependencies up to date (`mise run deps:audit`)
 - Review `.env.example` -- every variable is documented there
+- Handle payment data according to PCI DSS compliance requirements
+- Protect customer personal information (names, addresses, emails, order details)
+- Validate and sanitize all user inputs (especially addresses, custom order details)

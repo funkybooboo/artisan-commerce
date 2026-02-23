@@ -1,22 +1,21 @@
-# Project Name
+# Bluebells & Thistles
 
-> One sentence: what this project does and who it's for.
+> A transparent, capacity-managed platform for made-to-order artisan crafts
 
-[![CI](https://github.com/username/project-name/actions/workflows/ci.yml/badge.svg)](https://github.com/username/project-name/actions/workflows/ci.yml)
+[![CI](https://github.com/funkybooboo/bluebellsandthistles/actions/workflows/ci.yml/badge.svg)](https://github.com/funkybooboo/bluebellsandthistles/actions/workflows/ci.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
 
 ---
 
 ## What Is It?
 
-<!-- 2-4 sentences. What problem does this solve? Who is it for?
-     What would someone have to do without it? -->
+Bluebells & Thistles is a made-to-order artisan crafts marketplace that brings transparency to handmade production. Unlike traditional e-commerce platforms, it manages finite production capacity through a queue-based system, giving customers realistic delivery estimates and artisans control over their workload. The platform supports crochet, knitting, cross stitch, embroidery, and sewn goods, along with digital pattern sales.
 
 ## Getting Started
 
 ```bash
-git clone https://github.com/username/project-name.git
-cd project-name
+git clone https://github.com/funkybooboo/bluebellsandthistles.git
+cd bluebellsandthistles
 mise run setup
 cp .env.example .env
 mise run dev

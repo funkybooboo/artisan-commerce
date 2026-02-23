@@ -17,6 +17,8 @@ It covers:
 
 ```bash
 # Set up your development environment
+git clone https://github.com/funkybooboo/bluebellsandthistles.git
+cd bluebellsandthistles
 mise run setup
 
 # Run all checks before pushing

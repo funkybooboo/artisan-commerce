@@ -1,6 +1,23 @@
 # Architecture
 
-This document covers how to think about structuring a project -- the principles that lead to code that is easy to test, change, and understand. These ideas apply regardless of language, framework, or project type.
+This document covers how to think about structuring Bluebells & Thistles -- the principles that lead to code that is easy to test, change, and understand. These ideas apply regardless of language, framework, or project type.
+
+**Note:** The specific technology stack will be determined in a future architecture decision record. This document focuses on architectural principles that will guide implementation regardless of the chosen technologies.
+
+---
+
+## Domain Model
+
+Bluebells & Thistles is built around these core entities:
+
+- **User** -- Customers, admins, and super admins with role-based permissions
+- **Project** -- Made-to-order handmade items (crochet, knitting, embroidery, etc.) with customizable options
+- **Pattern** -- Digital or physical patterns that can be sold standalone or linked to projects
+- **Order** -- Customer orders containing projects and/or patterns, with lifecycle states and queue position
+- **Queue** -- Central production capacity management system that calculates delivery estimates
+- **Merch** -- Brand merchandise with traditional inventory management (separate from handmade queue)
+
+The queue system is the core differentiator -- it manages finite production capacity and provides transparent delivery estimates.
 
 ---
 
@@ -44,7 +61,16 @@ One proven way to enforce this separation: define **ports** (interfaces that des
 | Logger | Structured JSON | Silent / recording |
 | Clock | System time | Fixed / controllable |
 | Config | Environment vars | Hardcoded map |
-| Notifier | Email / SMS | Recording (captures calls) |
+| Notifier | Email service | Recording (captures calls) |
+| PaymentProcessor | Stripe | Mock/recording |
+| QueueCalculator | Production algorithm | Controllable/predictable |
+
+For Bluebells & Thistles specifically:
+
+- **PaymentProcessor** handles Stripe integration for checkout and refunds
+- **Notifier** sends order confirmations, queue updates, and shipping notifications
+- **QueueCalculator** implements the capacity management algorithm
+- **Storage** manages users, projects, patterns, orders, and queue state
 
 This pattern is sometimes called Hexagonal Architecture or Clean Architecture. The name doesn't matter. The idea does: **keep your core logic independent of the outside world.**
 

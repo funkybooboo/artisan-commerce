@@ -4,7 +4,7 @@ This document tracks what we're building, why, and in what order.
 
 ## Vision
 
-<!-- 2-3 sentences: what does this project become at its best? -->
+Bluebells & Thistles becomes the standard for transparent, sustainable made-to-order craft businesses. Artisans manage their capacity honestly, customers receive realistic expectations, and the platform handles the complexity of queue management, payments, and order fulfillment. At its best, it proves that handmade commerce can be both profitable and humane.
 
 ## Status Legend
 
@@ -17,54 +17,174 @@ This document tracks what we're building, why, and in what order.
 
 ---
 
-## v0.1.0 -- Foundation [ ]
+## v0.1.0 -- Foundation [/]
 
-**Goal:** Working project with all the basics in place.
+**Goal:** Repository structure, documentation, and planning complete. Ready to start building.
 
-- [ ] Repository structure and tooling
-- [ ] CI/CD pipeline passing
-- [ ] Core functionality (minimal, end-to-end)
-- [ ] Tests for all core behavior
-- [ ] Documentation for getting started
+- [x] Repository structure and tooling
+- [x] Documentation framework customized for Bluebells & Thistles
+- [x] Project vision and domain model documented
+- [x] Architecture decision record for queue system
+- [x] Initial user stories
+- [ ] Technology stack decision (ADR)
+- [ ] CI/CD pipeline configured
+- [ ] Development environment setup instructions
 
-**Done when:** A new contributor can clone, run `mise run setup`, and have something working in under 10 minutes.
-
----
-
-## v0.2.0 -- Core Features [ ]
-
-**Goal:** The features that make this project worth using.
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-
-**Done when:** The project solves the core problem it was built to solve.
+**Done when:** A new contributor can understand the project vision, see the roadmap, and know what technology stack we're using.
 
 ---
 
-## v0.3.0 -- Polish [ ]
+## v0.2.0 -- Authentication & User Management [ ]
 
-**Goal:** Rough edges smoothed. Error messages helpful. Performance acceptable.
+**Goal:** Users can create accounts and sign in. Role-based access control in place.
 
-- [ ] Improved error messages and diagnostics
-- [ ] Performance profiling and optimization of hot paths
-- [ ] Edge cases handled gracefully
+- [ ] User registration and email verification
+- [ ] User login and session management
+- [ ] Password reset flow
+- [ ] Role-based access control (User, Admin, SuperAdmin)
+- [ ] User profile and account settings
+- [ ] Address book management
+- [ ] Tests for all authentication flows
+
+**Done when:** Users can create accounts, sign in, manage their profile, and the system enforces role-based permissions.
+
+---
+
+## v0.3.0 -- Core Entities (Projects & Patterns) [ ]
+
+**Goal:** Admin can create and manage projects and patterns. Users can browse them.
+
+- [ ] Project CRUD (admin only)
+- [ ] Pattern CRUD (admin only)
+- [ ] Project options system (material, color, size)
+- [ ] Pricing rules engine
+- [ ] Projects gallery with filtering and sorting
+- [ ] Patterns gallery with filtering and sorting
+- [ ] Project detail pages
+- [ ] Pattern detail pages
+- [ ] Favorites system
+- [ ] Tests for all CRUD operations and business logic
+
+**Done when:** Admin can create projects and patterns with options. Users can browse, filter, and favorite them.
+
+---
+
+## v0.4.0 -- Queue System [ ]
+
+**Goal:** The core differentiator -- queue-based production capacity management.
+
+- [ ] Queue entity and capacity configuration
+- [ ] Queue calculation algorithm
+- [ ] Queue weight system for projects
+- [ ] Dynamic delivery estimate calculation
+- [ ] Queue position tracking for orders
+- [ ] Capacity limits (disable ordering when full)
+- [ ] Admin queue dashboard
+- [ ] Queue visualization for users
+- [ ] Tests for queue calculations and edge cases
+
+**Done when:** The queue system accurately calculates delivery estimates and enforces capacity limits.
+
+---
+
+## v0.5.0 -- Shopping Cart & Orders [ ]
+
+**Goal:** Users can add items to cart and place orders (without payment yet).
+
+- [ ] Shopping cart functionality
+- [ ] Cart persistence (logged-in users)
+- [ ] Order creation
+- [ ] Order lifecycle state machine
+- [ ] Order modification windows (12hr/24hr rules)
+- [ ] Order cancellation with fee calculation
+- [ ] Order history
+- [ ] Email notifications for order events
+- [ ] Tests for order lifecycle and business rules
+
+**Done when:** Users can add items to cart, place orders, and modify/cancel within allowed windows.
+
+---
+
+## v0.6.0 -- Payment Integration [ ]
+
+**Goal:** Stripe integration for checkout and refunds.
+
+- [ ] Stripe account setup and configuration
+- [ ] Checkout flow with Stripe
+- [ ] Payment confirmation
+- [ ] Webhook handling for payment events
+- [ ] Refund processing
+- [ ] Cancellation fee handling
+- [ ] Payment security and PCI compliance
+- [ ] Tests for payment flows (using Stripe test mode)
+
+**Done when:** Users can complete purchases with real payment processing via Stripe.
+
+---
+
+## v0.7.0 -- Admin Tools [ ]
+
+**Goal:** Admin dashboard for managing orders and queue.
+
+- [ ] Admin order management interface
+- [ ] Order details view with customer info
+- [ ] Queue management dashboard
+- [ ] Capacity adjustment tools
+- [ ] Order status updates (mark as shipped, etc.)
+- [ ] Email notifications for admins
+- [ ] Refund and override tools
+- [ ] Tests for admin workflows
+
+**Done when:** Admin can manage the entire order lifecycle and queue from the dashboard.
+
+---
+
+## v0.8.0 -- Merch & Inventory [ ]
+
+**Goal:** Traditional inventory-based products separate from handmade queue.
+
+- [ ] Merch entity with inventory tracking
+- [ ] Merch CRUD (admin)
+- [ ] Merch gallery (users)
+- [ ] Inventory management
+- [ ] Backorder rules
+- [ ] Merch orders (separate from queue)
+- [ ] Tests for inventory logic
+
+**Done when:** Admin can sell branded merchandise with traditional inventory management.
+
+---
+
+## v0.9.0 -- Reviews & Polish [ ]
+
+**Goal:** Review system and UX improvements.
+
+- [ ] Review system (verified buyers only)
+- [ ] Photo uploads for reviews
+- [ ] Delivery accuracy ratings
+- [ ] Improved error messages and validation
+- [ ] Performance optimization
+- [ ] Edge case handling
 - [ ] Test coverage >= 85%
 
+**Done when:** Users can leave reviews, and the platform feels polished and professional.
+
 ---
 
-## v1.0.0 -- Public Release [?]
+## v1.0.0 -- MVP Launch [ ]
 
-**Goal:** Stable, documented, and ready for others to depend on.
+**Goal:** Stable, documented, and ready for production use.
 
-- [ ] All planned features complete
-- [ ] Full documentation (user and developer)
-- [ ] Security review
-- [ ] Semantic versioning commitment
-- [ ] Migration guide from pre-1.0
+- [ ] All core features complete and tested
+- [ ] Full user and developer documentation
+- [ ] Security review and penetration testing
+- [ ] Performance testing and optimization
+- [ ] Deployment guide
+- [ ] Monitoring and error tracking setup
+- [ ] Legal pages (terms, privacy policy)
+- [ ] Launch checklist complete
 
-**Done when:** We're comfortable telling others to use this in production.
+**Done when:** The platform is ready for real customers and real transactions.
 
 ---
 
@@ -73,13 +193,28 @@ This document tracks what we're building, why, and in what order.
 Ideas that don't have a version yet. Promoted to a milestone when prioritized.
 
 ### High priority
-<!-- - Feature idea -->
+- SuperAdmin analytics dashboard (revenue, popular patterns, queue saturation)
+- Email notifications when queue capacity opens up
+- Pattern-to-product integration (upsell: "Make it yourself or order one made")
 
 ### Medium priority
-<!-- - Feature idea -->
+- Made-to-measure custom sizing
+- Subscription queue (members get priority)
+- Community page (user-submitted projects using patterns)
+- Seasonal drops (limited ordering windows)
+- Limited pattern releases (scarcity-based launches)
+- Multi-color pricing complexity
+- Gift orders with custom messages
+- Wishlist sharing
 
 ### Low priority / nice to have
-<!-- - Feature idea -->
+- Mobile app
+- Social media integration
+- Referral program
+- Loyalty points
+- Live chat support
+- Video tutorials for patterns
+- Pattern difficulty ratings and time estimates
 
 ---
 

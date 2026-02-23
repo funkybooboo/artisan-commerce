@@ -10,7 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial project setup
+- Initial project structure for Bluebells & Thistles
+- Documentation framework customized for made-to-order crafts platform
+- Development tooling and standards
+- Project vision and roadmap
+- Architecture decision record for queue-based production system
+- User story for browsing projects gallery
 
 ---
 
@@ -37,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Security fixes and vulnerability patches
 
-[X.Y.Z]: https://github.com/username/project-name/compare/vX.Y.Z-1...vX.Y.Z
+[X.Y.Z]: https://github.com/funkybooboo/bluebellsandthistles/compare/vX.Y.Z-1...vX.Y.Z
 -->
 
-[Unreleased]: https://github.com/username/project-name/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/funkybooboo/bluebellsandthistles/compare/v0.1.0...HEAD

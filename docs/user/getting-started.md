@@ -1,152 +1,139 @@
 # Getting Started
 
-<!-- This file is for end users -- people who install and use your project,
-     not people who build or contribute to it.
+<!-- This file is for end users -- customers who use the Bluebells & Thistles platform
+     to order handmade crafts, not developers who build or contribute to it. -->
 
-     Write for someone who has never seen the source code.
-     Lead with what they can accomplish, not how it works internally.
-
-     Replace every [placeholder] with real content before shipping. -->
-
-Welcome to [Project Name]. This guide will get you up and running in a few minutes.
+Welcome to Bluebells & Thistles. This guide will help you start ordering handmade crafts.
 
 ---
 
 ## What You'll Need
 
-<!-- List only what the user must have before they can install or run this project.
-     Keep it short. Link to install instructions for anything non-obvious. -->
-
-- [Requirement 1] -- [why it's needed and where to get it]
-- [Requirement 2] -- [why it's needed and where to get it]
+- A valid email address
+- A shipping address
+- A credit or debit card for payment
 
 ---
 
-## Installation
+## Creating an Account
 
-<!-- Describe the simplest path to a working installation.
-     If there are multiple install methods (package manager, binary, source),
-     lead with the recommended one and list others below. -->
+**1. Visit the Bluebells & Thistles website**
 
-**Option 1 -- [Recommended method, e.g. package manager]:**
+Navigate to the homepage and click "Sign Up" in the top navigation bar.
 
-```bash
-# Replace with the real install command
-[install command]
-```
+**2. Enter your information:**
 
-**Option 2 -- [Alternative method, e.g. download binary]:**
+- Email address
+- Password (minimum 8 characters)
+- Confirm password
 
-```bash
-# Replace with the real install command
-[install command]
-```
+**3. Verify your email:**
 
-Verify the installation:
+Check your inbox for a verification email and click the confirmation link.
 
-```bash
-[project-name] --version
-```
+**4. Add your shipping address:**
+
+Go to Account Settings and add at least one shipping address. You can save multiple addresses for convenience.
 
 ---
 
-## First Run
+## Browsing Projects
 
-<!-- Walk through the minimum steps to get something working.
-     Show real output where it helps. -->
+### Finding What You Want
 
-**1. [First step]:**
+- Navigate to the **Projects** page from the top menu
+- Use filters to narrow down by:
+  - Type (crochet, knitting, cross stitch, embroidery, sewn goods)
+  - Material (wool, cotton, acrylic, etc.)
+  - Color
+  - Price range
+- Sort by newest, popular, price, or estimated delivery time
 
-```bash
-[command]
-```
+### Understanding Delivery Estimates
 
-**2. [Second step]:**
+Each project card shows the current estimated delivery time. This is calculated based on:
 
-```bash
-[command]
-```
+- Current queue position (how many orders are ahead of you)
+- Production time for this specific item
+- Shipping time to your location
 
-You should see:
-
-```
-[expected output]
-```
-
----
-
-## Basic Usage
-
-<!-- Cover the most common tasks a new user will want to do.
-     One section per task. Lead with the task name, not the command name. -->
-
-### [Task 1, e.g. "Create a new project"]
-
-```bash
-[command and flags]
-```
-
-### [Task 2, e.g. "Run in watch mode"]
-
-```bash
-[command and flags]
-```
-
-### [Task 3]
-
-```bash
-[command and flags]
-```
+The estimate is updated in real-time as orders are placed and completed.
 
 ---
 
-## Configuration
+## Placing Your First Order
 
-<!-- Describe how users configure the project.
-     If config is optional, say so. If there are required values, be explicit. -->
+**1. Select a project:**
 
-<!-- If configuration is done via a file: -->
-Configuration lives in `[config file path]`. Copy the example to get started:
+Click on any project card to view full details.
 
-```bash
-cp [config.example] [config]
-```
+**2. Customize your order:**
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| `[option]` | `[default]` | [what it controls] |
-| `[option]` | `[default]` | [what it controls] |
+- Choose material (e.g., wool, cotton)
+- Choose color
+- Select size if applicable
+- Watch the price and delivery estimate update as you make selections
 
-<!-- If configuration is done via environment variables, use this table instead:
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `VAR_NAME` | Yes | -- | [what it controls] |
--->
+**3. Add to cart:**
+
+Click "Add to Cart" when you're happy with your selections.
+
+**4. Review your cart:**
+
+- See all items in your cart
+- Review total price
+- See estimated delivery date
+- Remove items or save for later if needed
+
+**5. Checkout:**
+
+- Enter or select shipping address
+- Enter payment information (processed securely via Stripe)
+- Review order summary
+- Click "Place Order"
+
+**6. Confirmation:**
+
+You'll receive an email with:
+- Order confirmation
+- Your position in the production queue
+- Estimated delivery date
+- Order number for tracking
 
 ---
+
+## Managing Your Orders
+
+- **View orders:** Check your account dashboard to see all orders
+- **Track queue position:** See where you are in the production queue
+- **Modify orders:** Within 12 hours, you can change options for free
+- **Cancel orders:** Within 24 hours with minimal fees (free within 12 hours)
+- **Leave reviews:** After receiving your item, share your experience
 
 ## Next Steps
 
-<!-- Point users toward the most useful things to do after the first run. -->
-
-- [Link to a feature guide] -- [one-line description]
-- [Link to a feature guide] -- [one-line description]
-- [Link to reference docs or API docs] -- [one-line description]
+- Browse the **Patterns** page for digital downloads you can use yourself
+- Add items to your **Favorites** to save them for later
+- Check out the **Merch** page for branded items that ship faster
+- Explore **About** to learn more about the artisan and the process
 
 ---
 
 ## Troubleshooting
 
-<!-- Add entries here as you discover common problems.
-     Format: Problem -> Solution. Be specific. -->
+**Problem:** I can't place an order -- the "Add to Cart" button is disabled
+**Solution:** The production queue is at capacity. You can sign up for email notifications when capacity opens up again, or check back in a few days.
 
-**Problem:** [Symptom the user sees]
-**Solution:** [Exact steps to fix it]
+**Problem:** I didn't receive a confirmation email
+**Solution:** Check your spam folder. If it's not there, contact support with your order number.
 
-**Problem:** [Symptom the user sees]
-**Solution:** [Exact steps to fix it]
+**Problem:** The delivery estimate seems too long
+**Solution:** Delivery estimates are based on actual production capacity and current queue. Handmade items take time! The estimate is honest and accurate.
 
-If you're stuck, [open an issue](https://github.com/username/project-name/issues) and include:
-- Your operating system and version
-- The version of [Project Name] you installed
-- The exact command you ran and the full output
+**Problem:** I need to change my shipping address after ordering
+**Solution:** If it's been less than 12 hours, you can modify your order in your account dashboard. After 12 hours, contact support.
+
+If you need help, contact support at nate.stott@pm.me with:
+- Your order number (if applicable)
+- A description of the issue
+- Screenshots if relevant

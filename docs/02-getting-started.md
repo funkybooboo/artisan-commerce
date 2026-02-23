@@ -6,16 +6,15 @@ This guide walks you through setting up the project locally from scratch.
 
 Before you begin, make sure you have the following installed:
 
-<!-- List what someone needs before they can run this project.
-     Be specific about versions. Link to install instructions. -->
+- [mise](https://mise.jdx.dev/getting-started.html) -- Task runner and environment manager for this project
+- [Git](https://git-scm.com/) -- Version control
 
-- [Tool 1] -- [what it's for and where to get it]
-- [Tool 2] -- [what it's for and where to get it]
+**Note:** The technology stack (programming language, framework, database) will be determined in a future architecture decision record. For now, the project contains documentation and planning materials only.
 
 ```bash
 # Verify your setup
-tool1 --version
-tool2 --version
+mise --version
+git --version
 ```
 
 ---
@@ -25,8 +24,8 @@ tool2 --version
 **1. Clone the repository:**
 
 ```bash
-git clone https://github.com/username/project-name.git
-cd project-name
+git clone https://github.com/funkybooboo/bluebellsandthistles.git
+cd bluebellsandthistles
 ```
 
 **2. Install dependencies:**
@@ -59,9 +58,16 @@ All configuration is done through environment variables. Never hardcode config v
 |----------|----------|---------|-------------|
 | `APP_ENV` | No | `development` | Runtime environment (`development`, `test`, `production`) |
 | `LOG_LEVEL` | No | `info` | Log verbosity (`debug`, `info`, `warn`, `error`) |
+| `DATABASE_URL` | Yes | - | Database connection string |
+| `STRIPE_SECRET_KEY` | Yes | - | Stripe API secret key for payment processing |
+| `STRIPE_PUBLISHABLE_KEY` | Yes | - | Stripe API publishable key |
+| `STRIPE_WEBHOOK_SECRET` | Yes | - | Stripe webhook signing secret |
+| `EMAIL_SERVICE_API_KEY` | Yes | - | Email service API key for order notifications |
+| `EMAIL_FROM_ADDRESS` | Yes | - | From address for system emails |
+| `QUEUE_MAX_CAPACITY` | No | `100` | Maximum queue capacity (in weight units) |
+| `QUEUE_WEEKLY_THROUGHPUT` | No | `10` | Weekly production throughput (weight units per week) |
 
-<!-- Add your project's variables to this table.
-     See .env.example for the full list with descriptions. -->
+**Note:** Specific environment variables will be finalized once the technology stack is chosen.
 
 ---
 
@@ -81,9 +87,9 @@ All configuration is done through environment variables. Never hardcode config v
 ## Project Structure
 
 ```
-project-name/
+bluebellsandthistles/
 |-- docs/             # Documentation
-|-- plans/            # Roadmap, stories, decisions, retrospectives
+|-- plans/            # Roadmap, stories, decisions, retrospectives, vision
 |-- .github/          # CI workflow and GitHub templates
 |-- .env.example      # Environment variable reference
 |-- mise.toml         # All development commands
@@ -91,7 +97,7 @@ project-name/
 `-- README.md
 ```
 
-<!-- Add your project's source directories here once you've set them up. -->
+Source code directories will be added once the technology stack is determined.
 
 ---
 
@@ -105,4 +111,4 @@ project-name/
 
 <!-- Add project-specific troubleshooting here as you discover common issues. -->
 
-If you're stuck, [open an issue](https://github.com/username/project-name/issues) with your environment details and what you tried.
+If you're stuck, [open an issue](https://github.com/funkybooboo/bluebellsandthistles/issues) with your environment details and what you tried.

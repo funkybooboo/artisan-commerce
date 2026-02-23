@@ -4,6 +4,7 @@ Project planning, decisions, and history.
 
 | Directory | What lives here |
 |-----------|----------------|
+| [`vision.md`](./vision.md) | Original project concept and detailed vision from ChatGPT brainstorming |
 | [`roadmap.md`](./roadmap.md) | Versioned milestones and feature backlog |
 | [`stories/`](./stories/) | User stories with acceptance criteria |
 | [`specs/`](./specs/) | Technical specifications for complex features |
