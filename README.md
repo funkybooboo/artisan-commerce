@@ -21,7 +21,7 @@ Built on a modern serverless edge architecture optimized for cost, portability, 
 
 - **Frontend**: Next.js 14 App Router (TypeScript) deployed to Cloudflare Pages
 - **Backend**: Hono on Cloudflare Workers (serverless functions at the edge)
-- **Database**: Drizzle ORM + Cloudflare D1 (distributed SQLite, multi-tenant ready)
+- **Database**: Drizzle ORM + Cloudflare D1 (distributed SQLite)
 - **File Storage**: Cloudflare R2 (S3-compatible object storage)
 - **Infrastructure**: Terraform (Infrastructure as Code)
 - **CI/CD**: GitHub Actions with SLSA Level 3 provenance
@@ -32,7 +32,7 @@ Built on a modern serverless edge architecture optimized for cost, portability, 
 
 **Key Features**:
 - Zero vendor lock-in (comprehensive adapter pattern for all external services)
-- Multi-tenant architecture (ready for white-label SaaS expansion)
+- Single-tenant-per-instance (one artisan business per deployment)
 - LLM-optimized tech stack (maximum AI-assisted development velocity)
 - SLSA Level 3 supply chain security
 - 12-Factor App compliant

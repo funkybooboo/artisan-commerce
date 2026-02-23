@@ -431,33 +431,16 @@ export default defineConfig({
 })
 EOF
 
-# Create first schema (tenants + users)
-cat > src/schema/tenants.ts << 'EOF'
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
-
-export const tenants = sqliteTable('tenants', {
-  id: text('id').primaryKey(),
-  subdomain: text('subdomain').notNull().unique(),
-  customDomain: text('custom_domain'),
-  name: text('name').notNull(),
-  plan: text('plan').notNull(), // free, starter, pro
-  status: text('status').notNull(), // active, suspended, cancelled
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
-})
-EOF
-
+# Create first schema (users only - no tenants table needed)
 cat > src/schema/users.ts << 'EOF'
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
-import { tenants } from './tenants'
 
 export const users = sqliteTable('users', {
   id: text('id').primaryKey(),
-  tenantId: text('tenant_id').notNull().references(() => tenants.id, { onDelete: 'cascade' }),
-  email: text('email').notNull(),
+  email: text('email').notNull().unique(),
   name: text('name').notNull(),
   phone: text('phone'),
-  role: text('role').notNull(), // customer, artisan, super_admin
+  role: text('role').notNull(), // customer, artisan
   defaultAddress: text('default_address'), // JSON
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
@@ -466,7 +449,6 @@ export const users = sqliteTable('users', {
 EOF
 
 cat > src/schema/index.ts << 'EOF'
-export * from './tenants'
 export * from './users'
 EOF
 
@@ -482,11 +464,10 @@ export interface UserRepository {
 
 export interface User {
   id: string
-  tenantId: string
   email: string
   name: string
   phone?: string
-  role: 'customer' | 'artisan' | 'super_admin'
+  role: 'customer' | 'artisan'
   defaultAddress?: string
   createdAt: Date
   updatedAt: Date
@@ -497,7 +478,7 @@ export interface CreateUserData {
   email: string
   name: string
   phone?: string
-  role: 'customer' | 'artisan' | 'super_admin'
+  role: 'customer' | 'artisan'
   defaultAddress?: string
 }
 

@@ -46,7 +46,7 @@ Artisan Commerce becomes the standard for transparent, sustainable made-to-order
 - [ ] User registration and email verification
 - [ ] User login and session management
 - [ ] Password reset flow
-- [ ] Role-based access control (User, Admin, SuperAdmin)
+- [ ] Role-based access control (Customer, Artisan)
 - [ ] User profile and account settings
 - [ ] Address book management
 - [ ] Tests for all authentication flows
@@ -200,7 +200,7 @@ Artisan Commerce becomes the standard for transparent, sustainable made-to-order
 Ideas that don't have a version yet. Promoted to a milestone when prioritized.
 
 ### High priority
-- SuperAdmin analytics dashboard (revenue, popular patterns, queue saturation)
+- Artisan analytics dashboard (revenue, popular patterns, queue saturation)
 - Email notifications when queue capacity opens up
 - Pattern-to-product integration (upsell: "Make it yourself or order one made")
 

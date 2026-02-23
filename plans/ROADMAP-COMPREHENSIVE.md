@@ -68,7 +68,7 @@ Artisan Commerce becomes the standard for transparent, sustainable made-to-order
 
 - **Engineer (You)**: Software development, infrastructure, monitoring via CLI
 - **Artisan (Wife)**: Business operations, order fulfillment via web dashboard
-- **Roles**: Customer (buyers), Artisan (admin), SuperAdmin (engineer, CLI only)
+- **Roles**: Customer (buyers), Artisan (business owner/admin)
 
 ### Success Metrics
 
@@ -290,43 +290,42 @@ All decisions documented in ADRs (Architecture Decision Records):
 
 ## Domain Model
 
-### Multi-Tenant Architecture
+### Single-Tenant Architecture
 
-**Design for multi-tenancy from start** (future white-label SaaS):
+**One artisan business per application instance**:
 
+- Each deployment serves a single artisan business
+- No runtime multi-tenancy or tenant isolation needed
+- Brand configuration via environment variables (.env)
+- To serve multiple artisan businesses, fork the repository and deploy separate instances
+- Database schema is simple - no tenant_id columns needed
+
+**Example**: Your wife's shop "Bluebells & Thistles" runs on one instance. Another artisan "Cozy Crafts" would fork the repo and deploy their own instance with their own branding.
+
+**Configuration**:
+```bash
+# .env for Bluebells & Thistles
+BUSINESS_NAME="Bluebells & Thistles"
+BUSINESS_DOMAIN="bluebellsandthistles.com"
+BUSINESS_EMAIL="hello@bluebellsandthistles.com"
+```
+
+**Database Schema** (simplified, no tenant_id):
 ```sql
--- All tables include tenant_id for isolation
-CREATE TABLE tenants (
+CREATE TABLE users (
   id TEXT PRIMARY KEY,
-  subdomain TEXT UNIQUE NOT NULL,
-  custom_domain TEXT,
+  email TEXT NOT NULL UNIQUE,
   name TEXT NOT NULL,
-  plan TEXT NOT NULL,
-  status TEXT NOT NULL,
+  role TEXT NOT NULL, -- customer, artisan
   created_at INTEGER NOT NULL,
   updated_at INTEGER NOT NULL
 );
-
--- Example: users table with tenant_id
-CREATE TABLE users (
-  id TEXT PRIMARY KEY,
-  tenant_id TEXT NOT NULL,
-  email TEXT NOT NULL,
-  name TEXT NOT NULL,
-  role TEXT NOT NULL,
-  UNIQUE(tenant_id, email),
-  FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE
-);
 ```
-
-**Row-Level Security**: All repository methods filter by tenant_id
-
-**Initial Tenant**: artisan-commerce.com (single tenant for v1.0)
 
 ### Core Entities
 
 **User**
-- Roles: customer, artisan, super_admin
+- Roles: customer, artisan
 - Fields: email, name, phone (optional), role, created_at, updated_at, last_login_at
 - Default address (JSON)
 - Email preferences (granular per-event)
@@ -675,13 +674,13 @@ Example:
 - [ ] Magic link verification endpoint
 - [ ] JWT session token (24hr expiry, httpOnly cookie)
 - [ ] User profile CRUD (name, email, phone, default address)
-- [ ] Role-based middleware (customer, artisan, super_admin)
+- [ ] Role-based middleware (customer, artisan)
 - [ ] Email preference management (granular per-event)
 - [ ] Geographic restriction middleware (Utah IP for artisan)
 - [ ] Rate limiting middleware (sensitive operations)
 
 **Database**:
-- [ ] users table (multi-tenant)
+- [ ] users table
 - [ ] user_email_preferences table
 
 **Tests** (TDD):

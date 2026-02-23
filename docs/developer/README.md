@@ -50,9 +50,9 @@ Technical documentation for the major systems in Artisan Commerce:
 - **Email Notifications** - Triggered emails for order events
 
 ### User Roles & Permissions
-- **Role-Based Access Control** - User, Admin, SuperAdmin capabilities
+- **Role-Based Access Control** - Customer and Artisan capabilities
 - **Admin Dashboard** - Queue management and order processing
-- **SuperAdmin Tools** - System configuration and analytics
+- **Artisan Tools** - Business management and analytics dashboard
 
 ---
 

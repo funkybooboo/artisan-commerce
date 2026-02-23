@@ -10,7 +10,7 @@ This document covers how to think about structuring Artisan Commerce -- the prin
 
 Artisan Commerce is built around these core entities:
 
-- **User** -- Customers, admins, and super admins with role-based permissions
+- **User** -- Customers and artisans with role-based permissions
 - **Project** -- Made-to-order handmade items (crochet, knitting, embroidery, etc.) with customizable options
 - **Pattern** -- Digital or physical patterns that can be sold standalone or linked to projects
 - **Order** -- Customer orders containing projects and/or patterns, with lifecycle states and queue position
@@ -161,7 +161,7 @@ These choices follow the architectural principles above (ports/adapters, 12-fact
 - Minimal operational overhead (fully managed services)
 - Cost efficiency (free tiers cover 100x expected usage)
 - Infrastructure as Code (everything version-controlled)
-- Multi-tenant architecture (ready for white-label SaaS)
+- Single-tenant-per-instance (one artisan business per deployment)
 - AI-assisted development (Next.js has vast LLM training data)
 
 **For detailed information:**
