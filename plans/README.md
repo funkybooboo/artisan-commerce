@@ -10,7 +10,6 @@ Project planning, decisions, and history.
 | [`specs/`](./specs/) | Technical specifications for complex features |
 | [`decisions/`](./decisions/) | Architecture Decision Records (ADRs) |
 | [`retrospectives/`](./retrospectives/) | Sprint and release retrospectives |
-| [`archive/`](./archive/) | Historical documents and deprecated files |
 
 **Quick Reference:**
 - **What to build**: See [`roadmap.md`](./roadmap.md)
