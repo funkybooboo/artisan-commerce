@@ -6,8 +6,6 @@ Project planning, decisions, and history.
 |----------|----------------|
 | [`vision.md`](./vision.md) | Original project concept and detailed vision from ChatGPT brainstorming |
 | [`roadmap.md`](./roadmap.md) | **Start here** - Versioned milestones, feature tracking, and progress |
-| [`business-rules.md`](./business-rules.md) | Complete business logic, workflows, and operational rules |
-| [`domain-model.md`](./domain-model.md) | Entity specifications, relationships, and database schema |
 | [`stories/`](./stories/) | User stories with acceptance criteria |
 | [`specs/`](./specs/) | Technical specifications for complex features |
 | [`decisions/`](./decisions/) | Architecture Decision Records (ADRs) |
@@ -16,8 +14,6 @@ Project planning, decisions, and history.
 
 **Quick Reference:**
 - **What to build**: See [`roadmap.md`](./roadmap.md)
-- **How it works**: See [`business-rules.md`](./business-rules.md)
-- **Data structure**: See [`domain-model.md`](./domain-model.md)
 - **Why we decided**: See [`decisions/`](./decisions/)
 
 ## How to Use This Directory
