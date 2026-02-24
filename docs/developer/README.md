@@ -1,100 +1,60 @@
-# Developer Guides
+# Developer Documentation
 
-Operational guides and technical documentation for developers working on Artisan Commerce.
-
-These guides cover the practical aspects of development: setup, testing, deployment, and working with the technology stack. For architectural principles and development standards, see the [numbered documentation series](../).
+Documentation for developers building Artisan Commerce.
 
 ---
 
 ## Getting Started
 
-| Guide | What it covers |
-|-------|----------------|
-| [Local Development](./local-development.md) | Complete setup, workflow, testing, debugging, and troubleshooting |
-| [Tech Stack Summary](./tech-stack.md) | Quick reference for all technology decisions and architecture |
+**New to the project?**
 
-**New to the project?** Start with [Local Development](./local-development.md) for a comprehensive setup guide.
-
----
-
-## Operations
-
-| Guide | What it covers |
-|-------|----------------|
-| [Deployment](./deployment.md) | CI/CD pipelines, staging/production deployment, rollback procedures, and monitoring |
+1. [Getting Started](./guides/getting-started.md) - 5-minute quickstart
+2. [Architecture](./reference/architecture.md) - Understand the system design
+3. [Development Guide](./guides/development.md) - Local dev workflows
+4. [Code Standards](./standards/code-standards.md) - Coding conventions
 
 ---
 
-## Core Systems
+## Guides
 
-Technical documentation for the major systems in Artisan Commerce:
+Step-by-step instructions for common tasks:
 
-### Queue Management
-- **Queue Calculation Algorithm** - How delivery estimates are calculated based on capacity
-- **Capacity Management** - Setting and adjusting production throughput
-- **Queue Weight System** - How different projects impact the queue differently
-
-### Pricing Engine
-- **Pricing Rules** - How material, color, and size options affect price
-- **Price Calculation** - Composable pricing rules and modifiers
-- **Historical Pricing** - Preserving prices at time of purchase
-
-### Payment Processing
-- **Stripe Integration** - Checkout flow and webhook handling
-- **Refund Logic** - Cancellation fees and refund calculations
-- **Payment Security** - PCI compliance and data handling
-
-### Order Lifecycle
-- **State Machine** - Order states from pending to delivered
-- **Modification Windows** - Time-based rules for changes and cancellations
-- **Email Notifications** - Triggered emails for order events
-
-### User Roles & Permissions
-- **Role-Based Access Control** - Customer and Artisan capabilities
-- **Admin Dashboard** - Queue management and order processing
-- **Artisan Tools** - Business management and analytics dashboard
+- [Getting Started](./guides/getting-started.md) - Quick setup
+- [Development](./guides/development.md) - Local dev, testing, debugging
+- [Contributing](./guides/contributing.md) - How to contribute
+- [Deployment](./guides/deployment.md) - Production deployment
 
 ---
 
-## Architecture Decisions
+## Reference
 
-All major technology and architecture decisions are documented as ADRs (Architecture Decision Records) in [`plans/decisions/`](../../plans/decisions/):
+Technical specifications and design:
 
-- [ADR-001: Queue-Based Capacity Management](../../plans/decisions/ADR-001-example.md)
-- [ADR-002: Technology Stack](../../plans/decisions/ADR-002-tech-stack.md)
-- [ADR-003: Infrastructure as Code](../../plans/decisions/ADR-003-infrastructure-as-code.md)
-- [ADR-004: Database Choice](../../plans/decisions/ADR-004-database-cloudflare-d1.md)
-
----
-
-## Related Documentation
-
-### Development Principles
-- [Architecture Principles](../03-architecture.md) - Ports/adapters, 12-factor, separation of concerns
-- [Code Standards](../04-code-standards.md) - Naming, style, error handling
-- [Testing Philosophy](../05-testing.md) - TDD, testing pyramid, no-mocks policy
-- [Git Workflow](../07-git-workflow.md) - Branching, commits, pull requests
-
-### Planning
-- [Roadmap](../../plans/roadmap.md) - What we're building and when
-- [Vision](../../plans/vision.md) - Long-term goals and product direction
+- [Architecture](./reference/architecture.md) - Principles, stack, patterns
+- [Domain Model](./reference/domain-model.md) - Entities, relationships, schema
+- [Business Rules](./reference/business-rules.md) - Logic, workflows, rules
 
 ---
 
-## Writing Developer Guides
+## Standards
 
-When creating new developer guides:
+Team conventions and best practices:
 
-- Write for someone who will read or modify the source code
-- Explain the *why* behind design decisions, not just the *what*
-- Document edge cases and error handling explicitly
-- Include the testing strategy: which test files cover this feature
-- Link to relevant ADRs if a significant decision was made
-
-Add a file here for any feature complex enough to warrant explanation beyond inline comments.  
-Name files after the feature: `queue-algorithm.md`, `pricing-engine.md`, `order-state-machine.md`.
+- [Project Standards](./standards/project-standards.md) - ADRs, Changelog, SLSA
+- [Code Standards](./standards/code-standards.md) - Naming, style, patterns
+- [Git Workflow](./standards/git-workflow.md) - Branching, commits, PRs
+- [Testing](./standards/testing.md) - Testing philosophy and strategy
 
 ---
 
-> All documentation is plain text (Markdown), version controlled, and reviewed in pull requests.  
-> Update docs in the same PR as the code they describe.
+## Quick Links
+
+**Planning**:
+- [Roadmap](../../plans/roadmap.md) - Feature timeline
+- [ADRs](../../plans/decisions/) - Architecture decisions
+- [User Stories](../../plans/stories/) - Feature requirements
+
+**External**:
+- [SvelteKit Docs](https://kit.svelte.dev/)
+- [Cloudflare Workers Docs](https://developers.cloudflare.com/workers/)
+- [Drizzle ORM Docs](https://orm.drizzle.team/)

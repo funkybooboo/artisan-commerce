@@ -2,7 +2,13 @@
 
 Every significant architectural decision gets a record here. ADRs are short, permanent, and written at the time the decision is made.
 
-Name files `ADR-NNN-short-title.md`. Never delete or edit a past ADR -- if a decision is reversed, write a new ADR that supersedes it.
+**Format**: We follow the [ADR format by Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record)
+
+**Naming**: `ADR-NNN-short-title.md` (e.g., `ADR-001-queue-system.md`)
+
+**Immutability**: Never delete or edit a past ADR -- if a decision is reversed, write a new ADR that supersedes it.
+
+For complete ADR guidelines, see [Project Standards](../../docs/developer/standards/project-standards.md#architecture-decision-records).
 
 ## Status Values
 
@@ -17,7 +23,12 @@ Name files `ADR-NNN-short-title.md`. Never delete or edit a past ADR -- if a dec
 
 | ADR | Title | Status |
 |-----|-------|--------|
-| [ADR-001](./ADR-001-example.md) | Example ADR (delete me) | Accepted |
+| [ADR-001](./ADR-001-example.md) | Queue-Based Production Capacity Management | Accepted |
+| [ADR-002](./ADR-002-tech-stack.md) | Technology Stack - Cloudflare Serverless | Accepted |
+| [ADR-003](./ADR-003-infrastructure-as-code.md) | Infrastructure as Code with Terraform | Accepted |
+| [ADR-004](./ADR-004-database-cloudflare-d1.md) | Database - Cloudflare D1 | Accepted |
+| [ADR-005](./ADR-005-adapter-architecture.md) | Comprehensive Adapter Architecture | Accepted |
+| [ADR-006](./ADR-006-sveltekit.md) | SvelteKit for Simplicity and Edge Performance | Accepted |
 
 ---
 

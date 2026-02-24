@@ -2,20 +2,23 @@
 
 Project planning, decisions, and history.
 
-| Directory | What lives here |
-|-----------|----------------|
+| Document | What lives here |
+|----------|----------------|
 | [`vision.md`](./vision.md) | Original project concept and detailed vision from ChatGPT brainstorming |
-| [`roadmap.md`](./roadmap.md) | **Start here** - High-level versioned milestones and feature backlog for quick reference |
-| [`ROADMAP-COMPREHENSIVE.md`](./ROADMAP-COMPREHENSIVE.md) | **Deep dive** - Complete technical implementation details with all decisions and business rules |
+| [`roadmap.md`](./roadmap.md) | **Start here** - Versioned milestones, feature tracking, and progress |
+| [`business-rules.md`](./business-rules.md) | Complete business logic, workflows, and operational rules |
+| [`domain-model.md`](./domain-model.md) | Entity specifications, relationships, and database schema |
 | [`stories/`](./stories/) | User stories with acceptance criteria |
 | [`specs/`](./specs/) | Technical specifications for complex features |
 | [`decisions/`](./decisions/) | Architecture Decision Records (ADRs) |
 | [`retrospectives/`](./retrospectives/) | Sprint and release retrospectives |
+| [`archive/`](./archive/) | Historical documents and deprecated files |
 
-**When to use which roadmap:**
-- **Quick check**: Use `roadmap.md` to see what's done, in progress, or planned
-- **Implementation**: Use `ROADMAP-COMPREHENSIVE.md` for detailed specs and acceptance criteria
-- **Both are maintained** and serve different purposes
+**Quick Reference:**
+- **What to build**: See [`roadmap.md`](./roadmap.md)
+- **How it works**: See [`business-rules.md`](./business-rules.md)
+- **Data structure**: See [`domain-model.md`](./domain-model.md)
+- **Why we decided**: See [`decisions/`](./decisions/)
 
 ## How to Use This Directory
 
