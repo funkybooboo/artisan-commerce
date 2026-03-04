@@ -5,152 +5,86 @@ node = "20" # Pin to Node.js 20 LTS
 description = "Setup development environment (install dependencies)"
 run = """
 echo "Installing dependencies..."
-npm install
-cd workers/api && npm install && cd ../..
+pnpm install
 echo "[OK] Dependencies installed"
 echo ""
 echo "Next steps:"
 echo "  1. Copy .env.example to .env and fill in your values"
-echo "  2. Run 'mise run dev' to start development servers"
+echo "  2. Run 'mise run db:setup' to initialize local database"
+echo "  3. Run 'mise run dev' to start development servers"
 """
 
-[tasks.clean]
-description = "Clean build artifacts and caches"
+[tasks."db:setup"]
+description = "Create and initialize local database"
 run = """
-echo "Cleaning build artifacts..."
-# Uncomment based on your stack:
-# rm -rf node_modules dist build .next  # Node.js
-# rm -rf __pycache__ *.pyc .pytest_cache  # Python
-# cargo clean               # Rust
-# go clean                  # Go
-# rm -rf vendor             # Ruby/PHP
-echo "[OK] Cleaned"
+echo "Creating local D1 database..."
+cd apps/api
+npx wrangler d1 create artisan-commerce-local || echo "Database may already exist"
+echo ""
+echo "Applying migrations..."
+npx wrangler d1 migrations apply artisan-commerce-local --local
+echo "[OK] Local database initialized"
 """
+
+[tasks."db:generate"]
+description = "Generate database migrations"
+run = "cd packages/db && pnpm db:generate"
+
+[tasks."db:migrate:local"]
+description = "Apply migrations to local database"
+run = "cd apps/api && pnpm db:migrate:local"
+
+[tasks."db:migrate:remote"]
+description = "Apply migrations to production database"
+run = "cd apps/api && pnpm db:migrate:remote"
+
+[tasks."db:studio"]
+description = "Open Drizzle Studio (database browser)"
+run = "cd packages/db && pnpm db:studio"
 
 [tasks.dev]
-description = "Start development servers (SvelteKit + Workers)"
-run = """
-echo "Starting development servers..."
-echo "  Frontend: http://localhost:5173"
-echo "  API: http://localhost:8787"
-echo ""
-npm run dev
-"""
+description = "Start all development servers"
+run = "pnpm run dev"
 
 [tasks.build]
 description = "Build the project for production"
-run = """
-echo "Building project..."
-npm run build
-cd workers/api && npm run build && cd ../..
-echo "[OK] Build complete"
-"""
-
-[tasks.run]
-description = "Run the application"
-run = """
-# Uncomment based on your stack:
-# npm start                 # Node.js
-# python main.py            # Python
-# cargo run                 # Rust
-# go run .                  # Go
-# ruby main.rb              # Ruby
-# php index.php             # PHP
-echo "Add 'run' command for your project"
-"""
+run = "pnpm run build"
 
 [tasks.test]
 description = "Run all tests"
-run = """
-echo "Running tests..."
-npm test
-echo "[OK] Tests passed"
-"""
+run = "pnpm run test"
 
-[tasks."test:watch"]
-description = "Run tests in watch mode"
-run = """
-# Uncomment based on your stack:
-# npm run test:watch        # Node.js
-# pytest-watch              # Python
-# cargo watch -x test       # Rust
-# go test ./... -watch      # Go (with external tool)
-echo "Add 'test:watch' command for your project"
-"""
+[tasks."test:unit"]
+description = "Run unit tests only"
+run = "pnpm run test:unit"
 
-[tasks."test:coverage"]
-description = "Run tests with coverage report"
-run = """
-echo "Running tests with coverage..."
-# Uncomment based on your stack:
-# npm run test:coverage     # Node.js
-# pytest --cov              # Python
-# cargo tarpaulin           # Rust
-# go test -cover ./...      # Go
-# bundle exec rspec --coverage  # Ruby
-echo "[OK] Coverage report generated"
-"""
+[tasks."test:integration"]
+description = "Run integration tests only"
+run = "pnpm run test:integration"
 
 [tasks."test:e2e"]
 description = "Run end-to-end tests"
-run = """
-# Uncomment based on your stack:
-# npm run test:e2e          # Node.js (Playwright, Cypress)
-# pytest tests/e2e          # Python
-# cargo test --test e2e     # Rust
-echo "Add 'test:e2e' command for your project"
-"""
+run = "pnpm run test:e2e"
 
 [tasks.format]
 description = "Format code automatically"
-run = """
-echo "Formatting code..."
-npm run format
-echo "[OK] Code formatted"
-"""
+run = "pnpm run format"
 
 [tasks."format:check"]
 description = "Check if code is properly formatted"
-run = """
-echo "Checking code format..."
-# Uncomment based on your stack:
-# npm run format:check      # Node.js
-# black --check .           # Python
-# cargo fmt -- --check      # Rust
-# go fmt -l ./...           # Go
-# rubocop                   # Ruby
-echo "[OK] Format check passed"
-"""
+run = "pnpm run format:check"
 
 [tasks.lint]
 description = "Run linter"
-run = """
-echo "Running linter..."
-npm run lint
-echo "[OK] Linting passed"
-"""
+run = "pnpm run lint"
 
 [tasks."lint:fix"]
 description = "Run linter and auto-fix issues"
-run = """
-# Uncomment based on your stack:
-# npm run lint:fix          # Node.js
-# autopep8 --in-place --recursive .  # Python
-# cargo clippy --fix        # Rust
-# golangci-lint run --fix   # Go
-echo "Add 'lint:fix' command for your project"
-"""
+run = "pnpm run lint:fix"
 
 [tasks."type-check"]
 description = "Run type checker"
-run = """
-# Uncomment based on your stack:
-# npm run type-check        # Node.js (TypeScript)
-# mypy .                    # Python
-# cargo check               # Rust
-# go vet ./...              # Go
-echo "Add 'type-check' command for your project"
-"""
+run = "pnpm run type-check"
 
 [tasks.check]
 description = "Run all code quality checks (format, lint, type-check)"
@@ -166,161 +100,18 @@ run = "echo '[OK] All validation checks passed'"
 description = "Run CI pipeline (alias for validate)"
 depends = ["validate"]
 
-[tasks.docs]
-description = "Generate and view documentation"
+[tasks.clean]
+description = "Clean build artifacts and caches"
 run = """
-# Uncomment based on your stack:
-# npm run docs              # Node.js (TypeDoc, JSDoc)
-# mkdocs serve              # Python (MkDocs)
-# cargo doc --open          # Rust
-# godoc -http=:6060         # Go
-echo "Add 'docs' command for your project"
-"""
-
-[tasks."docs:build"]
-description = "Build documentation for deployment"
-run = """
-# Uncomment based on your stack:
-# npm run docs:build        # Node.js
-# mkdocs build              # Python
-# cargo doc                 # Rust
-echo "Add 'docs:build' command for your project"
-"""
-
-[tasks."db:migrate"]
-description = "Run database migrations"
-run = """
-# Uncomment based on your stack:
-# npm run migrate           # Node.js (Prisma, Drizzle)
-# python manage.py migrate  # Django
-# flask db upgrade          # Flask
-# rails db:migrate          # Ruby on Rails
-# php artisan migrate       # Laravel
-echo "Add 'db:migrate' command for your project"
-"""
-
-[tasks."db:seed"]
-description = "Seed database with sample data"
-run = """
-# Uncomment based on your stack:
-# npm run db:seed           # Node.js
-# python manage.py loaddata fixtures/*.json  # Django
-# rails db:seed             # Ruby on Rails
-echo "Add 'db:seed' command for your project"
-"""
-
-[tasks."db:reset"]
-description = "Reset database (drop, create, migrate, seed)"
-run = """
-# Uncomment based on your stack:
-# npm run db:reset          # Node.js
-# python manage.py flush && python manage.py migrate  # Django
-# rails db:reset            # Ruby on Rails
-echo "Add 'db:reset' command for your project"
-"""
-
-[tasks."deps:update"]
-description = "Update dependencies to latest versions"
-run = """
-echo "Updating dependencies..."
-# Uncomment based on your stack:
-# npm update                # Node.js
-# pip install -U -r requirements.txt  # Python
-# cargo update              # Rust
-# go get -u ./...           # Go
-# bundle update             # Ruby
-# composer update           # PHP
-echo "[OK] Dependencies updated"
-"""
-
-[tasks."deps:outdated"]
-description = "Check for outdated dependencies"
-run = """
-# Uncomment based on your stack:
-# npm outdated              # Node.js
-# pip list --outdated       # Python
-# cargo outdated            # Rust (requires cargo-outdated)
-# go list -u -m all         # Go
-# bundle outdated           # Ruby
-# composer outdated         # PHP
-echo "Add 'deps:outdated' command for your project"
-"""
-
-[tasks."deps:audit"]
-description = "Audit dependencies for security vulnerabilities"
-run = """
-echo "Auditing dependencies..."
-# Uncomment based on your stack:
-# npm audit                 # Node.js
-# pip-audit                 # Python
-# cargo audit               # Rust (requires cargo-audit)
-# go list -json -deps ./... | nancy sleuth  # Go (requires nancy)
-echo "[OK] Audit complete"
-"""
-
-[tasks."git:hooks"]
-description = "Install git hooks (husky, pre-commit, etc.)"
-run = """
-# Uncomment based on your setup:
-# npx husky install         # Node.js (Husky)
-# pre-commit install        # Python (pre-commit)
-echo "Add 'git:hooks' command for your project"
-"""
-
-[tasks."docker:build"]
-description = "Build Docker image"
-run = """
-docker build -t my-project:latest .
-echo "[OK] Docker image built"
-"""
-
-[tasks."docker:run"]
-description = "Run Docker container"
-run = "docker run -p 3000:3000 my-project:latest"
-
-[tasks."docker:up"]
-description = "Start Docker Compose services"
-run = """
-docker-compose up -d
-echo "[OK] Services started"
-"""
-
-[tasks."docker:down"]
-description = "Stop Docker Compose services"
-run = """
-docker-compose down
-echo "[OK] Services stopped"
-"""
-
-[tasks."docker:logs"]
-description = "View Docker Compose logs"
-run = "docker-compose logs -f"
-
-[tasks.release]
-description = "Create a new release (tag, build, publish)"
-run = """
-echo "Creating release..."
-# Add your release process here
-echo "[WARN] Add 'release' command for your project"
-"""
-
-[tasks.deploy]
-description = "Deploy to production"
-run = """
-echo "Deploying to production..."
-# Add your deployment process here
-echo "[WARN] Add 'deploy' command for your project"
-"""
-
-[tasks.version]
-description = "Show project version"
-run = """
-# Uncomment based on your stack:
-# npm version               # Node.js
-# python -c "import my-project; print(my-project.__version__)"  # Python
-# cargo pkgid | cut -d# -f2 # Rust
-# go version -m ./bin/app   # Go
-echo "Add 'version' command for your project"
+echo "Cleaning build artifacts..."
+rm -rf node_modules
+rm -rf apps/*/node_modules
+rm -rf packages/*/node_modules
+rm -rf apps/*/.svelte-kit
+rm -rf apps/*/.wrangler
+rm -rf apps/*/dist
+rm -rf packages/*/dist
+echo "[OK] Cleaned"
 """
 
 [tasks.help]

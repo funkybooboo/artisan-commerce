@@ -56,7 +56,7 @@ Artisan Commerce becomes the standard for transparent, sustainable made-to-order
 
 ## Milestones
 
-## v0.1.0 -- Foundation [/]
+## v0.1.0 -- Foundation [x]
 
 **Goal**: Repository structure, documentation, and planning complete. Ready to start building.
 
@@ -75,26 +75,26 @@ Artisan Commerce becomes the standard for transparent, sustainable made-to-order
 - [x] Repository cleanup and consolidation
 
 **Remaining**:
-- [ ] Create project structure (src/, workers/, migrations/, terraform/)
-- [ ] Initialize SvelteKit app with Tailwind + shadcn-svelte
-- [ ] Initialize Hono Workers API
-- [ ] Create adapter interfaces (EmailProvider, ShippingProvider, etc.)
-- [ ] Create mock/inmemory adapters for testing
-- [ ] Initialize Drizzle schema (User, Project, Order tables)
-- [ ] Set up CI/CD pipeline (GitHub Actions)
-- [ ] Configure SLSA provenance generation
-- [ ] Configure Dependabot
-- [ ] Set up Git Flow branches (main, develop)
-- [ ] Write development environment setup guide
-- [ ] Verify `mise run dev` starts all services
+- [x] Create project structure (apps/, packages/, monorepo)
+- [x] Initialize SvelteKit app (basic setup, no Tailwind/shadcn yet)
+- [x] Initialize Hono Workers API
+- [x] Create adapter interfaces (EmailProvider, StorageProvider)
+- [x] Create mock/inmemory adapters for testing
+- [x] Initialize Drizzle schema (User, Project, Order, Queue tables)
+- [x] Set up CI/CD pipeline (GitHub Actions)
+- [ ] Configure SLSA provenance generation (deferred to v0.2.0)
+- [x] Configure Dependabot
+- [ ] Set up Git Flow branches (using main only for now)
+- [x] Write development environment setup guide (mise.toml updated)
+- [x] Verify `mise run dev` starts all services
 
 **Database**:
-- [ ] Initial migration with users, projects, orders tables
+- [x] Initial migration with users, projects, orders, queue tables
 
 **Tests**:
-- [ ] Example unit test (queue calculations)
-- [ ] Example integration test (API endpoint)
-- [ ] Example E2E test (visit homepage)
+- [x] Example unit test (EmailProvider tests)
+- [x] Example integration test (API health endpoint)
+- [x] Example E2E test (homepage test configured)
 
 **Done When**: 
 - New contributor can clone repo, run `mise run setup && mise run dev`, and see SvelteKit + Hono running

@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "types": ["@sveltejs/kit", "vite/client", "vitest/globals"],
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": true,
+    "isolatedModules": true
+  },
+  "references": [
+    {
+      "path": "../../packages/shared"
+    }
+  ],
+  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
+  "exclude": ["node_modules", ".svelte-kit", "build"]
+}

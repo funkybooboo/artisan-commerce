@@ -1,0 +1,30 @@
+{
+  "name": "@artisan-commerce/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo 'No unit tests yet' && npm run test:e2e",
+    "test:unit": "echo 'No unit tests yet'",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "type-check": "svelte-kit sync && tsc --noEmit"
+  },
+  "dependencies": {
+    "@artisan-commerce/shared": "workspace:*",
+    "hono": "^4.6.14"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@sveltejs/adapter-cloudflare": "^4.7.4",
+    "@sveltejs/kit": "^2.14.0",
+    "@sveltejs/vite-plugin-svelte": "^5.0.4",
+    "svelte": "^5.15.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}

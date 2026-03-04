@@ -1,0 +1,30 @@
+{
+  "name": "@artisan-commerce/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:watch": "vitest",
+    "type-check": "tsc --noEmit",
+    "db:create": "wrangler d1 create artisan-commerce-local",
+    "db:migrate:local": "wrangler d1 migrations apply artisan-commerce-local --local",
+    "db:migrate:remote": "wrangler d1 migrations apply artisan-commerce-prod --remote"
+  },
+  "dependencies": {
+    "@artisan-commerce/adapters": "workspace:*",
+    "@artisan-commerce/db": "workspace:*",
+    "@artisan-commerce/shared": "workspace:*",
+    "hono": "^4.6.14"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250106.0",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "wrangler": "^3.101.0"
+  }
+}
