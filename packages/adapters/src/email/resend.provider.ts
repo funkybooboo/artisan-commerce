@@ -6,8 +6,8 @@
 import { Resend } from 'resend'
 import type { EmailProvider } from './index.js'
 import {
-  EmailProviderError,
   type BulkEmailParams,
+  EmailProviderError,
   type EmailResult,
   type TemplateEmailParams,
   type TransactionalEmailParams,
@@ -44,11 +44,11 @@ export class ResendEmailProvider implements EmailProvider {
         subject: params.subject,
         html: params.html,
         text: params.text,
-        reply_to: params.replyTo,
+        replyTo: params.replyTo,
         attachments: params.attachments?.map((att) => ({
           filename: att.filename,
           content: att.content,
-          content_type: att.contentType,
+          contentType: att.contentType,
         })),
       })
 
@@ -72,7 +72,7 @@ export class ResendEmailProvider implements EmailProvider {
     }
   }
 
-  async sendTemplate(params: TemplateEmailParams): Promise<EmailResult> {
+  async sendTemplate(_params: TemplateEmailParams): Promise<EmailResult> {
     // Resend doesn't have built-in template support yet
     // For now, we'll throw an error. In the future, this could use
     // React Email or similar templating solution
@@ -100,7 +100,7 @@ export class ResendEmailProvider implements EmailProvider {
       }
 
       return (
-        data?.map((item) => ({
+        data?.data?.map((item: { id?: string }) => ({
           success: true,
           messageId: item.id || 'unknown',
         })) || []

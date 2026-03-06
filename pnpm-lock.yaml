@@ -136,9 +136,15 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20250106.0
         version: 4.20260301.1
+      hono:
+        specifier: ^4.6.14
+        version: 4.12.4
       typescript:
         specifier: ^5.7.2
         version: 5.9.3
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.9(@types/node@22.19.13)
 
 packages:
 

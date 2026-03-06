@@ -2,15 +2,14 @@
 
 This document tracks what we're building, why, and in what order.
 
-**Last Updated**: 2026-02-23 | **Current Milestone**: v0.1.0 Foundation
+**Last Updated**: 2026-03-05 | **Current Milestone**: v0.3.0 Auth & User Management -- Frontend
 
 ---
 
 ## Quick Navigation
 
 - [Vision](#vision)
-- [Current Milestone](#v010----foundation)
-- [All Milestones](#milestones)
+- [Milestones](#milestones)
 - [Backlog](#backlog)
 - [Reference](#reference)
 
@@ -23,7 +22,6 @@ This document tracks what we're building, why, and in what order.
 | [x] | Complete |
 | [/] | In progress |
 | [ ] | Planned |
-| [?] | Future / under consideration |
 
 ---
 
@@ -33,15 +31,15 @@ Artisan Commerce becomes the standard for transparent, sustainable made-to-order
 
 ### Core Principles
 
-**Cheap**: Stay on Cloudflare free tier, ~$1-5/month until 100+ orders/month  
-**Convenient**: Passwordless auth, beautiful dashboard, mobile-first design  
-**Secure**: Geographic restrictions, RBAC, rate limiting, WCAG 2.1 AA, SLSA Level 3  
-**Portable**: Zero vendor lock-in via comprehensive adapter pattern  
+**Cheap**: Stay on Cloudflare free tier, ~$1-5/month until 100+ orders/month
+**Convenient**: Passwordless auth, beautiful dashboard, mobile-first design
+**Secure**: Geographic restrictions, RBAC, rate limiting, WCAG 2.1 AA, SLSA Level 3
+**Portable**: Zero vendor lock-in via comprehensive adapter pattern
 **Simple**: Straightforward frameworks, standard patterns, clear documentation
 
 ### Platform Scope
 
-- **Web-only** with mobile-responsive design
+- Web-only with mobile-responsive design
 - No native mobile apps planned
 - Mobile-first design approach
 - Touch-friendly UI for tablets/phones
@@ -56,543 +54,744 @@ Artisan Commerce becomes the standard for transparent, sustainable made-to-order
 
 ## Milestones
 
+---
+
 ## v0.1.0 -- Foundation [x]
 
-**Goal**: Repository structure, documentation, and planning complete. Ready to start building.
+**Goal**: Repository structure, tooling, and documentation in place. Ready to build.
 
-**Completed**:
-- [x] Repository structure and tooling
-- [x] Documentation framework customized for Artisan Commerce
-- [x] Project vision and domain model documented
-- [x] Architecture decision records (ADR-001 through ADR-006)
-- [x] Initial user stories
-- [x] Technology stack decision (ADR-002: Cloudflare serverless)
-- [x] Infrastructure as Code approach (ADR-003: Terraform)
-- [x] Database choice (ADR-004: Cloudflare D1)
-- [x] Adapter architecture (ADR-005: Zero vendor lock-in)
-- [x] Frontend framework (ADR-006: SvelteKit)
-- [x] Comprehensive roadmap with all decisions
-- [x] Repository cleanup and consolidation
+- [x] Monorepo structure (apps/, packages/)
+- [x] SvelteKit app initialized
+- [x] Hono Workers API initialized
+- [x] Drizzle schema: users, projects, orders, queue tables
+- [x] Initial migration
+- [x] Adapter interfaces: EmailProvider, StorageProvider
+- [x] InMemory adapters for testing
+- [x] CI/CD pipeline (GitHub Actions)
+- [x] Dependabot configured
+- [x] Development environment guide (mise.toml); `mise run dev` starts all services
+- [x] Example unit test (EmailProvider)
+- [x] Example integration test (health endpoint)
+- [x] Example E2E test (homepage)
+- [x] ADRs 001-006 written
+- [x] Project vision, domain model, business rules documented
 
-**Remaining**:
-- [x] Create project structure (apps/, packages/, monorepo)
-- [x] Initialize SvelteKit app (basic setup, no Tailwind/shadcn yet)
-- [x] Initialize Hono Workers API
-- [x] Create adapter interfaces (EmailProvider, StorageProvider)
-- [x] Create mock/inmemory adapters for testing
-- [x] Initialize Drizzle schema (User, Project, Order, Queue tables)
-- [x] Set up CI/CD pipeline (GitHub Actions)
-- [ ] Configure SLSA provenance generation (deferred to v0.2.0)
-- [x] Configure Dependabot
-- [ ] Set up Git Flow branches (using main only for now)
-- [x] Write development environment setup guide (mise.toml updated)
-- [x] Verify `mise run dev` starts all services
+**Done When**: Clone + `mise run setup && mise run dev` works; tests pass; CI green.
 
-**Database**:
-- [x] Initial migration with users, projects, orders, queue tables
+---
+
+## v0.2.0 -- Auth & User Management -- API [x]
+
+**Goal**: Magic link auth, JWT sessions, RBAC, and user profile CRUD. Backend only; all behavior covered by integration tests.
+
+**Known limitations**:
+- Sessions are stateless JWTs -- no server-side revocation
+- Rate limiting is in-memory per Worker instance -- no cross-instance coordination
+- Artisan account pre-seeded via DB only -- no registration API
+
+**Auth package** (`packages/shared/src/auth/`):
+- [x] `signMagicLinkToken` / `verifyMagicLinkToken`
+- [x] `signSessionToken` / `verifySessionToken`
+- [x] `AuthError` with `code: 'EXPIRED' | 'INVALID' | 'MISSING'`
+- [x] Token type discrimination (magic link token rejected as session)
+- [x] Unit tests: 12 passing
+
+**Config** (`apps/api/src/config.ts`):
+- [x] `parseAuthConfig`, `parseGeoConfig`, `parseRateLimitConfig` -- production builders
+- [x] `authConfigFromOptions`, `geoConfigFromOptions`, `rateLimitConfigFromOptions` -- test builders
+- [x] `buildMagicLinkUrl` pure helper
+- [x] `DEFAULTS` -- single source for all default values
+
+**API factory** (`apps/api/src/index.ts`):
+- [x] `Bindings`, `Variables`, `AppEnv`, `CreateAppOptions` types
+- [x] `createApp(opts?)` with test injection support
+- [x] Startup middleware resolves all config into `c.var` once; no `c.env` reads in routes or middleware
+
+**Middleware**:
+- [x] `auth.ts` -- `requireAuth`
+- [x] `role.ts` -- `requireRole(role)`
+- [x] `geo.ts` -- `requireUtahIp`
+- [x] `rate-limit.ts` -- `createRateLimitMiddleware(store?)`, injectable `BucketStore`
+
+**Routes**:
+- [x] `POST /api/auth/register` -- upsert user, send magic link, always 200
+- [x] `GET /api/auth/verify?token=` -- verify magic link, set httpOnly session cookie
+- [x] `POST /api/auth/logout` -- clear session cookie
+- [x] `GET /api/auth/me` -- requires auth, returns profile
+- [x] `GET /api/users/me` -- requires auth, returns full profile
+- [x] `PATCH /api/users/me` -- requires auth, accepts name/phone/defaultAddress
+
+**Adapter cleanup**:
+- [x] `SentEmailStore` interface + `InMemoryEmailStore` class separated from `InMemoryEmailProvider`
+- [x] `InMemoryEmailProvider` accepts injected store; no inspection methods on provider
+- [x] `InMemoryStorageProvider` refactored with same store/provider split
+- [x] `resend.provider.ts` unused `params` -> `_params`
+- [x] Non-existent `./payment`, `./shipping`, `./tax` exports removed from `packages/adapters/package.json`
+
+**Architectural cleanup**:
+- [x] Canonical `Role` type in `packages/shared/src/types/index.ts`; duplicates removed from `index.ts` and `role.ts`
+- [x] Canonical `Address` type in `packages/shared/src/types/index.ts`; duplicates removed from schema and `routes/users.ts`
+- [x] `rate-limit.ts` -- change `from '@artisan-commerce/api'` to relative `../index`
+- [x] `geo.ts` -- use `config.allowedRegion` instead of hardcoded `'UT'`
+- [x] `jwt.ts` -- replace fragile `constructor.name` check with proper type guard
+- [x] `hono` moved to `dependencies` in `packages/shared/package.json`
+- [x] `better-sqlite3` moved to `dependencies` in `packages/db/package.json`
+- [x] `tests/helpers/db.ts` -- auto-discover migration files; remove hardcoded list
+- [x] `tests/helpers/auth.ts` -- extract `loginAndGetCookie`; remove duplication
+- [x] Magic link expiry text in email body uses actual config value, not hardcoded "15 minutes"
+- [x] CORS origins moved to config; removed hardcoded values in `index.ts`
+
+**tsconfig cleanup**:
+- [x] Root `tsconfig.json` -- removed emit-only options (`composite`, `incremental`, `declaration`, `declarationMap`, `sourceMap`) irrelevant to `--noEmit` type-checking
+- [x] All package tsconfigs -- removed `outDir`, `references`, and redundant `paths`; rely on workspace symlinks + `moduleResolution: bundler`
+- [x] `packages/adapters/tsconfig.json` -- fixed pre-existing `rootDir` incompatibility; fixed Resend SDK field names (`reply_to` -> `replyTo`, `content_type` -> `contentType`, batch response shape)
+- [x] `packages/db/tsconfig.json` -- added `types: ["@cloudflare/workers-types"]` to resolve `D1Database`
 
 **Tests**:
-- [x] Example unit test (EmailProvider tests)
-- [x] Example integration test (API health endpoint)
-- [x] Example E2E test (homepage test configured)
+- [x] Unit: JWT helpers (12 tests)
+- [x] Integration: auth flow (12 tests)
+- [x] Integration: user profile CRUD (7 tests)
+- [x] Integration: health endpoint (2 tests)
 
-**Done When**: 
-- New contributor can clone repo, run `mise run setup && mise run dev`, and see SvelteKit + Hono running
-- Tests pass (`mise run test`)
-- CI pipeline runs successfully on PR
-- Can inject mock EmailProvider and write a test
-
-**Estimated Time**: 1-2 weeks
+**Done When**: All tests pass; lint clean; no hardcoded values; no duplicate types; no `biome-ignore` comments.
 
 ---
 
-## v0.2.0 -- Authentication & User Management [ ]
+## v0.3.0 -- Auth & User Management -- Frontend [ ]
 
-**Goal**: Users can create accounts and sign in. Role-based access control in place.
+**Goal**: SvelteKit pages for register, verify, and profile. Auth-aware nav. E2E tests.
 
-**Features**:
-- [ ] User registration (email input only)
-- [ ] Magic link generation (JWT with 15min expiry)
-- [ ] Email sending via EmailProvider (mock locally, Resend in prod)
-- [ ] Magic link verification endpoint
-- [ ] JWT session token (24hr expiry, httpOnly cookie)
-- [ ] User profile CRUD (name, email, phone, default address)
-- [ ] Role-based middleware (customer, artisan)
-- [ ] Email preference management (granular per-event)
-- [ ] Geographic restriction middleware (Utah IP for artisan)
-- [ ] Rate limiting middleware (sensitive operations)
+- [ ] `apps/web/src/lib/api.ts` -- typed fetch wrapper, `credentials: 'include'`
+- [ ] `/auth/register` -- email input form, success confirmation message
+- [ ] `/auth/verify` -- server-side load: calls API verify endpoint, redirects to /profile on success
+- [ ] `/profile` -- server load redirects to /register if 401; form action updates name/phone/address
+- [ ] `+layout.server.ts` -- calls `GET /api/auth/me`, passes user to layout
+- [ ] `+layout.svelte` -- nav shows login link when unauthed, name + logout when authed
+- [ ] E2E: register -> check email -> verify -> profile redirect
+- [ ] E2E: unauthenticated /profile redirects to /register
+- [ ] E2E: profile update persists
 
-**Database**:
-- [ ] users table
-- [ ] user_email_preferences table
-
-**Tests** (TDD):
-- [ ] Unit: JWT generation/verification, magic link expiry
-- [ ] Integration: Auth flow (register → email → verify → logged in)
-- [ ] E2E: Full user registration and login flow
-
-**Done When**: 
-- Customers can register and log in via magic link
-- Artisan can log in (Utah IP required)
-- Role-based access enforced
-- Email preferences work
-
-**Estimated Time**: 2-3 weeks
+**Done When**: Full auth flow works end-to-end in browser; E2E tests pass; no Tailwind/shadcn yet (plain HTML).
 
 ---
 
-## v0.3.0 -- Core Entities (Projects & Patterns) [ ]
+## v0.4.0 -- Design System [ ]
 
-**Goal**: Artisan can create and manage projects and patterns. Customers can browse them.
+**Goal**: Install Tailwind CSS + shadcn-svelte. Reskin all existing pages with the design system.
 
-**Features**:
-- [ ] Project CRUD (artisan only)
-  - [ ] Multiple images upload (client-side optimization)
-  - [ ] Project options system (material, color, size, custom text)
-  - [ ] Conditional option dependencies (artisan defines)
-  - [ ] Queue tier assignment (5 tiers with guidelines)
-  - [ ] Pricing: simple additive modifiers
-  - [ ] Enable/disable toggle
-- [ ] Pattern CRUD (artisan only)
-  - [ ] PDF upload (R2 storage via FileStorage adapter)
-  - [ ] Preview image generation
-  - [ ] Bidirectional project ↔ pattern linking
-  - [ ] Enable/disable toggle
-- [ ] Customer Views:
-  - [ ] Projects gallery (grid layout, filtering, sorting)
-  - [ ] Project detail page (images, options, pricing, delivery estimate)
-  - [ ] Patterns gallery
-  - [ ] Pattern detail page (preview, linked projects)
-- [ ] Favorites system
-  - [ ] Add/remove favorites
-  - [ ] Shareable wishlist URL
-  - [ ] Favorites count on projects (artisan analytics)
+- [ ] Install and configure Tailwind CSS in `apps/web`
+- [ ] Install and configure shadcn-svelte
+- [ ] Reskin `/auth/register` page
+- [ ] Reskin `/auth/verify` page
+- [ ] Reskin `/profile` page
+- [ ] Reskin layout nav (desktop + mobile)
+- [ ] Base typography, color tokens, spacing documented
+- [ ] Visual regression: all E2E tests still pass
 
-**Database**:
-- [ ] projects table
-- [ ] project_images table
-- [ ] project_options table
-- [ ] patterns table
-- [ ] favorites table
-
-**Tests** (TDD):
-- [ ] Unit: Option dependencies, pricing calculations
-- [ ] Integration: CRUD operations, file uploads
-- [ ] E2E: Artisan creates project, customer browses and favorites
-
-**Done When**: 
-- Artisan can create 10-20 projects with options
-- Customers can browse, filter, sort, favorite
-- Images upload and display correctly
-- Pricing calculates correctly
-
-**Estimated Time**: 3-4 weeks
+**Done When**: All pages use Tailwind + shadcn components; E2E tests still pass; consistent visual baseline established.
 
 ---
 
-## v0.4.0 -- Queue System [ ]
+## v0.5.0 -- Projects API [ ]
 
-**Goal**: The core differentiator -- queue-based production capacity management.
-
-**Features**:
-- [ ] Queue configuration (artisan dashboard)
-  - [ ] Weekly capacity input
-  - [ ] Pause button (vacation mode)
-  - [ ] Capacity utilization display
-- [ ] Queue calculation algorithm
-  - [ ] Dynamic delivery estimates
-  - [ ] Position tracking
-  - [ ] 5-tier weight system
-- [ ] Queue entry creation (when order paid)
-- [ ] Queue visualization (customers)
-  - [ ] Show position + estimate on order detail
-  - [ ] Show estimated delivery on project pages
-- [ ] Artisan queue dashboard
-  - [ ] Kanban board (drag-and-drop reordering)
-  - [ ] Status-based columns
-  - [ ] Capacity utilization metrics
-- [ ] Waitlist system
-  - [ ] Email signup when capacity full
-  - [ ] Estimated availability display
-  - [ ] Notify when capacity opens
+**Goal**: Artisan can create and manage projects with options and pricing. API and tests only.
 
 **Database**:
-- [ ] queue_entries table
-- [ ] queue_config table (single row)
+- [ ] `projects` table (title, description, base price, queue tier, enabled, artisan id)
+- [ ] `project_images` table (url, sort order)
+- [ ] `project_options` table (name, type, values, price modifier, dependencies)
 
-**Tests** (TDD):
-- [ ] Unit: Queue calculations, edge cases (cancellations, reordering)
-- [ ] Integration: Queue entry creation, position updates
-- [ ] E2E: Full queue flow (order → queue → delivery estimate)
+**Routes**:
+- [ ] `POST /api/projects` -- artisan only; create project
+- [ ] `GET /api/projects` -- public; list enabled projects (paginated, filterable)
+- [ ] `GET /api/projects/:id` -- public; project detail with options and images
+- [ ] `PATCH /api/projects/:id` -- artisan only; update project
+- [ ] `DELETE /api/projects/:id` -- artisan only; soft delete (disable)
+- [ ] `POST /api/projects/:id/images` -- artisan only; add image URL
+- [ ] `DELETE /api/projects/:id/images/:imageId` -- artisan only
 
-**Done When**: 
-- Queue accurately calculates delivery estimates
-- Artisan can manage capacity and reorder queue
-- Customers see position and estimate
-- Waitlist works when capacity full
+**Business rules**:
+- [ ] Pricing: base price + sum of selected option modifiers
+- [ ] Option dependencies: option B only shown when option A has value X
+- [ ] Queue tier validated against 5 allowed tiers (XSmall through XLarge)
 
-**Estimated Time**: 3-4 weeks
+**Tests**:
+- [ ] Unit: pricing calculation, option dependency validation
+- [ ] Integration: full CRUD, auth enforcement, filtering
+
+**Done When**: All routes tested; pricing and option logic unit tested; artisan-only routes reject customers.
 
 ---
 
-## v0.5.0 -- Shopping Cart & Orders [ ]
+## v0.6.0 -- Projects UI [ ]
 
-**Goal**: Users can add items to cart and place orders (without payment yet).
+**Goal**: Artisan can manage projects from a dashboard. Customers can browse and view project detail.
 
-**Features**:
-- [ ] Shopping cart functionality
-  - [ ] Add/remove items
-  - [ ] Quantity adjustment
-  - [ ] Cart persistence (logged-in users)
-  - [ ] Pattern bundle upsell (cart page)
-- [ ] Order creation (without payment)
-- [ ] Order lifecycle state machine (8 states)
-- [ ] Order modification system
-  - [ ] 12-hour free window (configurable)
-  - [ ] Per-order override (artisan can extend)
-  - [ ] Modification UI (change options, add/remove items)
-  - [ ] Cancellation with $15 flat fee after window
-- [ ] Order messages (threaded chat)
-  - [ ] Customer ↔ artisan conversation
-  - [ ] Artisan notification preferences
-  - [ ] Unified messages inbox (customer)
-- [ ] Contact form (general messages, no order)
-- [ ] Order history view
+- [ ] `/artisan/projects` -- list with enable/disable toggle, edit/delete actions
+- [ ] `/artisan/projects/new` -- create form (title, description, price, tier, options, images)
+- [ ] `/artisan/projects/:id/edit` -- edit form
+- [ ] `/projects` -- customer gallery: grid, filter by option/tier, sort by price/newest
+- [ ] `/projects/:id` -- customer detail: images, options selector, price preview, queue estimate placeholder
+- [ ] Image upload: client-side resize before upload to storage adapter
+- [ ] E2E: artisan creates project, customer views it
 
-**Database**:
-- [ ] orders table
-- [ ] order_items table
-- [ ] messages table
-
-**Tests** (TDD):
-- [ ] Unit: Order lifecycle, modification windows, cancellation fees
-- [ ] Integration: Cart operations, order creation, message sending
-- [ ] E2E: Full cart → order → modify → cancel flow
-
-**Done When**: 
-- Customers can add to cart, place orders, communicate with artisan
-- Order modification rules enforced
-- Messages work (order + contact)
-
-**Estimated Time**: 3-4 weeks
+**Done When**: Artisan can manage 10-20 projects; customers can browse and filter; E2E tests pass.
 
 ---
 
-## v0.6.0 -- Payment Integration [ ]
+## v0.7.0 -- Patterns API [ ]
 
-**Goal**: Stripe integration for checkout and refunds.
-
-**Features**:
-- [ ] Stripe account setup
-- [ ] PaymentProvider adapter + Stripe implementation
-- [ ] Checkout flow
-  - [ ] Stripe Checkout session creation (hosted)
-  - [ ] Success/cancel handling
-  - [ ] Order marked "paid" after successful payment
-  - [ ] Queue entry created
-- [ ] Webhook handling
-  - [ ] Payment confirmation
-  - [ ] Refund events
-  - [ ] Signature verification via adapter
-- [ ] Refund processing (artisan UI)
-  - [ ] Full/partial refund with reason tracking
-  - [ ] Stripe API integration
-  - [ ] Order status updates
-- [ ] Discount codes
-  - [ ] Artisan management page (create, track usage)
-  - [ ] One-time use enforcement
-  - [ ] % off or $ off types
-  - [ ] Apply at checkout
+**Goal**: Artisan can create patterns (PDF + preview image) and link them to projects. API and tests only.
 
 **Database**:
-- [ ] discount_codes table
-- [ ] discount_code_usage table
+- [ ] `patterns` table (title, description, pdf_url, preview_url, enabled, artisan id)
+- [ ] `project_patterns` join table (bidirectional link)
 
-**Tests** (TDD):
-- [ ] Unit: Discount code validation, refund calculations
-- [ ] Integration: Payment flows (Stripe test mode), webhooks
-- [ ] E2E: Full checkout → payment → confirmation flow
+**Routes**:
+- [ ] `POST /api/patterns` -- artisan only; create pattern (pdf_url, preview_url)
+- [ ] `GET /api/patterns` -- public; list enabled patterns
+- [ ] `GET /api/patterns/:id` -- public; pattern detail with linked projects
+- [ ] `PATCH /api/patterns/:id` -- artisan only; update
+- [ ] `DELETE /api/patterns/:id` -- artisan only; soft delete
+- [ ] `PUT /api/patterns/:id/projects` -- artisan only; set linked projects (replaces list)
 
-**Done When**: 
-- Customers can complete real purchases
-- Artisan can issue refunds
-- Discount codes work
-- Webhooks handled correctly
+**Tests**:
+- [ ] Integration: full CRUD, auth enforcement, bidirectional project links
 
-**Estimated Time**: 2-3 weeks
+**Done When**: All routes tested; bidirectional links work both ways.
 
 ---
 
-## v0.7.0 -- Shipping & Tax [ ]
+## v0.8.0 -- Patterns UI [ ]
 
-**Goal**: Shipping label generation and automatic tax calculation.
+**Goal**: Artisan can manage patterns. Customers can browse and view pattern detail.
 
-**Features**:
-- [ ] ShippingProvider adapter + Shippo implementation
-- [ ] Shipping rate calculation (USPS)
-  - [ ] Real-time rates at checkout
-  - [ ] International shipping support
-- [ ] Shipping label generation
-  - [ ] Artisan clicks "Create Label" → Shippo API
-  - [ ] Label PDF stored (R2 via FileStorage)
-  - [ ] Tracking number saved
-  - [ ] Order auto-marked "shipped"
-- [ ] TaxCalculator adapter + Stripe Tax implementation
-  - [ ] Automatic tax calculation at checkout
-  - [ ] Tax stored per order item (accounting)
-- [ ] Bulk shipping actions
-  - [ ] Select multiple orders
-  - [ ] Create labels in batch
-  - [ ] Export to CSV
+- [ ] `/artisan/patterns` -- list with enable/disable toggle, edit/delete actions
+- [ ] `/artisan/patterns/new` -- create form (title, description, PDF upload, preview, link projects)
+- [ ] `/artisan/patterns/:id/edit` -- edit form
+- [ ] `/patterns` -- customer gallery: grid, filter, sort
+- [ ] `/patterns/:id` -- customer detail: preview, download link (auth required), linked projects
+- [ ] PDF upload stored via StorageProvider adapter
+- [ ] E2E: artisan creates pattern linked to project, customer views both
 
-**Database**:
-- [ ] shipping_labels table
-
-**Tests** (TDD):
-- [ ] Unit: Shipping calculations, tax calculations
-- [ ] Integration: Shippo API, Stripe Tax API
-- [ ] E2E: Full shipping flow (create label → mark shipped)
-
-**Done When**: 
-- Artisan can calculate shipping, generate labels, collect tax automatically
-- Bulk actions work
-- International shipping works
-
-**Estimated Time**: 2-3 weeks
+**Done When**: Artisan can upload and manage patterns; customers can preview and access linked projects; E2E tests pass.
 
 ---
 
-## v0.8.0 -- Artisan Tools [ ]
+## v0.9.0 -- Favorites [ ]
 
-**Goal**: Comprehensive artisan dashboard for managing entire business.
-
-**Features**:
-- [ ] Artisan dashboard landing page
-  - [ ] Metrics cards (revenue, pending orders, queue utilization, low stock)
-  - [ ] Quick actions
-- [ ] Comprehensive analytics
-  - [ ] Revenue charts (daily, weekly, monthly)
-  - [ ] Popular projects (sales, favorites)
-  - [ ] Queue saturation over time
-  - [ ] Customer acquisition metrics
-- [ ] Customer management
-  - [ ] Full customer list with search
-  - [ ] Customer detail view (order history, reviews, favorites, total spent, messages)
-  - [ ] Password reset for customers
-- [ ] Order management enhancements
-  - [ ] Basic search (customer name, email, order ID)
-  - [ ] Bulk actions (status updates, email, CSV export)
-  - [ ] Per-order production time override
-  - [ ] Admin cancel with optional refund
-- [ ] Material/color option management
-  - [ ] Global option pools + per-project custom
-  - [ ] Admin can add new options anytime
-- [ ] Email customer feature (templates)
-- [ ] Inventory alerts (email + dashboard for merch)
+**Goal**: Customers can favorite projects and patterns. Artisan can see counts.
 
 **Database**:
-- [ ] daily_stats table (analytics cache)
-- [ ] customer_stats table (analytics cache)
+- [ ] `favorites` table (user id, target type, target id, created at)
 
-**Tests** (TDD):
-- [ ] Unit: Analytics calculations, search logic
-- [ ] Integration: Admin workflows, customer analytics
-- [ ] E2E: Full artisan dashboard flows
+**Routes**:
+- [ ] `POST /api/favorites` -- auth required; toggle favorite (adds or removes)
+- [ ] `GET /api/favorites` -- auth required; list current user's favorites
+- [ ] `GET /api/users/:id/favorites` -- public wishlist (shareable URL)
+- [ ] Favorite counts returned on `GET /api/projects/:id` and `GET /api/patterns/:id`
 
-**Done When**: 
-- Artisan can manage entire business from beautiful dashboard
-- Analytics accurate and useful
-- Bulk actions work
-- Customer management complete
+**UI**:
+- [ ] Favorite heart button on project and pattern cards/detail pages
+- [ ] `/favorites` -- customer wishlist page (own + shared view)
+- [ ] Artisan sees favorite counts on project management list
 
-**Estimated Time**: 3-4 weeks
+**Tests**:
+- [ ] Integration: toggle, list, counts, public wishlist
+- [ ] E2E: customer favorites a project, visits wishlist, shares URL
+
+**Done When**: Favorites toggle works; counts visible; wishlist URL shareable without login.
 
 ---
 
-## v0.9.0 -- Merch & Inventory [ ]
+## v0.10.0 -- Queue Engine [ ]
 
-**Goal**: Traditional inventory-based products separate from handmade queue.
-
-**Features**:
-- [ ] Merch CRUD (artisan)
-- [ ] Merch gallery (customers)
-- [ ] Inventory management
-  - [ ] Stock quantity tracking
-  - [ ] Low-stock alerts (email + dashboard)
-  - [ ] Out-of-stock: show badge + email waitlist
-- [ ] Mixed cart handling (handmade + merch ship together)
-- [ ] Merch in order flow (separate from queue)
+**Goal**: Core queue algorithm: 5-tier weight system, delivery estimates, capacity config. API and tests only.
 
 **Database**:
-- [ ] merch table
+- [ ] `queue_config` table (weekly_capacity, paused, updated_at) -- single row
+- [ ] `queue_entries` table (order id, tier, weight, position, status, estimated_delivery)
 
-**Tests** (TDD):
-- [ ] Unit: Inventory tracking, out-of-stock logic
-- [ ] Integration: Merch CRUD, mixed orders
-- [ ] E2E: Full merch flow (browse → order → ship)
+**Routes**:
+- [ ] `GET /api/queue/config` -- artisan only; current capacity config
+- [ ] `PATCH /api/queue/config` -- artisan only; update capacity or toggle pause
+- [ ] `GET /api/queue/estimate?tier=` -- public; estimated delivery for a given tier
+- [ ] Queue entry created automatically when order is paid (used in v0.13.0)
 
-**Done When**: 
-- Artisan can sell branded merchandise with traditional inventory
-- Mixed carts work correctly
-- Inventory alerts work
+**Business rules**:
+- [ ] 5 tiers: XSmall=1, Small=2, Medium=3, Large=5, XLarge=8 (weight units)
+- [ ] Delivery estimate = sum of weights ahead / weekly_capacity (in weeks), rounded up
+- [ ] Paused queue shows no estimate, blocks new orders
+- [ ] Position recalculated on any queue change
 
-**Estimated Time**: 2-3 weeks
+**Tests**:
+- [ ] Unit: weight calculation, delivery estimate, edge cases (empty queue, paused, cancellations)
+- [ ] Integration: config CRUD, estimate endpoint, position updates
+
+**Done When**: Algorithm unit tested with edge cases; estimate endpoint returns correct values; artisan can pause queue.
 
 ---
 
-## v1.0.0 -- Reviews, Polish & Launch [ ]
+## v0.11.0 -- Queue UI [ ]
 
-**Goal**: Stable, documented, and ready for production use.
+**Goal**: Artisan queue Kanban dashboard. Customer sees position and estimate. Waitlist when full.
 
-**Features**:
-- [ ] Review system
-  - [ ] Verified buyers only (after delivery)
-  - [ ] Star rating + text comment
-  - [ ] Delivery accuracy tracking (on time? yes/no)
-  - [ ] Artisan public responses
-  - [ ] Review moderation (hide + ban user option)
-- [ ] TranslationProvider implementation
-  - [ ] JSON files for English
-  - [ ] Framework ready for additional languages
-  - [ ] Language switcher UI (shows only English for now)
-- [ ] Mobile-responsive design (all pages)
-  - [ ] Mobile-first design system
-  - [ ] Touch-friendly UI (kanban drag-and-drop, etc.)
-  - [ ] Real device testing (iPhone, Android)
-- [ ] Accessibility compliance (WCAG 2.1 AA)
-  - [ ] Keyboard navigation
-  - [ ] Screen reader support
-  - [ ] Color contrast
-  - [ ] Form labels and ARIA
-- [ ] Error handling improvements
-  - [ ] Helpful but not revealing errors
-  - [ ] Graceful degradation + retries
-  - [ ] Friendly error pages (404, 500)
-- [ ] Performance optimization
-  - [ ] Image lazy loading
-  - [ ] Route-based code splitting
-  - [ ] Caching strategy (delivery estimates, etc.)
-- [ ] User documentation
-  - [ ] Comprehensive user guide
-  - [ ] Inline help text and tooltips
-  - [ ] FAQ
-  - [ ] Shipping/returns policies
-- [ ] Legal pages
-  - [ ] Terms of Service (template from Termly/TermsFeed)
-  - [ ] Privacy Policy (GDPR-compliant)
-  - [ ] Cookie consent (minimal tracking)
-- [ ] Security review
-  - [ ] Penetration testing (self or service)
-  - [ ] Dependency audit (npm audit, Dependabot)
-  - [ ] OWASP Top 10 checklist
-- [ ] Disaster recovery
-  - [ ] Backup testing (restore drill)
-  - [ ] Recovery runbook documented
-- [ ] Beta testing
-  - [ ] Friends/family beta (5-10 people)
-  - [ ] Feedback incorporation
-  - [ ] Bug fixes
-- [ ] Domain setup
-  - [ ] Purchase domain
-  - [ ] Configure DNS (Cloudflare)
-  - [ ] Email setup via Resend
-- [ ] Monitoring & alerting
-  - [ ] Tiered alerting (critical → engineer, business-critical → both)
-  - [ ] Cloudflare dashboard monitoring
-- [ ] Launch checklist
-  - [ ] All features complete
-  - [ ] Test coverage >= 85%
-  - [ ] Comprehensive E2E tests (checkout, admin, edge cases)
-  - [ ] Mobile device testing (real devices)
-  - [ ] Performance acceptable ("feels fast")
-  - [ ] Documentation complete
-  - [ ] Legal pages live
-  - [ ] 10-20 projects ready
-  - [ ] Beta feedback addressed
-  - [ ] Engineer + artisan personally tested all flows 3x
+- [ ] `/artisan/queue` -- Kanban board: columns by status, drag-and-drop reorder
+- [ ] `/artisan/queue/config` -- set weekly capacity, pause button, utilization meter
+- [ ] Delivery estimate displayed on `/projects/:id` (uses `GET /api/queue/estimate`)
+- [ ] Order detail shows queue position and estimated delivery date
+- [ ] Waitlist signup form when queue is paused or capacity full
+- [ ] Email notification to waitlist when capacity reopens (via EmailProvider)
+- [ ] E2E: artisan reorders queue, customer sees updated estimate
+
+**Done When**: Artisan can manage queue from Kanban; customers see estimates; waitlist email works.
+
+---
+
+## v0.12.0 -- Cart & Orders API [ ]
+
+**Goal**: Shopping cart, order creation, and order lifecycle state machine. API and tests only.
 
 **Database**:
-- [ ] reviews table
-- [ ] review_responses table
+- [ ] `cart_items` table (user id, project id, options snapshot, quantity)
+- [ ] `orders` table (user id, status, total, address snapshot, modification_deadline)
+- [ ] `order_items` table (order id, project id, options snapshot, price snapshot, quantity, tier)
 
-**Tests** (TDD):
-- [ ] Unit: Review validation, moderation logic
-- [ ] Integration: Review CRUD, response system
-- [ ] E2E: Full review flow (order → deliver → review → respond)
+**Routes**:
+- [ ] `GET /api/cart` -- auth required; current cart
+- [ ] `POST /api/cart` -- auth required; add item
+- [ ] `PATCH /api/cart/:itemId` -- auth required; update quantity or options
+- [ ] `DELETE /api/cart/:itemId` -- auth required; remove item
+- [ ] `POST /api/orders` -- auth required; create order from cart, calculate total
+- [ ] `GET /api/orders` -- auth required; order history (customer sees own; artisan sees all)
+- [ ] `GET /api/orders/:id` -- auth required; order detail
+- [ ] `PATCH /api/orders/:id` -- customer modify within window; artisan modify anytime
+- [ ] `DELETE /api/orders/:id` -- cancel; $15 fee after modification window
 
-**Done When**: 
-- Platform is ready for real customers and real transactions
-- All features complete and tested
-- Security reviewed
-- Documentation complete
-- Beta testing successful
-- Launch checklist complete
+**Business rules**:
+- [ ] Order lifecycle: pending -> paid -> in_production -> shipped -> delivered; also: cancelled, refunded, disputed
+- [ ] 12-hour free modification window from order creation (configurable via env)
+- [ ] Artisan can extend modification window per order
+- [ ] Cancellation after window: $15 flat fee applied
+- [ ] Price and options snapshot at order creation (immune to future project edits)
 
-**Estimated Time**: 4-6 weeks
+**Tests**:
+- [ ] Unit: lifecycle transitions, modification window, cancellation fee
+- [ ] Integration: cart CRUD, order creation, modification, cancellation
+
+**Done When**: All routes tested; lifecycle transitions enforced; window and fee logic unit tested.
+
+---
+
+## v0.13.0 -- Orders UI [ ]
+
+**Goal**: Cart UI, checkout, order history, modification and cancellation flows.
+
+- [ ] `/cart` -- cart page: item list, quantity controls, pattern bundle upsell, proceed to checkout
+- [ ] `/checkout` -- address form, order summary, place order button (no payment yet -- payment in v0.15.0)
+- [ ] `/orders` -- order history list
+- [ ] `/orders/:id` -- order detail: status, items, queue position, estimated delivery, modification/cancel actions
+- [ ] Modification UI: change options or quantity within window
+- [ ] Cancellation UI: confirm dialog with fee warning if outside window
+- [ ] E2E: add to cart -> checkout -> view order -> modify -> cancel
+
+**Done When**: Full cart-to-order flow works without payment; E2E tests pass.
+
+---
+
+## v0.14.0 -- Messaging [ ]
+
+**Goal**: Threaded order messages between customer and artisan. General contact form.
+
+**Database**:
+- [ ] `messages` table (order id nullable, sender id, body, created at, read at)
+
+**Routes**:
+- [ ] `GET /api/orders/:id/messages` -- auth required; thread for order
+- [ ] `POST /api/orders/:id/messages` -- auth required; send message in thread
+- [ ] `POST /api/messages` -- auth required; general contact (no order)
+- [ ] `GET /api/messages/inbox` -- artisan only; all unread threads
+
+**UI**:
+- [ ] Order detail page includes message thread
+- [ ] `/artisan/messages` -- unified inbox: all threads, unread badge
+- [ ] `/contact` -- public contact form (requires login)
+- [ ] Email notification to artisan on new customer message (via EmailProvider)
+
+**Tests**:
+- [ ] Integration: send/receive, inbox, unread counts
+- [ ] E2E: customer sends message on order, artisan reads in inbox
+
+**Done When**: Messages work on orders and as general contact; artisan inbox works; email notification sent.
+
+---
+
+## v0.15.0 -- Payments [ ]
+
+**Goal**: Stripe checkout integration. Orders paid and queue entries created automatically.
+
+**Adapter**:
+- [ ] `PaymentProvider` interface in `packages/adapters/src/payment/types.ts`
+- [ ] `InMemoryPaymentProvider` for testing
+- [ ] `StripePaymentProvider` implementation
+
+**Routes**:
+- [ ] `POST /api/orders/:id/checkout` -- create Stripe Checkout session; return redirect URL
+- [ ] `GET /api/orders/:id/checkout/success` -- verify payment, mark order paid, create queue entry
+- [ ] `GET /api/orders/:id/checkout/cancel` -- return to order detail
+- [ ] `POST /api/webhooks/stripe` -- handle payment_intent.succeeded, charge.refunded; verify signature
+
+**UI**:
+- [ ] Checkout button on `/checkout` triggers Stripe hosted checkout
+- [ ] Success page: order confirmed, queue position shown
+- [ ] Cancel page: return to cart
+
+**Tests**:
+- [ ] Unit: webhook signature verification, payment state transitions
+- [ ] Integration: checkout session creation, webhook handling (InMemoryPaymentProvider)
+- [ ] E2E: full checkout flow (Stripe test mode)
+
+**Done When**: Customers can complete real purchases; order marked paid; queue entry created; webhooks verified.
+
+---
+
+## v0.16.0 -- Discounts [ ]
+
+**Goal**: Artisan can create discount codes; customers apply them at checkout.
+
+**Database**:
+- [ ] `discount_codes` table (code, type: percent|fixed, amount, max_uses, uses, expires_at, enabled)
+- [ ] `discount_code_usage` table (code id, order id, user id, applied_at)
+
+**Routes**:
+- [ ] `POST /api/discount-codes` -- artisan only; create code
+- [ ] `GET /api/discount-codes` -- artisan only; list all codes with usage stats
+- [ ] `PATCH /api/discount-codes/:id` -- artisan only; enable/disable, update
+- [ ] `POST /api/discount-codes/validate` -- auth required; validate code, return discount amount
+- [ ] Discount applied at order creation; stored on order
+
+**UI**:
+- [ ] `/artisan/discounts` -- code management: create, list, toggle, usage counts
+- [ ] Discount code input on checkout page; live validation and preview
+
+**Tests**:
+- [ ] Unit: percent vs fixed calculation, one-time use enforcement, expiry
+- [ ] Integration: create, validate, apply, usage tracking
+- [ ] E2E: artisan creates code, customer applies at checkout
+
+**Done When**: Codes create, validate, and apply correctly; one-time use enforced; artisan can track usage.
+
+---
+
+## v0.17.0 -- Shipping [ ]
+
+**Goal**: Shipping rate calculation and label generation via Shippo. Order auto-marked shipped.
+
+**Adapter**:
+- [ ] `ShippingProvider` interface in `packages/adapters/src/shipping/types.ts`
+- [ ] `InMemoryShippingProvider` for testing
+- [ ] `ShippoShippingProvider` implementation
+
+**Database**:
+- [ ] `shipping_labels` table (order id, carrier, tracking number, label_url, created_at)
+
+**Routes**:
+- [ ] `POST /api/orders/:id/shipping/rates` -- artisan only; get live rates for order
+- [ ] `POST /api/orders/:id/shipping/label` -- artisan only; purchase label, store tracking, mark shipped
+- [ ] `GET /api/orders/:id/shipping` -- auth required; tracking info
+
+**UI**:
+- [ ] Order detail (artisan view): shipping rates panel, create label button
+- [ ] Label PDF download link after creation
+- [ ] Tracking number shown to customer on order detail
+- [ ] Bulk shipping: select multiple orders, create labels in batch
+- [ ] Export shipping manifest to CSV
+
+**Tests**:
+- [ ] Unit: rate parsing, label state transitions
+- [ ] Integration: rate fetch, label creation, tracking (InMemoryShippingProvider)
+- [ ] E2E: artisan creates label, order marked shipped, customer sees tracking
+
+**Done When**: Artisan can get rates, buy labels, and ship orders; customer sees tracking; bulk actions work.
+
+---
+
+## v0.18.0 -- Tax [ ]
+
+**Goal**: Automatic tax calculation at checkout via Stripe Tax.
+
+**Adapter**:
+- [ ] `TaxCalculator` interface in `packages/adapters/src/tax/types.ts`
+- [ ] `InMemoryTaxCalculator` (flat rate for testing)
+- [ ] `StripeTaxCalculator` implementation
+
+**Routes**:
+- [ ] Tax calculated and stored per order item at checkout session creation
+- [ ] `GET /api/orders/:id/tax` -- auth required; tax breakdown
+
+**UI**:
+- [ ] Tax line item shown in order summary at checkout
+- [ ] Tax breakdown on order detail and receipt
+
+**Tests**:
+- [ ] Unit: tax calculation, per-item breakdown
+- [ ] Integration: tax applied at checkout (InMemoryTaxCalculator)
+
+**Done When**: Tax calculated automatically; stored per order item; shown at checkout and on receipts.
+
+---
+
+## v0.19.0 -- Artisan Dashboard [ ]
+
+**Goal**: Artisan landing page with key metrics, order management, and bulk actions.
+
+- [ ] `/artisan` -- dashboard: revenue (week/month), pending orders count, queue utilization, low stock alerts
+- [ ] `/artisan/orders` -- full order list: search by customer/email/order ID, filter by status
+- [ ] Order detail (artisan): status update, production time override, cancel with optional refund
+- [ ] Bulk actions: select orders, update status, export CSV
+- [ ] Email customer from order detail (template: status update, custom message)
+
+**Tests**:
+- [ ] Integration: search, bulk status update, CSV export
+- [ ] E2E: artisan views dashboard, manages orders, sends email
+
+**Done When**: Artisan can manage day-to-day order operations from one place; bulk actions work; email sends.
+
+---
+
+## v0.20.0 -- Artisan Analytics [ ]
+
+**Goal**: Revenue trends, popular projects, queue saturation over time.
+
+**Database**:
+- [ ] `daily_stats` table (date, revenue, orders, queue_utilization) -- computed nightly
+- [ ] `project_stats` table (project id, total_sales, total_favorites, last_updated)
+
+**Routes**:
+- [ ] `GET /api/artisan/analytics/revenue?period=` -- daily/weekly/monthly revenue
+- [ ] `GET /api/artisan/analytics/projects` -- sorted by sales and favorites
+- [ ] `GET /api/artisan/analytics/queue` -- queue saturation over time
+
+**UI**:
+- [ ] `/artisan/analytics` -- revenue chart (line, switchable period), popular projects table, queue saturation chart
+- [ ] Customer acquisition metric (new vs returning)
+
+**Tests**:
+- [ ] Unit: stat aggregation logic
+- [ ] Integration: analytics endpoints with seeded data
+
+**Done When**: Artisan sees accurate revenue, popular projects, and queue trends; charts render correctly.
+
+---
+
+## v0.21.0 -- Customer Management [ ]
+
+**Goal**: Artisan can browse and manage customer accounts.
+
+- [ ] `/artisan/customers` -- searchable customer list (name, email, order count, total spent)
+- [ ] `/artisan/customers/:id` -- detail: order history, favorites, messages, total spent
+- [ ] Reset customer magic link (send new link on behalf of customer)
+- [ ] Ban/unban customer (blocks login and new orders)
+
+**Tests**:
+- [ ] Integration: customer list, search, ban enforcement
+- [ ] E2E: artisan bans customer, customer cannot log in
+
+**Done When**: Artisan can find, review, and manage customer accounts.
+
+---
+
+## v0.22.0 -- Merch & Inventory [ ]
+
+**Goal**: Artisan sells inventory-based merch alongside handmade queue items.
+
+**Database**:
+- [ ] `merch` table (title, description, price, stock_quantity, images, enabled)
+
+**Routes**:
+- [ ] `POST /api/merch` -- artisan only; create merch item
+- [ ] `GET /api/merch` -- public; list enabled merch
+- [ ] `GET /api/merch/:id` -- public; merch detail
+- [ ] `PATCH /api/merch/:id` -- artisan only; update including stock quantity
+- [ ] `DELETE /api/merch/:id` -- artisan only; soft delete
+
+**Business rules**:
+- [ ] Stock decremented on order; restored on cancellation/refund
+- [ ] Out-of-stock: show badge, block add-to-cart, allow waitlist signup
+- [ ] Merch and handmade items ship together in same order
+- [ ] Low-stock threshold alert (email to artisan + dashboard badge)
+
+**UI**:
+- [ ] `/artisan/merch` -- manage inventory, stock levels, alerts
+- [ ] `/merch` -- customer gallery
+- [ ] `/merch/:id` -- customer detail, out-of-stock handling
+- [ ] Mixed cart works seamlessly
+
+**Tests**:
+- [ ] Unit: stock decrement, out-of-stock logic
+- [ ] Integration: CRUD, mixed orders, low-stock alert
+- [ ] E2E: artisan creates merch, customer adds to cart with handmade item
+
+**Done When**: Merch sells correctly alongside queue items; inventory tracked; alerts fire.
+
+---
+
+## v0.23.0 -- Reviews [ ]
+
+**Goal**: Verified buyers leave reviews. Artisan responds publicly. Moderation tools.
+
+**Database**:
+- [ ] `reviews` table (order id, user id, project id, rating, body, on_time, created at, hidden)
+- [ ] `review_responses` table (review id, artisan id, body, created at)
+
+**Routes**:
+- [ ] `POST /api/reviews` -- auth required; verified buyer only (order status: delivered); one per order item
+- [ ] `GET /api/projects/:id/reviews` -- public; paginated reviews with ratings summary
+- [ ] `POST /api/reviews/:id/response` -- artisan only; public response
+- [ ] `PATCH /api/reviews/:id` -- artisan only; hide review
+- [ ] `DELETE /api/users/:id` -- artisan only; ban user (removes ability to review)
+
+**UI**:
+- [ ] Project detail: star rating summary + review list + artisan responses
+- [ ] Post-delivery prompt on order detail: leave a review
+- [ ] `/artisan/reviews` -- moderation: hide reviews, respond, see on-time delivery stats
+
+**Tests**:
+- [ ] Unit: verified buyer check, one-review-per-item enforcement
+- [ ] Integration: create, respond, hide, ban
+- [ ] E2E: customer reviews after delivery, artisan responds
+
+**Done When**: Only verified buyers can review; artisan can respond and moderate; ratings show on projects.
+
+---
+
+## v0.24.0 -- Infrastructure & Deployment [ ]
+
+**Goal**: Real Cloudflare deployment. Terraform manages infrastructure. Domain live.
+
+- [ ] Terraform config for Cloudflare Workers, D1, R2, DNS
+- [ ] Wrangler config complete for production deployment
+- [ ] `mise run deploy` deploys API to Cloudflare Workers
+- [ ] `mise run deploy:web` deploys SvelteKit to Cloudflare Pages
+- [ ] D1 production database created; migrations run via CI
+- [ ] R2 bucket created; StorageProvider wired to production bucket
+- [ ] Domain purchased and DNS configured via Cloudflare
+- [ ] Resend domain verified; production email sending works
+- [ ] `apps/api/.dev.vars` documented and gitignored
+- [ ] Environment variables documented in README
+- [ ] CI deploys on merge to main
+
+**Done When**: `https://yourdomain.com` loads the live app; API responds; email sends; CI deploys automatically.
+
+---
+
+## v0.25.0 -- Accessibility & i18n Scaffold [ ]
+
+**Goal**: WCAG 2.1 AA compliance across all pages. i18n framework in place for future languages.
+
+- [ ] Keyboard navigation works on all interactive elements
+- [ ] Screen reader labels on all forms, buttons, and icons
+- [ ] Color contrast passes AA on all text
+- [ ] Focus indicators visible
+- [ ] All images have alt text
+- [ ] Touch targets >= 44x44px on mobile
+- [ ] `TranslationProvider` interface in `packages/adapters`
+- [ ] English JSON translation files for all UI strings
+- [ ] Language switcher in nav (English only for now; ready for expansion)
+
+**Tests**:
+- [ ] Automated a11y scan with axe-core in Playwright E2E suite
+
+**Done When**: axe-core reports zero violations; keyboard-only navigation works end-to-end; i18n scaffold in place.
+
+---
+
+## v0.26.0 -- Hardening [ ]
+
+**Goal**: Security audit, graceful error handling, performance, and monitoring.
+
+**Security**:
+- [ ] OWASP Top 10 self-checklist completed
+- [ ] Dependency audit (`npm audit`; Dependabot alerts resolved)
+- [ ] Input validation tightened on all routes (Zod schemas reviewed)
+- [ ] Rate limiting reviewed for production adequacy
+- [ ] CSP headers configured
+
+**Error handling**:
+- [ ] All API errors return consistent `{ code, message }` shape
+- [ ] 404 and 500 error pages in SvelteKit
+- [ ] Graceful degradation when StorageProvider or EmailProvider is unavailable
+
+**Performance**:
+- [ ] Image lazy loading on gallery pages
+- [ ] Route-based code splitting verified
+- [ ] Delivery estimate caching (short TTL)
+- [ ] Cloudflare cache headers on public routes
+
+**Monitoring**:
+- [ ] Cloudflare Workers analytics reviewed
+- [ ] Error alerting: critical errors notify engineer via email
+- [ ] Backup and restore drill documented and tested
+
+**Done When**: OWASP checklist complete; no critical npm audit findings; error pages render; monitoring alerts configured.
+
+---
+
+## v1.0.0 -- Launch [ ]
+
+**Goal**: Beta tested, documented, legally covered, and ready for real customers.
+
+- [ ] Mobile device testing on real iPhone and Android
+- [ ] All E2E tests passing (coverage >= 85%)
+- [ ] 10-20 projects created and ready
+- [ ] User documentation: guide, FAQ, shipping/returns policy
+- [ ] Legal pages: Terms of Service, Privacy Policy, Cookie consent
+- [ ] Beta test with 5-10 real users; feedback incorporated
+- [ ] Engineer + artisan each personally completed every major flow at least 3 times
+- [ ] CHANGELOG complete for all versions
+- [ ] All `package.json` versions bumped to `1.0.0`
+- [ ] Launch announcement prepared
+
+**Done When**: Real customers can browse, order, pay, and receive items. Artisan can manage everything from the dashboard. Platform is stable, documented, and legally covered.
 
 ---
 
 ## Backlog
 
-Ideas that don't have a version yet. Promoted to a milestone when prioritized.
+Ideas without a version. Promoted to a milestone when prioritized.
 
-### High priority
-- Artisan analytics dashboard enhancements (more detailed charts, export to CSV)
-- Email notifications when queue capacity opens up
-- Pattern-to-product integration (upsell: "Make it yourself or order one made")
-- Custom sizing (made-to-measure) - text field for measurements
-
-### Medium priority
-- Subscription queue (members get priority)
-- Community page (user-submitted projects using patterns)
-- Seasonal drops (limited ordering windows)
-- Limited pattern releases (scarcity-based launches)
-- Multi-color pricing complexity
+- Subscription queue: members get priority slots
+- Community page: user-submitted projects using patterns
+- Seasonal drops: limited ordering windows
+- Limited pattern releases: scarcity-based launches
+- Custom sizing: made-to-measure text field for measurements
 - Gift orders with custom messages
-- Wishlist sharing enhancements
-- Multi-artisan support (hire help for fulfillment)
-
-### Low priority / nice to have
-- Social media integration (share projects on Pinterest, Instagram)
+- Multi-artisan support: hire help for fulfillment
+- Social sharing: Pinterest and Instagram integration
 - Referral program
 - Loyalty points
-- Live chat support
-- Video tutorials for patterns
-- Pattern difficulty ratings and time estimates
 - Progressive Web App (PWA) for offline pattern access
-
-### White-Label SaaS (Long-term Vision)
-- Multi-tenancy features
-- Tenant signup and onboarding
-- Billing and subscription system
-- Subdomain routing
-- Custom domain support
-- Self-service configuration
-- Payment processing setup wizard
-- Branding customization
-- Email template editor
+- White-label SaaS: multi-tenancy, tenant billing, custom domains
 
 ---
 
 ## Reference
 
-### Technology Stack Summary
+### Technology Stack
 
-**Frontend**: SvelteKit + Tailwind CSS + shadcn-svelte  
-**Backend**: Hono on Cloudflare Workers  
-**Database**: Drizzle ORM + Cloudflare D1 (SQLite)  
-**Storage**: Cloudflare R2 (S3-compatible)  
-**Email**: Resend (EmailProvider adapter)  
-**Payments**: Stripe (PaymentProvider adapter)  
-**Shipping**: Shippo (ShippingProvider adapter)  
-**Tax**: Stripe Tax (TaxCalculator adapter)  
-**Testing**: Vitest + Playwright  
-**CI/CD**: GitHub Actions with SLSA Level 3  
+**Frontend**: SvelteKit + Tailwind CSS + shadcn-svelte
+**Backend**: Hono on Cloudflare Workers
+**Database**: Drizzle ORM + Cloudflare D1 (SQLite)
+**Storage**: Cloudflare R2 (S3-compatible)
+**Email**: Resend (EmailProvider adapter)
+**Payments**: Stripe (PaymentProvider adapter)
+**Shipping**: Shippo (ShippingProvider adapter)
+**Tax**: Stripe Tax (TaxCalculator adapter)
+**Testing**: Vitest + Playwright
+**CI/CD**: GitHub Actions
 **IaC**: Terraform + Wrangler
 
 **Cost**: ~$1-5/month (domain + transaction fees)
-
-See [ADR-002](./decisions/ADR-002-tech-stack.md) for full technology stack rationale.
 
 ### Key Architecture Decisions
 
@@ -605,42 +804,31 @@ See [ADR-002](./decisions/ADR-002-tech-stack.md) for full technology stack ratio
 
 ### Domain Model
 
-**Core Entities**: User, Project, Pattern, Order, Order Item, Queue Entry  
+**Core Entities**: User, Project, Pattern, Order, Order Item, Queue Entry
 **Supporting**: Review, Message, Favorite, Discount Code, Shipping Label, Merch
 
-See [domain-model.md](../docs/domain-model.md) for complete entity specifications.
+See [domain-model.md](../docs/domain-model.md) for full entity specifications.
 
 ### Business Rules
 
-**Queue**: 5-tier weight system (XSmall=1 to XLarge=8), FIFO with manual reorder  
-**Orders**: 8 lifecycle states, 12-hour free modification window, $15 cancellation fee  
-**Pricing**: Simple additive modifiers (base + material + size + custom)  
-**Shipping**: USPS only (v1.0), calculated rates via Shippo  
+**Queue**: 5-tier weight system (XSmall=1 to XLarge=8), FIFO with manual reorder
+**Orders**: 8 lifecycle states, 12-hour free modification window, $15 cancellation fee
+**Pricing**: Simple additive modifiers (base + material + size + custom)
+**Shipping**: USPS only (v1.0), calculated rates via Shippo
 **Tax**: Automatic via Stripe Tax (0.5% fee)
 
 See [business-rules.md](../docs/business-rules.md) for complete business logic.
 
 ---
 
-## How to Use This Document
-
-- **Check off items** as they're completed: `- [x]`
-- **Update status symbols** as work progresses: `[ ]` → `[/]` → `[x]`
-- **Add new milestones** as the project evolves
-- **Move backlog items** into milestones when they're prioritized
-- **Keep acceptance criteria** realistic and measurable
-- **Update "Last Updated"** date at top when making changes
-
----
-
 ## Related Documents
 
-- [Business Rules](../docs/business-rules.md) - Complete business logic and workflows
-- [Domain Model](../docs/domain-model.md) - Entity specifications and database schema
-- [Stories](./stories/) - User stories with acceptance criteria
-- [Decisions](./decisions/) - Architecture decision records (ADRs)
-- [Vision](./vision.md) - Original brainstorming session
-- [CHANGELOG](../CHANGELOG.md) - What shipped in each release
-- [Architecture](../docs/03-architecture.md) - Architectural principles
-- [Testing](../docs/05-testing.md) - Testing philosophy and strategy
-- [Git Workflow](../docs/07-git-workflow.md) - Branching and commit conventions
+- [Business Rules](../docs/business-rules.md)
+- [Domain Model](../docs/domain-model.md)
+- [Stories](./stories/)
+- [Decisions](./decisions/)
+- [Vision](./vision.md)
+- [CHANGELOG](../CHANGELOG.md)
+- [Architecture](../docs/03-architecture.md)
+- [Testing](../docs/05-testing.md)
+- [Git Workflow](../docs/07-git-workflow.md)

@@ -100,6 +100,8 @@ tramp
 !**/.env.example
 !**/.env.ci
 !**/.env.test
+# Wrangler local dev secrets (copy from .dev.vars.example)
+.dev.vars
 *secret*
 credentials*
 *.key
@@ -328,8 +330,8 @@ coverage/
 .nyc_output/
 lcov-report/
 *.lcov
-/tests/e2e/playwright-report/
-/test-results/
+playwright-report/
+test-results/
 /cypress/videos/
 /cypress/screenshots/
 .jest-cache/

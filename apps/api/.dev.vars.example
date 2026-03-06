@@ -1,0 +1,26 @@
+# Cloudflare Workers local dev secrets (wrangler reads this automatically)
+# Copy to .dev.vars and fill in values. NEVER commit .dev.vars.
+
+# Required
+JWT_SECRET=change-me-to-a-random-secret-at-least-32-chars
+
+# Email provider: "inmemory" (local) | "resend" (production)
+EMAIL_PROVIDER=inmemory
+
+# Required only when EMAIL_PROVIDER=resend
+# RESEND_API_KEY=re_...
+# EMAIL_FROM_ADDRESS=noreply@artisan-commerce.com
+# EMAIL_FROM_NAME=Artisan Commerce
+
+# App base URL -- used to build magic link URLs in emails
+APP_BASE_URL=http://localhost:8787
+
+# Artisan geo restriction
+# Set to "true" to skip the Utah IP check in local dev
+ARTISAN_IP_BYPASS=true
+# Set to "all" to allow any region (alternative to ARTISAN_IP_BYPASS)
+# ARTISAN_ALLOWED_REGION=all
+
+# Rate limiting (optional -- defaults shown)
+# RATE_LIMIT_MAX=10
+# RATE_LIMIT_WINDOW_MS=900000

@@ -14,12 +14,7 @@
     "noUncheckedIndexedAccess": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "composite": true,
-    "incremental": true
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": ["node_modules", "dist", "build", ".svelte-kit", ".wrangler", "coverage"]
 }

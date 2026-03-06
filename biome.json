@@ -15,7 +15,8 @@
       ".wrangler",
       "coverage",
       "*.config.js",
-      "*.config.ts"
+      "*.config.ts",
+      "**/*.svelte"
     ]
   },
   "formatter": {

@@ -56,5 +56,9 @@ export * from './types.js'
 
 // Export implementations
 export { InMemoryEmailProvider } from './inmemory.provider.js'
+export { InMemoryEmailStore } from './inmemory.store.js'
 export { ResendEmailProvider } from './resend.provider.js'
 export { createEmailProvider } from './factory.js'
+
+// Export store interface and types
+export type { SentEmail, SentEmailStore } from './sent-email-store.js'

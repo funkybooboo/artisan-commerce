@@ -1,11 +1,14 @@
+import { InMemoryEmailProvider } from '@artisan-commerce/adapters/email'
+import { InMemoryEmailStore } from '@artisan-commerce/adapters/email'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { InMemoryEmailProvider } from '../../src/email/inmemory.provider.js'
 
 describe('InMemoryEmailProvider', () => {
+  let store: InMemoryEmailStore
   let provider: InMemoryEmailProvider
 
   beforeEach(() => {
-    provider = new InMemoryEmailProvider()
+    store = new InMemoryEmailStore()
+    provider = new InMemoryEmailProvider(store)
   })
 
   describe('sendTransactional', () => {
@@ -18,7 +21,7 @@ describe('InMemoryEmailProvider', () => {
 
       expect(result.success).toBe(true)
       expect(result.messageId).toMatch(/^inmem-/)
-      expect(provider.getSentCount()).toBe(1)
+      expect(store.getCount()).toBe(1)
     })
 
     it('should track sent emails', async () => {
@@ -33,10 +36,10 @@ describe('InMemoryEmailProvider', () => {
         html: '<p>Hello 2</p>',
       })
 
-      const sent = provider.getSent()
+      const sent = store.getAll()
       expect(sent).toHaveLength(2)
-      expect(sent[0].type).toBe('transactional')
-      expect(sent[1].type).toBe('transactional')
+      expect(sent[0]?.type).toBe('transactional')
+      expect(sent[1]?.type).toBe('transactional')
     })
 
     it('should support multiple recipients', async () => {
@@ -47,8 +50,7 @@ describe('InMemoryEmailProvider', () => {
       })
 
       expect(result.success).toBe(true)
-      const sent = provider.getSent()
-      expect(sent).toHaveLength(1)
+      expect(store.getAll()).toHaveLength(1)
     })
 
     it('should support optional fields', async () => {
@@ -82,7 +84,7 @@ describe('InMemoryEmailProvider', () => {
 
       expect(result.success).toBe(true)
       expect(result.messageId).toMatch(/^inmem-/)
-      expect(provider.getSentCount()).toBe(1)
+      expect(store.getCount()).toBe(1)
     })
 
     it('should track template emails separately', async () => {
@@ -97,10 +99,10 @@ describe('InMemoryEmailProvider', () => {
         variables: {},
       })
 
-      const sent = provider.getSent()
+      const sent = store.getAll()
       expect(sent).toHaveLength(2)
-      expect(sent[0].type).toBe('transactional')
-      expect(sent[1].type).toBe('template')
+      expect(sent[0]?.type).toBe('transactional')
+      expect(sent[1]?.type).toBe('template')
     })
   })
 
@@ -112,9 +114,9 @@ describe('InMemoryEmailProvider', () => {
       })
 
       expect(results).toHaveLength(2)
-      expect(results[0].success).toBe(true)
-      expect(results[1].success).toBe(true)
-      expect(provider.getSentCount()).toBe(1) // Bulk counts as 1 send operation
+      expect(results[0]?.success).toBe(true)
+      expect(results[1]?.success).toBe(true)
+      expect(store.getCount()).toBe(1) // Bulk counts as 1 send operation
     })
 
     it('should support variables per recipient', async () => {
@@ -130,8 +132,8 @@ describe('InMemoryEmailProvider', () => {
     })
   })
 
-  describe('helper methods', () => {
-    it('should return last sent email', async () => {
+  describe('store inspection', () => {
+    it('should return last sent email via store', async () => {
       await provider.sendTransactional({
         to: 'test1@example.com',
         subject: 'Test 1',
@@ -143,23 +145,23 @@ describe('InMemoryEmailProvider', () => {
         html: '<p>Hello 2</p>',
       })
 
-      const last = provider.getLastSent()
+      const last = store.getLast()
       expect(last?.type).toBe('transactional')
     })
 
-    it('should clear sent emails', async () => {
+    it('should clear sent emails via store', async () => {
       await provider.sendTransactional({
         to: 'test@example.com',
         subject: 'Test',
         html: '<p>Hello</p>',
       })
 
-      expect(provider.getSentCount()).toBe(1)
+      expect(store.getCount()).toBe(1)
 
-      provider.clear()
+      store.clear()
 
-      expect(provider.getSentCount()).toBe(0)
-      expect(provider.getSent()).toHaveLength(0)
+      expect(store.getCount()).toBe(0)
+      expect(store.getAll()).toHaveLength(0)
     })
 
     it('should increment message IDs', async () => {
@@ -176,6 +178,18 @@ describe('InMemoryEmailProvider', () => {
 
       expect(result1.messageId).toBe('inmem-1')
       expect(result2.messageId).toBe('inmem-2')
+    })
+
+    it('should use default store when none is injected', async () => {
+      // Provider constructed with no args -- uses its own internal store.
+      // No way to inspect it from outside -- that is the point.
+      const standalone = new InMemoryEmailProvider()
+      const result = await standalone.sendTransactional({
+        to: 'test@example.com',
+        subject: 'Test',
+        html: '<p>Hello</p>',
+      })
+      expect(result.success).toBe(true)
     })
   })
 })
